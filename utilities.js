@@ -243,3 +243,15 @@ if (typeof(console) === 'undefined') {
     var consolearray = [];
     console.log = console.groupCollapsed = console.error = console.info = console.debug = console.warn = console.trace = console.dir = console.dirxml = console.group = console.groupEnd = console.time = console.timeEnd = console.assert = console.profile = function(msg) {consolearray.push(msg)};
 };
+
+/*
+Polyfill for Math.sign method in ecmascript 6 spec.
+This is not yet supported in IE or Safari
+*/
+Math.sign = Math.sign || function(x) {
+  x = +x; // convert to a number
+  if (x === 0 || isNaN(x)) {
+    return x;
+  }
+  return x > 0 ? 1 : -1;
+}
