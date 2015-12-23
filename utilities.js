@@ -317,6 +317,22 @@
 	}
 	*/
 
+	/*
+	 * Better image preloading. 
+	 * Feed it an array of image paths, 
+	 * and it will return an array of image 
+	 * elements ready to be appended to the document.
+	 */
+    
+	DL_Util.preloadImageArray = function(imgPaths) {
+		var imageArray = new Array();
+		for (i = 0; i < imgPaths.length; i++) {
+			imageArray[i] = new Image();
+			imageArray[i].src = imgPaths[i];
+		}
+		return imageArray;
+	};
+
 })(window.DL_Util = window.DL_Util || {});
 
 /****************************************************************
@@ -324,6 +340,15 @@
 POLYFILLS, NOT NAMESPACED
 
 ****************************************************************/
+
+/* 
+ * Right now, the polyfills included will always run.
+ * May want to comment out those which will not be used
+ * in a particular project. Also consider moving these
+ * to individual namespaced functions, and using something
+ * like yepnope to run them as needed.
+ */
+
 
 /* 
  * polyfill for String.prototype.includes method in ecmascript 6 spec.
@@ -356,4 +381,27 @@ Math.sign = Math.sign || function(x) {
 		return x;
 	}
 	return x > 0 ? 1 : -1;
+}
+
+/*
+ * Polyfill for CustomEvent constructor in IE 11 and under.
+ */
+try {
+	new CustomEvent("customEventPolyfillTest");
+} catch(e) {
+	var CustomEvent = function(event, params) {
+		var evt;
+		params = params || {
+			bubbles: false,
+			cancelable: false,
+			detail: undefined
+		};
+
+		evt = document.createEvent("CustomEvent");
+		evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+		return evt;
+	};
+
+	CustomEvent.prototype = window.Event.prototype;
+	window.CustomEvent = CustomEvent; // expose definition to window
 }
