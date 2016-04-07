@@ -182,7 +182,7 @@
 		var dict = {};
 		for (var i = 0; i < array.length; i++) {
 			if (array[i].hasOwnProperty(key)) {
-				dict[array[i].key] = array[i];
+				dict[array[i][key]] = array[i];
 			}
 		}
 		return dict;
