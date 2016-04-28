@@ -16,7 +16,7 @@
 	/*
      * predefined noop so we can make efficient self destroying functions and such
      */
-	DL_Util.noop = function (){}
+	DL_Util.noop = function (){};
 
 	/****************************************************************
 
@@ -31,7 +31,7 @@
 	DL_Util.boxIntersect = function (a, b) {
 		return (a.x < b.x + b.width && a.x + a.width > b.x &&
 			a.y < b.y + b.height && a.y + a.height > b.y);
-	}
+	};
 
 	/*
 	 * Intersect check with circular boundaries.
@@ -44,7 +44,7 @@
 		var yd = y1 - y2;
 		var rt = r2 + r1;
 		return (xd * xd + yd * yd <= rt * rt);
-	}
+	};
 
 	/*
 	 * function to deal with number sequences in JSON spritesheets. 
@@ -65,7 +65,7 @@
 			num = i + 1;
 		}
 		return num;
-	}
+	};
 
 	/****************************************************************
 
@@ -80,7 +80,11 @@
 	 */
 	DL_Util.mobilecheck = function() {
 		var check = false;
-		(function(a){if(/Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile/.test(a))check=true})(navigator.userAgent);
+		( function(a) {
+			if (/Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile/.test(a)) {
+				check = true;
+			}
+		})(navigator.userAgent);
 		return check; 
 	};
 
@@ -90,7 +94,7 @@
 	DL_Util.isTouchDevice = function () {
 		try{ document.createEvent("TouchEvent"); return true; }
 		catch(e){ return false; }
-	}
+	};
 
 	/****************************************************************
 
@@ -105,7 +109,7 @@
 	 */
 	DL_Util.rgbToHex = function (r, g, b) {
 		return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
-	}
+	};
 
 	DL_Util.hexToRgb = function (hex) {
 		// Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
@@ -120,14 +124,14 @@
 			g: parseInt(result[2], 16),
 			b: parseInt(result[3], 16)
 		} : null;
-	}
+	};
 
 	/*
 	 * Degrees to Radians
 	 */
 	DL_Util.d2r = function (d) {
 		return d * (Math.PI/180);
-	}
+	};
 
 	/*
 	 * Round input to nearest quarter.
@@ -153,7 +157,7 @@
 	 */
 	DL_Util.randFromArray = function (array) {
 		return array[Math.floor(Math.random() * array.length)];
-	}
+	};
 
 	/*
 	 * Get random item from passed object.
@@ -168,7 +172,7 @@
 			}
 		}
 		return result;
-	}
+	};
 
 	/*
 	 * Takes an array of objects, and returns a new object
@@ -186,7 +190,7 @@
 			}
 		}
 		return dict;
-	}
+	};
 
 	/*
 	 * Get object with a certain property from an array of objects
@@ -203,7 +207,7 @@
 			}
 		}
 		return null;
-	}
+	};
 
 	/*
 	 * Get objects with a certain property from an array of objects
@@ -219,7 +223,7 @@
 			}
 		}
 		return matches;
-	}
+	};
 
 	/*
 	 * Returns a random integer between min (inclusive) and max (inclusive)
@@ -227,14 +231,14 @@
 	 */
 	DL_Util.getRandomInt = function (min, max) {
 		return Math.floor(Math.random() * (max - min + 1)) + min;
-	}
+	};
 
 	/*
 	 * Returns 1 or -1.
 	 */
 	DL_Util.randPosNeg = function () {
 		return Math.random() >= 0.5 ? 1 : -1;
-	}
+	};
 
 	/*
 	 * Basic array randomization function.
@@ -253,7 +257,7 @@
 			array[i] = array[j];
 			array[j] = temp;
 		}
-	}
+	};
 
 	/*
 	 * Checks to see if properties in an object
@@ -269,7 +273,7 @@
 		}
 
 		return true && JSON.stringify(obj) === JSON.stringify({});
-	}
+	};
 
 	/****************************************************************
 
@@ -294,7 +298,7 @@
 			}
 		}
 		console.log('Query variable %s not found', variable);
-	}
+	};
 
 	/*
 	 *  Get file type from extension. 
@@ -307,7 +311,7 @@
 	DL_Util.getFileType = function (url) {
 		var fileType = url.split('?').shift().split('.').pop().toLowerCase();
 		return fileType;
-	}
+	};
 
 	/****************************************************************
 
@@ -322,7 +326,7 @@
 		return !isNaN(value) &&
 				parseInt(Number(value)) == value &&
 				!isNaN(parseInt(value, 10));
-	}
+	};
 
 	/****************************************************************
 
@@ -376,7 +380,7 @@
 	 */
     
 	DL_Util.preloadImageArray = function(imgPaths) {
-		var imageArray = new Array();
+		var imageArray = [];
 		for (i = 0; i < imgPaths.length; i++) {
 			imageArray[i] = new Image();
 			imageArray[i].src = imgPaths[i];
@@ -419,8 +423,10 @@ if (!String.prototype.includes) {
 if (typeof(console) === 'undefined') {
 	var console = {};
 	var consolearray = [];
-	console.log = console.groupCollapsed = console.error = console.info = console.debug = console.warn = console.trace = console.dir = console.dirxml = console.group = console.groupEnd = console.time = console.timeEnd = console.assert = console.profile = function(msg) {consolearray.push(msg)};
-};
+	console.log = console.groupCollapsed = console.error = console.info = console.debug = console.warn = console.trace = console.dir = console.dirxml = console.group = console.groupEnd = console.time = console.timeEnd = console.assert = console.profile = function(msg) {
+		consolearray.push(msg);
+	};
+}
 
 /*
  * Polyfill for Math.sign method in ecmascript 6 spec.
@@ -432,7 +438,7 @@ Math.sign = Math.sign || function(x) {
 		return x;
 	}
 	return x > 0 ? 1 : -1;
-}
+};
 
 /*
  * Polyfill for CustomEvent constructor in IE 11 and under.
@@ -471,14 +477,14 @@ Date.prototype.customFormat = function(formatString){
 	var YYYY, YY, MMMM, MMM, MM, M, DDDD, DDD, DD, D, hhhh, hhh, hh, h, mm, m, ss, s, ampm, AMPM, dMod, th;
 
 	YY = ((YYYY = this.getFullYear())+"").slice(-2);
-	MM = (M = this.getMonth()+1)<10?('0'+M):M;
+	MM = (M = this.getMonth() + 1) < 10 ? ('0' + M) : M;
 	MMM = (MMMM = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][M - 1]).substring(0, 3);
 	DD = (D = this.getDate()) < 10 ? ('0' + D) : D;
 	DDD = (DDDD = ["Sunday", "Monday","Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][this.getDay()]).substring(0, 3);
 	th = (D >= 10 && D <= 20 ) ? 'th' : ((dMod = D % 10) == 1) ? 'st' : (dMod == 2) ? 'nd' : (dMod == 3) ? 'rd' : 'th';
 	formatString = formatString.replace("#YYYY#", YYYY).replace("#YY#", YY).replace("#MMMM#", MMMM).replace("#MMM#", MMM).replace("#MM#", MM).replace("#M#", M).replace("#DDDD#", DDDD).replace("#DDD#", DDD).replace("#DD#", DD).replace("#D#", D).replace("#th#", th);
 	h=(hhh = this.getHours());
-	if (h == 0) {
+	if (h === 0) {
 		h = 24;
 	}
 	if (h > 12) {
