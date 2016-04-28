@@ -337,22 +337,19 @@
 	 * takes a jquery selector and inserts a 
 	 * non-breaking space character between 
 	 * the last two words. Useful for headlines.
-	 * Commented out while unused, so as not to 
-	 * cause errors due to the jQuery dependency
+	 * Checks for jQuery dependency.
 	 */
 
-	/*
-	DL_Util.preventWidows = function (selector) {
+	DL_Util.preventWidows = (typeof jQuery === 'undefined') ? DL_Util.noop : function (selector) {
 		selector.each(function() {
-			var wordArray = $(this).text().split(" ");
+			var wordArray = jQuery(this).text().split(" ");
 			if (wordArray.length > 1) {
 				wordArray[wordArray.length-2] += "&nbsp;" + wordArray[wordArray.length-1];
 				wordArray.pop();
-				$(this).html(wordArray.join(" "));
+				jQuery(this).html(wordArray.join(" "));
 			}
 		});    
 	}
-	*/
 
 
 	/* 
@@ -364,13 +361,11 @@
 	 * in production!!
 	 */
 
-	/*
-	DL_Util.preloadImages = function (array) {
-		$(array).each(function(){
-			$("<img />")[0].src = this;
+	DL_Util.preloadImages = (typeof jQuery === 'undefined') ? DL_Util.noop : function (array) {
+		jQuery(array).each(function(){
+			jQuery("<img />")[0].src = this;
 		});
 	}
-	*/
 
 	/*
 	 * Better image preloading. 
