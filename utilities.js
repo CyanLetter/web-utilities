@@ -25,12 +25,19 @@
 	****************************************************************/
 	
 	/*
-	 * intersect check with square bounding box
-	 * currently designed to work with pixi.js display objects
+	 * Generic intersect check with square bounding box.
+	 * Takes x, y, width, and height args for objects a and b.
+	 * Assumes x: 0, y: 0 is the top left corner
+	 * for both objects and the screen
 	 */
-	DL_Util.boxIntersect = function (a, b) {
-		return (a.x < b.x + b.width && a.x + a.width > b.x &&
-			a.y < b.y + b.height && a.y + a.height > b.y);
+
+	DL_Util.boxIntersect = function (aX, aY, aW, aH, bX, bY, bW, bH) {
+		return (
+			aX < bX + bW 		// left edge of A is less than right edge of B
+			&& aX + aW > bX 	// right edge of A is greater than left edge of B
+			&& aY < bY + bH 	// top edge of A is less than bottom edge of B
+			&& aY + aH > bY 	// bottom edge of A is greater than top edge of B
+		);
 	};
 
 	/*
