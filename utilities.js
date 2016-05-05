@@ -141,6 +141,13 @@
 	};
 
 	/*
+	 * Radians to Degrees
+	 */
+	DL_Util.r2d = function (r) {
+		return r * (180/Math.PI);
+	};
+
+	/*
 	 * Round input to nearest quarter.
 	 * Useful for rounding times from events that cannot 
 	 * be guaranteed to fire more frequently than every
@@ -150,6 +157,45 @@
 	 */
 	DL_Util.roundNearQtr = function (number) {
 		return (Math.round(number * 4) / 4).toFixed(2);
+	};
+
+	/*
+	 * Normalizes two vectors, such that |v1|=|v2|=1
+	 * Necessary for functions requiring acos
+	 */
+	DL_Util.normalize = function (x, y) {
+		var length = Math.sqrt((x * x) + (y * y));
+		return {x: x / length, y: y / length};
+	};
+
+	/*
+	 * Dot product of two vectors
+	 * e.g. multiply two vectors to return a scalar number
+	 */
+	DL_Util.dot = function (Ax, Ay, Bx, By) {
+		return (Ax * Bx) + (Ay * By);
+	};
+
+	/*
+	 * Returns an angle, in degrees, between two vectors.
+	 * Applies arc cos to the dot product of the two vectors.
+	 * Range is 0 - 180. Does not give a sign, or full 360 rotation.
+	 * Formulas gathered from http://www.euclideanspace.com/maths/algebra/vectors/angleBetween/
+	 * because I remember none of this from High School.
+	 */
+	DL_Util.getSimpleAngle = function (Ax, Ay, Bx, By) {
+		var aNorm = DL_Util.normalize(Ax, Ay);
+		var bNorm = DL_Util.normalize(Bx, By);
+		return Math.acos( (aNorm.x * bNorm.x) + (aNorm.y * bNorm.y) ) * (180/Math.PI);
+	};
+
+	/*
+	 * Returns the signed angle of vector B relative to vector A, in degrees.
+	 */
+	DL_Util.getSignedAngle = function (Ax, Ay, Bx, By) {
+		var aNorm = DL_Util.normalize(Ax, Ay);
+		var bNorm = DL_Util.normalize(Bx, By);
+		return (Math.atan2(bNorm.y, bNorm.x) - Math.atan2(aNorm.y, aNorm.x)) * (180/Math.PI);
 	};
 
 	/****************************************************************
@@ -356,7 +402,7 @@
 				jQuery(this).html(wordArray.join(" "));
 			}
 		});    
-	}
+	};
 
 
 	/* 
@@ -372,7 +418,7 @@
 		jQuery(array).each(function(){
 			jQuery("<img />")[0].src = this;
 		});
-	}
+	};
 
 	/*
 	 * Better image preloading. 
