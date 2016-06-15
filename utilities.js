@@ -53,27 +53,6 @@
 		return (xd * xd + yd * yd <= rt * rt);
 	};
 
-	/*
-	 * function to deal with number sequences in JSON spritesheets. 
-	 * Flash exports png sequences with 4 digit suffixes, 
-	 * so use this to determine which one to use when looping 
-	 * through spritesheet frames. 
-	 * Useful in PIXI.js when loading movieclip textures.
-	 */
-	DL_Util.numberSuffix = function (i) {
-		var num;
-		if (i < 9) {
-			num = "000" + (i + 1);
-		} else if (i < 99) {
-			num = "00" + (i + 1);
-		} else if (i < 999) {
-			num = "0" + (i + 1);
-		} else {
-			num = i + 1;
-		}
-		return num;
-	};
-
 	/****************************************************************
 
 	PLATFORM / CAPABILITY DETECTION
