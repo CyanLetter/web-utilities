@@ -198,6 +198,26 @@
 		return (Math.atan2(bNorm.y, bNorm.x) - Math.atan2(aNorm.y, aNorm.x)) * (180/Math.PI);
 	};
 
+	/*
+	 * Takes an input, converts to string, and pads with a specified character
+	 * to return a string of appropriate length.
+	 * Mostly useful for adding leading zeroes.
+	 * It's _such_ a burden to include this here,
+	 * maybe I should use an npm package instead...
+	 */
+	DL_Util.leftpad = function (input, totalLength, padCharacter) {
+		input = String(input);
+		var i = -1;
+		if (!padCharacter && padCharacter !== 0) {
+			padCharacter = ' ';
+		}
+		totalLength = totalLength - input.length;
+		while (++i < totalLength) {
+			input = padCharacter + input;
+		}
+		return input;
+	};
+
 	/****************************************************************
 
 	ARRAY AND OBJECT HELPERS
@@ -351,6 +371,7 @@
 			}
 		}
 		console.log('Query variable %s not found', variable);
+		return null;
 	};
 
 	/*
