@@ -254,7 +254,7 @@
 	 */
 	DL_Util.getObjectWithProperty = function (array, key, value) {
 		for (var i = 0; i < array.length; i++) {
-			if (array[i].hasOwnProperty(key) && array[i].key === value) {
+			if (array[i].hasOwnProperty(key) && array[i][key] === value) {
 				return array[i];
 			}
 		}
