@@ -467,6 +467,31 @@
 		this.resume();
 	};
 
+	/* 
+	 * Debounce method for preventing functions from firing too often.
+	 * Taken from David Walsh, who took it from underscore:
+	 * https://davidwalsh.name/javascript-debounce-function
+	 *
+	 * Usage:
+	 * var exampleFunction = DL_Util.debounce(function() {
+	 *		// Function body
+	 *	}, 250, true);
+	 */
+	DL_Util.debounce = function(func, wait, immediate) {
+		var timeout;
+		return function() {
+			var context = this, args = arguments;
+			var later = function() {
+				timeout = null;
+				if (!immediate) func.apply(context, args);
+			};
+			var callNow = immediate && !timeout;
+			clearTimeout(timeout);
+			timeout = setTimeout(later, wait);
+			if (callNow) func.apply(context, args);
+		};
+	};
+
 	/* Date custom format
 	 * This code is copyright 2002-2003 by Gavin Kistner, !@phrogz.net
 	 * It is covered under the license viewable at http://phrogz.net/JS/_ReuseLicense.txt
