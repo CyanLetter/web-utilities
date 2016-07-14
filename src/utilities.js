@@ -88,16 +88,24 @@
 
 	/*
 	 * Degrees to Radians
+	 * Has accuracy param to prevent excessively large floats.
+	 * Defaults to 2 decimal places.
 	 */
-	DL_Util.d2r = function (d) {
-		return d * (Math.PI/180);
+	DL_Util.d2r = function (d, acc) {
+		acc = acc | 2;
+		return +(d * (Math.PI/180)).toFixed(acc);
 	};
 
 	/*
 	 * Radians to Degrees
+	 * Has accuracy param to prevent excessively large floats.
+	 * Defaults to 2 decimal places.
+	 * TODO: Figure out why decimal places do not always match up
+	 * e.g. DL_Util.r2d(1, 4) equals 57.29578 and not 57.2958
 	 */
-	DL_Util.r2d = function (r) {
-		return r * (180/Math.PI);
+	DL_Util.r2d = function (r, acc) {
+		acc = acc | 2;
+		return +(r * (180/Math.PI)).toFixed(acc);
 	};
 
 	/*
