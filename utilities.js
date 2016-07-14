@@ -20,7 +20,7 @@
 
 	/****************************************************************
 
-	GAME-SPECIFIC UTILITIES
+	PHYSICS
 
 	****************************************************************/
 	
@@ -55,48 +55,22 @@
 
 	/****************************************************************
 
-	PLATFORM / CAPABILITY DETECTION
-
-	****************************************************************/
-
-	/*
-	 * User Agent Sniffing method of mobile detection. Gross.
-	 * Last Jan 11, 2016
-	 * from https://gist.github.com/dalethedeveloper/1503252
-	 */
-	DL_Util.mobilecheck = function() {
-		var check = false;
-		( function(a) {
-			if (/Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile/.test(a)) {
-				check = true;
-			}
-		})(navigator.userAgent);
-		return check; 
-	};
-
-	/*
-	 * Test for touch capabilities.
-	 */
-	DL_Util.isTouchDevice = function () {
-		try{ document.createEvent("TouchEvent"); return true; }
-		catch(e){ return false; }
-	};
-
-	/****************************************************************
-
-	CONVERSIONS
+	MATHS AND CONVERSIONS
 
 	****************************************************************/
 
 	/*
 	 * Converting color types
 	 * RGB (e.g. 224, 28, 95) to Hexadecimal (e.g. #e01c5f)
-	 * Functions for both directions
 	 */
 	DL_Util.rgbToHex = function (r, g, b) {
 		return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
 	};
 
+	/*
+	 * Converting color types
+	 * Hexadecimal (e.g. #e01c5f) to RGB (e.g. 224, 28, 95)
+	 */
 	DL_Util.hexToRgb = function (hex) {
 		// Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
 		var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
@@ -177,54 +151,11 @@
 		return (Math.atan2(bNorm.y, bNorm.x) - Math.atan2(aNorm.y, aNorm.x)) * (180/Math.PI);
 	};
 
-	/*
-	 * Takes an input, converts to string, and pads with a specified character
-	 * to return a string of appropriate length.
-	 * Mostly useful for adding leading zeroes.
-	 * It's _such_ a burden to include this here,
-	 * maybe I should use an npm package instead...
-	 */
-	DL_Util.leftpad = function (input, totalLength, padCharacter) {
-		input = String(input);
-		var i = -1;
-		if (!padCharacter && padCharacter !== 0) {
-			padCharacter = ' ';
-		}
-		totalLength = totalLength - input.length;
-		while (++i < totalLength) {
-			input = padCharacter + input;
-		}
-		return input;
-	};
-
 	/****************************************************************
 
-	ARRAY AND OBJECT HELPERS
+	ARRAY AND OBJECT TRAVERSAL
 
 	****************************************************************/
-
-	/*
-	 * Get random item from passed array.
-	 * Returns the item itself, not the index.
-	 */
-	DL_Util.randFromArray = function (array) {
-		return array[Math.floor(Math.random() * array.length)];
-	};
-
-	/*
-	 * Get random item from passed object.
-	 * Returns the item itself, not the prop name.
-	 */
-	DL_Util.randFromObject = function (obj) {
-		var result;
-		var count = 0;
-		for (var prop in obj) {
-			if (Math.random() < 1/++count) {
-				result = prop;
-			}
-		}
-		return result;
-	};
 
 	/*
 	 * Takes an array of objects, and returns a new object
@@ -277,6 +208,35 @@
 		return matches;
 	};
 
+	/****************************************************************
+
+	RANDOMIZATION
+
+	****************************************************************/
+
+	/*
+	 * Get random item from passed array.
+	 * Returns the item itself, not the index.
+	 */
+	DL_Util.randFromArray = function (array) {
+		return array[Math.floor(Math.random() * array.length)];
+	};
+
+	/*
+	 * Get random item from passed object.
+	 * Returns the item itself, not the prop name.
+	 */
+	DL_Util.randFromObject = function (obj) {
+		var result;
+		var count = 0;
+		for (var prop in obj) {
+			if (Math.random() < 1/++count) {
+				result = prop;
+			}
+		}
+		return result;
+	};
+
 	/*
 	 * Returns a random integer between min (inclusive) and max (inclusive)
 	 * Using Math.round() will give you a non-uniform distribution!
@@ -309,22 +269,6 @@
 			array[i] = array[j];
 			array[j] = temp;
 		}
-	};
-
-	/*
-	 * Checks to see if properties in an object
-	 * contain any content. Use to make sure 
-	 * object structures that are generated
-	 * as empty templates don't pollute your
-	 * data set with blank entries.
-	 */
-	DL_Util.isObjectEmpty = function (obj) {
-		for(var prop in obj) {
-			if(obj.hasOwnProperty(prop))
-			return false;
-		}
-
-		return true && JSON.stringify(obj) === JSON.stringify({});
 	};
 
 	/****************************************************************
@@ -373,12 +317,51 @@
 	****************************************************************/
 
 	/*
+	 * User Agent Sniffing method of mobile detection. Gross.
+	 * Last Jan 11, 2016
+	 * from https://gist.github.com/dalethedeveloper/1503252
+	 */
+	DL_Util.mobilecheck = function() {
+		var check = false;
+		( function(a) {
+			if (/Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile/.test(a)) {
+				check = true;
+			}
+		})(navigator.userAgent);
+		return check; 
+	};
+
+	/*
+	 * Test for touch capabilities.
+	 */
+	DL_Util.isTouchDevice = function () {
+		try{ document.createEvent("TouchEvent"); return true; }
+		catch(e){ return false; }
+	};
+
+	/*
 	 * check if value is an integer
 	 */
 	DL_Util.isInt = function (value) {
 		return !isNaN(value) &&
 				parseInt(Number(value)) == value &&
 				!isNaN(parseInt(value, 10));
+	};
+
+	/*
+	 * Checks to see if properties in an object
+	 * contain any content. Use to make sure 
+	 * object structures that are generated
+	 * as empty templates don't pollute your
+	 * data set with blank entries.
+	 */
+	DL_Util.isObjectEmpty = function (obj) {
+		for(var prop in obj) {
+			if(obj.hasOwnProperty(prop))
+			return false;
+		}
+
+		return true && JSON.stringify(obj) === JSON.stringify({});
 	};
 
 	/****************************************************************
@@ -404,36 +387,24 @@
 		});    
 	};
 
-
-	/* 
-	 * UNTESTED!!
-	 * In theory sets the source of the first img element 
-	 * to the one you want to preload. Probably not the best 
-	 * way of doing things, might require there to be an img 
-	 * element in the dom that is hidden. Test before using 
-	 * in production!!
-	 */
-
-	DL_Util.preloadImages = (typeof jQuery === 'undefined') ? DL_Util.noop : function (array) {
-		jQuery(array).each(function(){
-			jQuery("<img />")[0].src = this;
-		});
-	};
-
 	/*
-	 * Better image preloading. 
-	 * Feed it an array of image paths, 
-	 * and it will return an array of image 
-	 * elements ready to be appended to the document.
+	 * Takes an input, converts to string, and pads with a specified character
+	 * to return a string of appropriate length.
+	 * Mostly useful for adding leading zeroes.
+	 * It's _such_ a burden to include this here,
+	 * maybe I should use an npm package instead...
 	 */
-    
-	DL_Util.preloadImageArray = function(imgPaths) {
-		var imageArray = [];
-		for (i = 0; i < imgPaths.length; i++) {
-			imageArray[i] = new Image();
-			imageArray[i].src = imgPaths[i];
+	DL_Util.leftpad = function (input, totalLength, padCharacter) {
+		input = String(input);
+		var i = -1;
+		if (!padCharacter && padCharacter !== 0) {
+			padCharacter = ' ';
 		}
-		return imageArray;
+		totalLength = totalLength - input.length;
+		while (++i < totalLength) {
+			input = padCharacter + input;
+		}
+		return input;
 	};
 
 	/****************************************************************
@@ -526,77 +497,139 @@
 		return formatString.replace("#hhhh#", hhhh).replace("#hhh#", hhh).replace("#hh#", hh).replace("#h#", h).replace("#mm#", mm).replace("#m#", m).replace("#ss#", ss).replace("#s#", s).replace("#ampm#", ampm).replace("#AMPM#", AMPM);
 	};
 
-})(window.DL_Util = window.DL_Util || {});
+	/****************************************************************
 
-/****************************************************************
+	ASSET MANAGEMENT
 
-POLYFILLS, NOT NAMESPACED
+	****************************************************************/
 
-****************************************************************/
+	/* 
+	 * jQuery image preloading.
+	 * Takes an array of image paths,
+	 * and creates a series of image elements.
+	 */
 
-/* 
- * Right now, the polyfills included will always run.
- * May want to comment out those which will not be used
- * in a particular project. Also consider moving these
- * to individual namespaced functions, and using something
- * like yepnope to run them as needed.
- */
-
-
-/* 
- * polyfill for String.prototype.includes method in ecmascript 6 spec.
- * This is not well supported in all browsers yet.
- */
-if (!String.prototype.includes) {
-	String.prototype.includes = function() {'use strict';
-		return String.prototype.indexOf.apply(this, arguments) !== -1;
+	DL_Util.preloadImages = (typeof jQuery === 'undefined') ? DL_Util.noop : function (array) {
+		jQuery(array).each(function(){
+			jQuery("<img />")[0].src = this;
+		});
 	};
-}
 
-/* 
- * In case we forget to take out console statements. 
- * IE becomes very unhappy when we forget. 
- * Let's not make IE unhappy
- */
-if (typeof(console) === 'undefined') {
-	var console = {};
-	var consolearray = [];
-	console.log = console.groupCollapsed = console.error = console.info = console.debug = console.warn = console.trace = console.dir = console.dirxml = console.group = console.groupEnd = console.time = console.timeEnd = console.assert = console.profile = function(msg) {
-		consolearray.push(msg);
+	/*
+	 * Vanilla JS image preloading. 
+	 * Feed it an array of image paths, 
+	 * and it will return an array of image 
+	 * elements ready to be appended to the document.
+	 */
+    
+	DL_Util.preloadImageArray = function(imgPaths) {
+		var imageArray = [];
+		for (i = 0; i < imgPaths.length; i++) {
+			imageArray[i] = new Image();
+			imageArray[i].src = imgPaths[i];
+		}
+		return imageArray;
 	};
-}
 
-/*
- * Polyfill for Math.sign method in ecmascript 6 spec.
- * This is not yet supported in IE or Safari
- */
-Math.sign = Math.sign || function(x) {
-	x = +x; // convert to a number
-	if (x === 0 || isNaN(x)) {
-		return x;
-	}
-	return x > 0 ? 1 : -1;
-};
+	/****************************************************************
 
-/*
- * Polyfill for CustomEvent constructor in IE 11 and under.
- */
-try {
-	new CustomEvent("customEventPolyfillTest");
-} catch(e) {
-	var CustomEvent = function(event, params) {
-		var evt;
-		params = params || {
-			bubbles: false,
-			cancelable: false,
-			detail: undefined
+	POLYFILLS
+
+	****************************************************************/
+
+	/* 
+	 * Run the polyfills you want when initializing a page.
+	 */
+
+
+	/* 
+	 * polyfill for String.prototype.includes method in ecmascript 6 spec.
+	 * This is not well supported in all browsers yet.
+	 */
+	DL_Util.polyfillStringIncludes = function(once) {
+		if (typeof once === 'undefined') {
+			once = false;
+		}
+		if (!String.prototype.includes) {
+			String.prototype.includes = function() {'use strict';
+				return String.prototype.indexOf.apply(this, arguments) !== -1;
+			};
+		}
+		if (once) {
+			DL_Util.polyfillStringIncludes = DL_Util.noop;
+		}
+	};
+
+	/* 
+	 * In case we forget to take out console statements. 
+	 * IE becomes very unhappy when we forget. 
+	 * Let's not make IE unhappy
+	 */
+	DL_Util.polyfillConsole = function(once) {
+		if (typeof once === 'undefined') {
+			once = false;
+		}
+		if (typeof(console) === 'undefined') {
+			var console = {};
+			var consolearray = [];
+			console.log = console.groupCollapsed = console.error = console.info = console.debug = console.warn = console.trace = console.dir = console.dirxml = console.group = console.groupEnd = console.time = console.timeEnd = console.assert = console.profile = function(msg) {
+				consolearray.push(msg);
+			};
+		}
+		if (once) {
+			DL_Util.polyfillConsole = DL_Util.noop;
+		}
+	};
+
+	/*
+	 * Polyfill for Math.sign method in ecmascript 6 spec.
+	 * This is not yet supported in IE or Safari
+	 */
+	DL_Util.polyfillMathSign = function(once) {
+		if (typeof once === 'undefined') {
+			once = false;
+		}
+		Math.sign = Math.sign || function(x) {
+			x = +x; // convert to a number
+			if (x === 0 || isNaN(x)) {
+				return x;
+			}
+			return x > 0 ? 1 : -1;
 		};
-
-		evt = document.createEvent("CustomEvent");
-		evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
-		return evt;
+		if (once) {
+			DL_Util.polyfillMathSign = DL_Util.noop;
+		}
 	};
 
-	CustomEvent.prototype = window.Event.prototype;
-	window.CustomEvent = CustomEvent; // expose definition to window
-}
+	/*
+	 * Polyfill for CustomEvent constructor in IE 11 and under.
+	 */
+	DL_Util.polyfillCustomEvent = function(once) {
+		if (typeof once === 'undefined') {
+			once = false;
+		}
+		try {
+			new CustomEvent("customEventPolyfillTest");
+		} catch(e) {
+			var CustomEvent = function(event, params) {
+				var evt;
+				params = params || {
+					bubbles: false,
+					cancelable: false,
+					detail: undefined
+				};
+
+				evt = document.createEvent("CustomEvent");
+				evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+				return evt;
+			};
+
+			CustomEvent.prototype = window.Event.prototype;
+			window.CustomEvent = CustomEvent; // expose definition to window
+		}
+		if (once) {
+			DL_Util.polyfillCustomEvent = DL_Util.noop;
+		}
+	};
+
+})(window.DL_Util = window.DL_Util || {});
