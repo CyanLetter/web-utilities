@@ -1,6 +1,6 @@
 # DL Web Utilities
 
-https://travis-ci.org/CyanLetter/web-utilities.svg?branch=master
+![travis-ci](https://travis-ci.org/CyanLetter/web-utilities.svg?branch=master)
 
 This is a set of namespaced functions and assorted polyfills that I have found useful. Some of these, like collision testing, are useful for games. Some are more generalized. 
 
