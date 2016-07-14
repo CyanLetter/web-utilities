@@ -1,13 +1,11 @@
 # DL Web Utilities
 
-This is a set of namespaced functions and assorted polyfills that I have found useful. Some of these, like collision testing, are useful for games. Some are more generalized. Some have been commented out, only to be uncommented if a specific project calls for it.
+This is a set of namespaced functions and assorted polyfills that I have found useful. Some of these, like collision testing, are useful for games. Some are more generalized. 
 
-As this is a very broad set of utilities, it is recommended to strip the pieces that are not being used for production.
+This is also my personal test project for technologies that I want to experiment with, such as build automation, unit testing, and documentation generation. As such, this project is vastly overbuilt for what it is. But hey, what is modern front-end development if not overbuilt?
 
 ### Namespace information
 
 Namespace: DL_Util
 
 The namespace pattern used is the Immediately-invoked Function Expression defined in this article: http://addyosmani.com/blog/essential-js-namespacing/
-
-Polyfills are not currently namespaced, and run automatically.

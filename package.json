@@ -1,0 +1,47 @@
+{
+  "name": "dl-web-utilities",
+  "version": "0.1.0",
+  "description": "An assorted set of javascript functions useful in frontend web development",
+  "main": "build/utilities.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "devDependencies": {
+    "grunt": "~1.0.1",
+    "grunt-contrib-jshint": "~1.0.0",
+    "grunt-contrib-uglify": "~1.0.1",
+    "grunt-contrib-jasmine": "~1.0.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CyanLetter/web-utilities.git"
+  },
+  "keywords": [
+    "utilities",
+    "web",
+    "javascript",
+    "js",
+    "collision",
+    "color",
+    "conversion",
+    "object",
+    "array",
+    "traversal",
+    "randomization",
+    "parsing",
+    "text",
+    "layout",
+    "image",
+    "loading",
+    "validation",
+    "polyfill",
+    "date",
+    "debounce"
+  ],
+  "author": "Dakota Ling",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CyanLetter/web-utilities/issues"
+  },
+  "homepage": "https://github.com/CyanLetter/web-utilities#readme"
+}

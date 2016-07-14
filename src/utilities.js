@@ -33,10 +33,10 @@
 
 	DL_Util.boxIntersect = function (aX, aY, aW, aH, bX, bY, bW, bH) {
 		return (
-			aX < bX + bW 		// left edge of A is less than right edge of B
-			&& aX + aW > bX 	// right edge of A is greater than left edge of B
-			&& aY < bY + bH 	// top edge of A is less than bottom edge of B
-			&& aY + aH > bY 	// bottom edge of A is greater than top edge of B
+			aX < bX + bW &&		// left edge of A is less than right edge of B
+			aX + aW > bX &&		// right edge of A is greater than left edge of B
+			aY < bY + bH &&		// top edge of A is less than bottom edge of B
+			aY + aH > bY 		// bottom edge of A is greater than top edge of B
 		);
 	};
 
@@ -433,7 +433,7 @@
 
 		this.destroy = function() {
 			window.clearTimeout(timerId);
-		}
+		};
 
 		this.resume();
 	};
@@ -473,7 +473,8 @@
 	 * var saneDateString = DL_Util.customDate("#MM#-#DD#-#YY# #hh#:#mm# #AMPM#");
 	 */
 	DL_Util.customDate = function(formatString, date){
-		var YYYY, YY, MMMM, MMM, MM, M, DDDD, DDD, DD, D, hhhh, hhh, hh, h, mm, m, ss, s, ampm, AMPM, dMod, th, date = new Date();
+		var YYYY, YY, MMMM, MMM, MM, M, DDDD, DDD, DD, D, hhhh, hhh, hh, h, mm, m, ss, s, ampm, AMPM, dMod, th;
+		date = date || new Date();
 
 		YY = ((YYYY = date.getFullYear())+"").slice(-2);
 		MM = (M = date.getMonth() + 1) < 10 ? ('0' + M) : M;
@@ -569,7 +570,7 @@
 		if (typeof once === 'undefined') {
 			once = false;
 		}
-		if (typeof(console) === 'undefined') {
+		if (typeof(window.console) === 'undefined') {
 			var console = {};
 			var consolearray = [];
 			console.log = console.groupCollapsed = console.error = console.info = console.debug = console.warn = console.trace = console.dir = console.dirxml = console.group = console.groupEnd = console.time = console.timeEnd = console.assert = console.profile = function(msg) {
@@ -609,7 +610,7 @@
 			once = false;
 		}
 		try {
-			new CustomEvent("customEventPolyfillTest");
+			new window.CustomEvent("customEventPolyfillTest");
 		} catch(e) {
 			var CustomEvent = function(event, params) {
 				var evt;
