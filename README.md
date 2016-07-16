@@ -11,3 +11,11 @@ This is also my personal test project for technologies that I want to experiment
 Namespace: DL_
 
 The namespace pattern used is the Immediately-invoked Function Expression defined in this article: http://addyosmani.com/blog/essential-js-namespacing/
+
+TODO:
+
+- Add non-minified version to build
+- Get full unit test coverage
+- Implement JSDoc
+- Break apart monolithic source file into smaller component files
+- Add support for generating builds with custom component combinations.
