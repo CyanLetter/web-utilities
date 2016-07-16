@@ -8,6 +8,6 @@ This is also my personal test project for technologies that I want to experiment
 
 ### Namespace information
 
-Namespace: DL_Util
+Namespace: DL_
 
 The namespace pattern used is the Immediately-invoked Function Expression defined in this article: http://addyosmani.com/blog/essential-js-namespacing/

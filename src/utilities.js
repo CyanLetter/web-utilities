@@ -11,12 +11,12 @@
 	mutable pre-ES5.
  *******************************************************************/
 
-(function ( DL_Util, undefined ) {
+(function ( DL_, undefined ) {
 
 	/*
      * predefined noop so we can make efficient self destroying functions and such
      */
-	DL_Util.noop = function (){};
+	DL_.noop = function (){};
 
 	/****************************************************************
 
@@ -31,7 +31,7 @@
 	 * for both objects and the screen
 	 */
 
-	DL_Util.boxIntersect = function (aX, aY, aW, aH, bX, bY, bW, bH) {
+	DL_.boxIntersect = function (aX, aY, aW, aH, bX, bY, bW, bH) {
 		return (
 			aX < bX + bW &&		// left edge of A is less than right edge of B
 			aX + aW > bX &&		// right edge of A is greater than left edge of B
@@ -46,7 +46,7 @@
 	 * this takes radius instead of width. 
 	 * May be dependent on anchor point.
 	 */
-	DL_Util.circleIntersect = function (x1, y1, r1, x2, y2, r2) {
+	DL_.circleIntersect = function (x1, y1, r1, x2, y2, r2) {
 		var xd = x1 - x2;
 		var yd = y1 - y2;
 		var rt = r2 + r1;
@@ -63,7 +63,7 @@
 	 * Converting color types
 	 * RGB (e.g. 224, 28, 95) to Hexadecimal (e.g. #e01c5f)
 	 */
-	DL_Util.rgbToHex = function (r, g, b) {
+	DL_.rgbToHex = function (r, g, b) {
 		return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
 	};
 
@@ -71,7 +71,7 @@
 	 * Converting color types
 	 * Hexadecimal (e.g. #e01c5f) to RGB (e.g. 224, 28, 95)
 	 */
-	DL_Util.hexToRgb = function (hex) {
+	DL_.hexToRgb = function (hex) {
 		// Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
 		var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
 		hex = hex.replace(shorthandRegex, function(match, r, g, b) {
@@ -87,25 +87,29 @@
 	};
 
 	/*
-	 * Degrees to Radians
-	 * Has accuracy param to prevent excessively large floats.
+	 * Round to significant digits, to help
+	 * prevent excessively large floats.
+	 * Do not use these functions where
+	 * accuracy is key.
 	 * Defaults to 2 decimal places.
 	 */
-	DL_Util.d2r = function (d, acc) {
-		acc = acc | 2;
-		return +(d * (Math.PI/180)).toFixed(acc);
+	DL_.toSignificant = function(number, accuracy) {
+		accuracy = accuracy || 2;
+		return +number.toFixed(accuracy);
+	};
+
+	/*
+	 * Degrees to Radians
+	 */
+	DL_.d2r = function (degrees) {
+		return degrees * (Math.PI/180);
 	};
 
 	/*
 	 * Radians to Degrees
-	 * Has accuracy param to prevent excessively large floats.
-	 * Defaults to 2 decimal places.
-	 * TODO: Figure out why decimal places do not always match up
-	 * e.g. DL_Util.r2d(1, 4) equals 57.29578 and not 57.2958
 	 */
-	DL_Util.r2d = function (r, acc) {
-		acc = acc | 2;
-		return +(r * (180/Math.PI)).toFixed(acc);
+	DL_.r2d = function (radians) {
+		return radians * (180/Math.PI);
 	};
 
 	/*
@@ -116,15 +120,16 @@
 	 * See https://developer.mozilla.org/en-US/docs/Web/Events/timeupdate
 	 * for more details on timeupdate granularity.
 	 */
-	DL_Util.roundNearQtr = function (number) {
-		return (Math.round(number * 4) / 4).toFixed(2);
+	DL_.roundNearQtr = function (number) {
+		return +(Math.round(number * 4) / 4).toFixed(2);
 	};
 
 	/*
-	 * Normalizes two vectors, such that |v1|=|v2|=1
+	 * Normalizes a vector2, such that |v1|=|v2|=1
+	 * e.g. returns a vector of length 1
 	 * Necessary for functions requiring acos
 	 */
-	DL_Util.normalize = function (x, y) {
+	DL_.normalize = function (x, y) {
 		var length = Math.sqrt((x * x) + (y * y));
 		return {x: x / length, y: y / length};
 	};
@@ -133,7 +138,7 @@
 	 * Dot product of two vectors
 	 * e.g. multiply two vectors to return a scalar number
 	 */
-	DL_Util.dot = function (Ax, Ay, Bx, By) {
+	DL_.dot = function (Ax, Ay, Bx, By) {
 		return (Ax * Bx) + (Ay * By);
 	};
 
@@ -144,24 +149,28 @@
 	 * Formulas gathered from http://www.euclideanspace.com/maths/algebra/vectors/angleBetween/
 	 * because I remember none of this from High School.
 	 */
-	DL_Util.getSimpleAngle = function (Ax, Ay, Bx, By) {
-		var aNorm = DL_Util.normalize(Ax, Ay);
-		var bNorm = DL_Util.normalize(Bx, By);
+	DL_.getSimpleAngle = function (Ax, Ay, Bx, By) {
+		var aNorm = DL_.normalize(Ax, Ay);
+		var bNorm = DL_.normalize(Bx, By);
 		return Math.acos( (aNorm.x * bNorm.x) + (aNorm.y * bNorm.y) ) * (180/Math.PI);
 	};
 
 	/*
-	 * Returns the signed angle of vector B relative to vector A, in degrees.
+	 * Returns the signed angle of vector B 
+	 * relative to vector A, in degrees.
+	 * Put another way, it returns the direction 
+	 * and amount you would have to rotate to reach
+	 * the direction of vector B from vector A
 	 */
-	DL_Util.getSignedAngle = function (Ax, Ay, Bx, By) {
-		var aNorm = DL_Util.normalize(Ax, Ay);
-		var bNorm = DL_Util.normalize(Bx, By);
-		return (Math.atan2(bNorm.y, bNorm.x) - Math.atan2(aNorm.y, aNorm.x)) * (180/Math.PI);
+	DL_.getSignedAngle = function (Ax, Ay, Bx, By) {
+		var aNorm = DL_.normalize(Ax, Ay);
+		var bNorm = DL_.normalize(Bx, By);
+		return (Math.atan2(aNorm.y, aNorm.x) - Math.atan2(bNorm.y, bNorm.x)) * (180/Math.PI);
 	};
 
 	/****************************************************************
 
-	ARRAY AND OBJECT TRAVERSAL
+	DATA STRUCTURE TRAVERSAL
 
 	****************************************************************/
 
@@ -173,7 +182,7 @@
 	 * Data must be consistent. Key values should be present
 	 * and unique in all objects to return a complete dict
 	 */
-	DL_Util.createDictionaryFromArray = function(array, key) {
+	DL_.createDictionaryFromArray = function(array, key) {
 		var dict = {};
 		for (var i = 0; i < array.length; i++) {
 			if (array[i].hasOwnProperty(key)) {
@@ -191,7 +200,7 @@
 	 * If you will need to look this up multiple times, 
 	 * use createDictionary instead.
 	 */
-	DL_Util.getObjectWithProperty = function (array, key, value) {
+	DL_.getObjectWithPropValue = function (array, key, value) {
 		for (var i = 0; i < array.length; i++) {
 			if (array[i].hasOwnProperty(key) && array[i][key] === value) {
 				return array[i];
@@ -206,10 +215,10 @@
 	 * If no match is found, returns empty array.
 	 * Good if you have duplicate values
 	 */
-	DL_Util.getObjectsWithProperty = function (array, key, value) {
+	DL_.getObjectsWithPropValue = function (array, key, value) {
 		var matches = [];
 		for (var i = 0; i < array.length; i++) {
-			if (array[i].hasOwnProperty(key) && array[i].key === value) {
+			if (array[i].hasOwnProperty(key) && array[i][key] === value) {
 				matches.push(array[i]);
 			}
 		}
@@ -226,7 +235,7 @@
 	 * Get random item from passed array.
 	 * Returns the item itself, not the index.
 	 */
-	DL_Util.randFromArray = function (array) {
+	DL_.randFromArray = function (array) {
 		return array[Math.floor(Math.random() * array.length)];
 	};
 
@@ -234,7 +243,7 @@
 	 * Get random item from passed object.
 	 * Returns the item itself, not the prop name.
 	 */
-	DL_Util.randFromObject = function (obj) {
+	DL_.randFromObject = function (obj) {
 		var result;
 		var count = 0;
 		for (var prop in obj) {
@@ -249,14 +258,14 @@
 	 * Returns a random integer between min (inclusive) and max (inclusive)
 	 * Using Math.round() will give you a non-uniform distribution!
 	 */
-	DL_Util.getRandomInt = function (min, max) {
+	DL_.getRandomInt = function (min, max) {
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	};
 
 	/*
 	 * Returns 1 or -1.
 	 */
-	DL_Util.randPosNeg = function () {
+	DL_.randPosNeg = function () {
 		return Math.random() >= 0.5 ? 1 : -1;
 	};
 
@@ -266,7 +275,7 @@
 	 * but I didn't like doing that... so now
 	 * just shuffles the passed array.
 	 */
-	DL_Util.shuffle = function (array){
+	DL_.shuffle = function (array){
 		var i = array.length, j, temp;
 		if ( i === 0 ) {
 			return;
@@ -292,7 +301,7 @@
 	 *  would return
 	 *  "aboutus.aspx"
 	 */
-	DL_Util.getQueryVariable = function (variable) {
+	DL_.getQueryVariable = function (variable) {
 		var query = window.location.search.substring(1);
 		var vars = query.split('&');
 		for (var i = 0; i < vars.length; i++) {
@@ -313,7 +322,7 @@
 	 *  at the moment, so should probably 
 	 *  validate that input equals output
 	 */
-	DL_Util.getFileType = function (url) {
+	DL_.getFileType = function (url) {
 		var fileType = url.split('?').shift().split('.').pop().toLowerCase();
 		return fileType;
 	};
@@ -329,7 +338,7 @@
 	 * Last Jan 11, 2016
 	 * from https://gist.github.com/dalethedeveloper/1503252
 	 */
-	DL_Util.mobilecheck = function() {
+	DL_.mobilecheck = function() {
 		var check = false;
 		( function(a) {
 			if (/Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile/.test(a)) {
@@ -342,7 +351,7 @@
 	/*
 	 * Test for touch capabilities.
 	 */
-	DL_Util.isTouchDevice = function () {
+	DL_.isTouchDevice = function () {
 		try{ document.createEvent("TouchEvent"); return true; }
 		catch(e){ return false; }
 	};
@@ -350,7 +359,7 @@
 	/*
 	 * check if value is an integer
 	 */
-	DL_Util.isInt = function (value) {
+	DL_.isInt = function (value) {
 		return !isNaN(value) &&
 				parseInt(Number(value)) == value &&
 				!isNaN(parseInt(value, 10));
@@ -363,7 +372,7 @@
 	 * as empty templates don't pollute your
 	 * data set with blank entries.
 	 */
-	DL_Util.isObjectEmpty = function (obj) {
+	DL_.isObjectEmpty = function (obj) {
 		for(var prop in obj) {
 			if(obj.hasOwnProperty(prop))
 			return false;
@@ -384,7 +393,7 @@
 	 * Checks for jQuery dependency.
 	 */
 
-	DL_Util.preventWidows = (typeof jQuery === 'undefined') ? DL_Util.noop : function (selector) {
+	DL_.preventWidows = (typeof jQuery === 'undefined') ? DL_.noop : function (selector) {
 		selector.each(function() {
 			var wordArray = jQuery(this).text().split(" ");
 			if (wordArray.length > 1) {
@@ -402,7 +411,7 @@
 	 * It's _such_ a burden to include this here,
 	 * maybe I should use an npm package instead...
 	 */
-	DL_Util.leftpad = function (input, totalLength, padCharacter) {
+	DL_.leftpad = function (input, totalLength, padCharacter) {
 		input = String(input);
 		var i = -1;
 		if (!padCharacter && padCharacter !== 0) {
@@ -425,7 +434,7 @@
 	 * setTimeout with pause, resume, and destroy functions
 	 */
 
-	DL_Util.timer = function(callback, delay) {
+	DL_.timer = function(callback, delay) {
 		var timerId, start, remaining = delay;
 
 		this.pause = function() {
@@ -452,11 +461,11 @@
 	 * https://davidwalsh.name/javascript-debounce-function
 	 *
 	 * Usage:
-	 * var exampleFunction = DL_Util.debounce(function() {
+	 * var exampleFunction = DL_.debounce(function() {
 	 *		// Function body
 	 *	}, 250, true);
 	 */
-	DL_Util.debounce = function(func, wait, immediate) {
+	DL_.debounce = function(func, wait, immediate) {
 		var timeout;
 		return function() {
 			var context = this, args = arguments;
@@ -478,9 +487,9 @@
 	 * http://stackoverflow.com/questions/4673527/converting-milliseconds-to-a-date-jquery-js
 	 *
 	 * Usage example:
-	 * var saneDateString = DL_Util.customDate("#MM#-#DD#-#YY# #hh#:#mm# #AMPM#");
+	 * var saneDateString = DL_.customDate("#MM#-#DD#-#YY# #hh#:#mm# #AMPM#");
 	 */
-	DL_Util.customDate = function(formatString, date){
+	DL_.customDate = function(formatString, date){
 		var YYYY, YY, MMMM, MMM, MM, M, DDDD, DDD, DD, D, hhhh, hhh, hh, h, mm, m, ss, s, ampm, AMPM, dMod, th;
 		date = date || new Date();
 
@@ -518,7 +527,7 @@
 	 * and creates a series of image elements.
 	 */
 
-	DL_Util.preloadImages = (typeof jQuery === 'undefined') ? DL_Util.noop : function (array) {
+	DL_.preloadImages = (typeof jQuery === 'undefined') ? DL_.noop : function (array) {
 		jQuery(array).each(function(){
 			jQuery("<img />")[0].src = this;
 		});
@@ -531,7 +540,7 @@
 	 * elements ready to be appended to the document.
 	 */
     
-	DL_Util.preloadImageArray = function(imgPaths) {
+	DL_.preloadImageArray = function(imgPaths) {
 		var imageArray = [];
 		for (i = 0; i < imgPaths.length; i++) {
 			imageArray[i] = new Image();
@@ -555,7 +564,7 @@
 	 * polyfill for String.prototype.includes method in ecmascript 6 spec.
 	 * This is not well supported in all browsers yet.
 	 */
-	DL_Util.polyfillStringIncludes = function(once) {
+	DL_.polyfillStringIncludes = function(once) {
 		if (typeof once === 'undefined') {
 			once = false;
 		}
@@ -565,7 +574,7 @@
 			};
 		}
 		if (once) {
-			DL_Util.polyfillStringIncludes = DL_Util.noop;
+			DL_.polyfillStringIncludes = DL_.noop;
 		}
 	};
 
@@ -574,7 +583,7 @@
 	 * IE becomes very unhappy when we forget. 
 	 * Let's not make IE unhappy
 	 */
-	DL_Util.polyfillConsole = function(once) {
+	DL_.polyfillConsole = function(once) {
 		if (typeof once === 'undefined') {
 			once = false;
 		}
@@ -586,7 +595,7 @@
 			};
 		}
 		if (once) {
-			DL_Util.polyfillConsole = DL_Util.noop;
+			DL_.polyfillConsole = DL_.noop;
 		}
 	};
 
@@ -594,7 +603,7 @@
 	 * Polyfill for Math.sign method in ecmascript 6 spec.
 	 * This is not yet supported in IE or Safari
 	 */
-	DL_Util.polyfillMathSign = function(once) {
+	DL_.polyfillMathSign = function(once) {
 		if (typeof once === 'undefined') {
 			once = false;
 		}
@@ -606,14 +615,14 @@
 			return x > 0 ? 1 : -1;
 		};
 		if (once) {
-			DL_Util.polyfillMathSign = DL_Util.noop;
+			DL_.polyfillMathSign = DL_.noop;
 		}
 	};
 
 	/*
 	 * Polyfill for CustomEvent constructor in IE 11 and under.
 	 */
-	DL_Util.polyfillCustomEvent = function(once) {
+	DL_.polyfillCustomEvent = function(once) {
 		if (typeof once === 'undefined') {
 			once = false;
 		}
@@ -637,8 +646,8 @@
 			window.CustomEvent = CustomEvent; // expose definition to window
 		}
 		if (once) {
-			DL_Util.polyfillCustomEvent = DL_Util.noop;
+			DL_.polyfillCustomEvent = DL_.noop;
 		}
 	};
 
-})(window.DL_Util = window.DL_Util || {});
+})(window.DL_ = window.DL_ || {});
