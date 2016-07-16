@@ -4,7 +4,12 @@ describe("A test suite", function() {
 	});
 });
 
-// Physics section
+/****************************************************************
+
+PHYSICS
+
+****************************************************************/
+
 describe("A set of physics helpers", function(){
 	it ("Calculates a collision between two rects", function(){
 		expect(DL_.boxIntersect(-2, 1, 5, 5, 2, 4, 10, 18)).toBe(true);
@@ -25,7 +30,14 @@ describe("A set of physics helpers", function(){
 	});
 });
 
+/****************************************************************
+
+MATHS AND CONVERSIONS
+
+****************************************************************/
+
 // Maths and conversions section
+
 describe("A set of conversions", function(){
 	it ("returns a hex string given an rgb input", function() {
 		expect(DL_.rgbToHex(255, 51, 153)).toBe("#ff3399"); // raging magenta, my favorite color
@@ -68,7 +80,14 @@ describe("A set of conversions", function(){
 	});
 });
 
+/****************************************************************
+
+DATA STRUCTURE TRAVERSAL
+
+****************************************************************/
+
 // objects, dictionaries, and searching through them
+
 describe("A set of helpers for traversing data structures", function(){
 	var testingArray = [
 		{
@@ -132,6 +151,80 @@ describe("A set of helpers for traversing data structures", function(){
 	});
 });
 
-describe("A set of functions to randomize or return randomized things", function(){
+/****************************************************************
 
+RANDOMIZATION
+
+****************************************************************/
+
+// Unit testing things which are inconsistent by definition - what fun!
+// Yes, I know that's not strictly true. I was being facetious.
+
+describe("A set of functions to randomize or return randomized things", function(){
+	var testingArray = ["Terrence", "Mina", "Pat"];
+	var testingObject = {
+		"Terrence": {
+			cats: true,
+		},
+		"Mina": {
+			cats: false,
+		},
+		"Pat": {
+			cats: false,
+		}
+	};
+
+	it ("returns a random value from an array", function(){
+		expect(DL_.randFromArray(testingArray)).toMatch(/(Mina|Terrence|Pat)/);
+	});
+
+	it ("returns a random item key from an object", function(){
+		expect(DL_.randFromObject(testingObject)).toMatch(/(Mina|Terrence|Pat)/);
+	});
+	
+	it ("returns an integer between and including two values passed", function(){
+		var valid = true;
+		for (var i = 0; i < 100; i++) {
+			var rand = DL_.getRandomInt(2, 5);
+			if (rand === 2 || rand === 3 || rand === 4 || rand === 5) {
+				valid = true;
+			} else {
+				valid = false;
+			}
+		}
+		
+		expect(valid).toBe(true);
+	});
+
+	it ("returns either 1 or -1", function(){
+		var results = {
+			pos: 0,
+			neg: 0,
+			other: 0
+		};
+		for (var i = 0; i < 1000; i++) {
+			var rand = DL_.randPosNeg();
+			if (rand === 1) {
+				results.pos += 1;
+			} else if (rand === -1) {
+				results.neg += 1;
+			} else {
+				results.other += 1;
+			}
+		}
+		
+		// enforces a fair-ish distribution
+		// Still possible to fail this for no reason though.
+		// Revise if it ever happens.
+		expect(results.pos).toBeGreaterThan(400);
+		expect(results.neg).toBeGreaterThan(400);
+		expect(results.other).toBe(0);
+	});
+
+	it ("shuffles an array in place", function(){
+		var controlArray = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
+		var shuffleArray = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
+		DL_.shuffle(shuffleArray);
+		expect(shuffleArray).not.toEqual(controlArray);
+	});
 });

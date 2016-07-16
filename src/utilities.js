@@ -241,7 +241,7 @@
 
 	/*
 	 * Get random item from passed object.
-	 * Returns the item itself, not the prop name.
+	 * Returns the object key as a string.
 	 */
 	DL_.randFromObject = function (obj) {
 		var result;
@@ -273,7 +273,7 @@
 	 * Basic array randomization function.
 	 * Previously modified the Array prototype
 	 * but I didn't like doing that... so now
-	 * just shuffles the passed array.
+	 * just shuffles the passed array in place.
 	 */
 	DL_.shuffle = function (array){
 		var i = array.length, j, temp;
