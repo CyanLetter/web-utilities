@@ -17,5 +17,6 @@ TODO:
 - Add non-minified version to build
 - Get full unit test coverage
 - Implement JSDoc
+- Get full JSDoc coverage
 - Break apart monolithic source file into smaller component files
 - Add support for generating builds with custom component combinations.

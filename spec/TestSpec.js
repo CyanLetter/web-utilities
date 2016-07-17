@@ -11,19 +11,13 @@ PHYSICS
 ****************************************************************/
 
 describe("A set of physics helpers", function(){
-	it ("Calculates a collision between two rects", function(){
+	it ("Calculates collision between two rects", function(){
 		expect(DL_.boxIntersect(-2, 1, 5, 5, 2, 4, 10, 18)).toBe(true);
-	});
-
-	it ("Calculates no collision between two rects", function(){
 		expect(DL_.boxIntersect(10, 10, 4, 5, 1, 2, 12, 8)).toBe(false);
 	});
 
-	it ("Calculates a collision between two circles", function(){
+	it ("Calculates collision between two circles", function(){
 		expect(DL_.circleIntersect(1, 3, 12, -4, 0, 1)).toBe(true);
-	});
-
-	it ("Calculates no collision between two circles", function(){
 		// The point of the decimals is that this would overlap
 		// if it were a box intersect
 		expect(DL_.circleIntersect(-1, 5, 3, 1.9, 7.9, 1)).toBe(false);
@@ -51,11 +45,11 @@ describe("A set of conversions", function(){
 		expect(DL_.toSignificant(5.23985769)).toBe(5.24);
 	});
 
-	it ("returns a number in radians, given an input in degrees, accurate to seven decimal places", function(){
+	it ("returns a number in radians, given an input in degrees, rounded to seven significant digits", function(){
 		expect(DL_.toSignificant(DL_.d2r(1), 7)).toBe(0.0174533);
 	});
 
-	it ("returns a number in degrees, given an input in radians, accurate to four decimal places", function(){
+	it ("returns a number in degrees, given an input in radians, rounded to four significant digits", function(){
 		expect(DL_.toSignificant(DL_.r2d(1), 4)).toBe(57.2958);
 	});
 
@@ -228,3 +222,77 @@ describe("A set of functions to randomize or return randomized things", function
 		expect(shuffleArray).not.toEqual(controlArray);
 	});
 });
+
+/****************************************************************
+
+PARSING
+
+****************************************************************/
+
+// substrings and such from various other parts of the envinronment.
+
+describe("a set of functions for parsing information from strings", function(){
+
+	beforeEach(function(){
+		spyOn(DL_, "getLocationSearch").and.returnValue("?v=153&nice=very&pterosaur=pleaseno");
+	});
+
+	it ("Returns the search query from window.location", function(){
+		// This is really just capturing the jaminse spy, but still...
+		expect(DL_.getLocationSearch()).toBe("?v=153&nice=very&pterosaur=pleaseno");
+	});
+
+	it ("Returns a variable from a query string in the URI", function(){
+		expect(DL_.getQueryVariable("nice")).toBe("very");
+	});
+
+	it ("Returns true due to the user agent reflecting an iDevice", function(){
+		// we are setting the phantom js user agent in the Gruntfile
+		// to match an iPhone 5s on iOS 9.3.2
+		expect(DL_.mobilecheck()).toBe(true);
+	});
+
+	it ("Returns the file extension from a passed string", function(){
+		expect(DL_.getFileType("giraffe_photo.jpg")).toBe("jpg");
+		expect(DL_.getFileType("assets/style.css?v=87296345")).toBe("css");
+	});
+	
+});
+
+/****************************************************************
+
+VALIDATION
+
+****************************************************************/
+
+describe("A set of functions for validating input and capabilities", function(){
+
+	it ("Returns whether the device has touch capabilities.", function(){
+		expect(DL_.isTouchDevice()).toBe(true);
+		// Yes, true. PhantomJS reports itself as a touch browser
+		// for reasons. Github issue for reference:
+		// https://github.com/ariya/phantomjs/issues/10375 
+	});
+
+	it ("Returns whether a value is an integer", function(){
+		expect(DL_.isInt(42)).toBe(true);
+		expect(DL_.isInt(42.00000001)).toBe(false);
+		expect(DL_.isInt("Forty Two")).toBe(false);
+		expect(DL_.isInt(NaN)).toBe(false);
+		expect(DL_.isInt(true)).toBe(false);
+	});
+
+	it ("Returns whether an object contains any actual content", function(){
+		expect(DL_.isObjectEmpty({})).toBe(true);
+		expect(DL_.isObjectEmpty({foo: "bar"})).toBe(false);
+		expect(DL_.isObjectEmpty({foo: null})).toBe(false);
+		expect(DL_.isObjectEmpty({foo: undefined})).toBe(false);
+	});
+
+});
+
+/****************************************************************
+
+TEXT AND LAYOUT
+
+****************************************************************/
