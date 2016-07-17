@@ -1,6 +1,10 @@
-describe("A test suite", function() {
-	it("contains a simple sanity check", function() {
+describe("The first test suite", function() {
+	it("Contains a simple sanity check", function() {
 		expect(true).toBe(true);
+
+		expect(typeof DL_).toBe("object");
+		expect(typeof DL_.noop).toBe("function");
+		expect(typeof DL_.noop()).toBe("undefined");
 	});
 });
 
@@ -442,3 +446,66 @@ describe("A set of functions for loading and handling page assets", function(){
 POLYFILLS
 
 ****************************************************************/
+
+describe("A set of polyfills", function(){
+
+	it ("Add the 'includes' prototype function, if not available", function(){
+
+		String.prototype.includes = undefined;
+		// ensure mutability
+		expect(typeof String.prototype.includes).toBe("undefined");
+
+		DL_.polyfillStringIncludes();
+
+		expect(typeof String.prototype.includes).not.toBe("undefined");
+		expect("The quick brown fox".includes("quick")).toBe(true);
+		expect("The quick brown fox".includes("giraffe")).toBe(false);
+		expect("There are 7 giraffes".includes(7)).toBe(true);
+	});
+
+	it ("Adds a console object if it does not exist, for old IE", function(){
+
+		window.console = undefined;
+		// ensure mutability
+		expect(typeof window.console).toBe("undefined");
+
+		DL_.polyfillConsole();
+
+		expect(typeof window.console).not.toBe("undefined");
+		console.log("Running some unit tests");
+		console.error("Oh no!");
+
+		expect(window.consolearray).toEqual(["Running some unit tests", "Oh no!"]);
+	});
+
+	it ("Adds a Math.sign method if none exists", function(){
+
+		Math.sign = undefined;
+		expect(typeof Math.sign).toBe("undefined");
+
+		DL_.polyfillMathSign();
+		expect(typeof Math.sign).not.toBe("undefined");
+		expect(Math.sign(0)).toBe(0);
+		expect(Math.sign(0.1)).toBe(1);
+		expect(Math.sign(-0.1)).toBe(-1);
+		expect(Math.sign(-235e-12)).toBe(-1);
+		expect(Math.sign(3.575e9)).toBe(1);
+		expect(Math.sign("foo")).toEqual(NaN);
+	});
+
+	it ("Adds a CustomEvent constructor if none exists", function(){
+		var eventSpy = jasmine.createSpy();
+		window.addEventListener("jasmineCustomEvent", eventSpy);
+
+		window.CustomEvent = undefined;
+		expect(typeof window.CustomEvent).toBe("undefined");
+
+		DL_.polyfillCustomEvent();
+		expect(typeof window.CustomEvent).not.toBe("undefined");
+
+		expect(eventSpy).not.toHaveBeenCalled();
+
+		dispatchEvent(new CustomEvent("jasmineCustomEvent"));
+		expect(eventSpy).toHaveBeenCalled();
+	});
+});

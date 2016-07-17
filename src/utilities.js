@@ -560,17 +560,11 @@
 	 * polyfill for String.prototype.includes method in ecmascript 6 spec.
 	 * This is not well supported in all browsers yet.
 	 */
-	DL_.polyfillStringIncludes = function(once) {
-		if (typeof once === 'undefined') {
-			once = false;
-		}
+	DL_.polyfillStringIncludes = function() {
 		if (!String.prototype.includes) {
 			String.prototype.includes = function() {'use strict';
 				return String.prototype.indexOf.apply(this, arguments) !== -1;
 			};
-		}
-		if (once) {
-			DL_.polyfillStringIncludes = DL_.noop;
 		}
 	};
 
@@ -579,19 +573,13 @@
 	 * IE becomes very unhappy when we forget. 
 	 * Let's not make IE unhappy
 	 */
-	DL_.polyfillConsole = function(once) {
-		if (typeof once === 'undefined') {
-			once = false;
-		}
+	DL_.polyfillConsole = function() {
 		if (typeof(window.console) === 'undefined') {
-			var console = {};
-			var consolearray = [];
+			window.console = {};
+			window.consolearray = [];
 			console.log = console.groupCollapsed = console.error = console.info = console.debug = console.warn = console.trace = console.dir = console.dirxml = console.group = console.groupEnd = console.time = console.timeEnd = console.assert = console.profile = function(msg) {
 				consolearray.push(msg);
 			};
-		}
-		if (once) {
-			DL_.polyfillConsole = DL_.noop;
 		}
 	};
 
@@ -599,10 +587,7 @@
 	 * Polyfill for Math.sign method in ecmascript 6 spec.
 	 * This is not yet supported in IE or Safari
 	 */
-	DL_.polyfillMathSign = function(once) {
-		if (typeof once === 'undefined') {
-			once = false;
-		}
+	DL_.polyfillMathSign = function() {
 		Math.sign = Math.sign || function(x) {
 			x = +x; // convert to a number
 			if (x === 0 || isNaN(x)) {
@@ -610,18 +595,12 @@
 			}
 			return x > 0 ? 1 : -1;
 		};
-		if (once) {
-			DL_.polyfillMathSign = DL_.noop;
-		}
 	};
 
 	/*
 	 * Polyfill for CustomEvent constructor in IE 11 and under.
 	 */
-	DL_.polyfillCustomEvent = function(once) {
-		if (typeof once === 'undefined') {
-			once = false;
-		}
+	DL_.polyfillCustomEvent = function() {
 		try {
 			new window.CustomEvent("customEventPolyfillTest");
 		} catch(e) {
@@ -640,9 +619,6 @@
 
 			CustomEvent.prototype = window.Event.prototype;
 			window.CustomEvent = CustomEvent; // expose definition to window
-		}
-		if (once) {
-			DL_.polyfillCustomEvent = DL_.noop;
 		}
 	};
 
