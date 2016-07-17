@@ -416,3 +416,29 @@ describe ("A test suite for some functions related to the more temporal aspects 
 	});
 });
 
+/****************************************************************
+
+ASSET MANAGEMENT
+
+****************************************************************/
+
+describe("A set of functions for loading and handling page assets", function(){
+
+	it ("Returns an array of image elements when given an array of image urls", function(){
+		var basePath = window.location.href.split('/');
+		basePath = basePath.slice(0, basePath.length - 1).join("/");
+
+		var imageArray = DL_.preloadImageArray(["./abc.jpg", basePath + "/123.jpg"]);
+
+		expect(imageArray[0].nodeType).toBe(Node.ELEMENT_NODE);
+		expect(imageArray[0].src).toEqual(basePath + "/abc.jpg");
+		expect(imageArray[1].nodeType).toBe(Node.ELEMENT_NODE);
+		expect(imageArray[1].src).toEqual(basePath + "/123.jpg");
+	});
+});
+
+/****************************************************************
+
+POLYFILLS
+
+****************************************************************/

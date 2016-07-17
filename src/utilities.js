@@ -529,18 +529,6 @@
 
 	****************************************************************/
 
-	/* 
-	 * jQuery image preloading.
-	 * Takes an array of image paths,
-	 * and creates a series of image elements.
-	 */
-
-	DL_.preloadImages = (typeof jQuery === 'undefined') ? DL_.noop : function (array) {
-		jQuery(array).each(function(){
-			jQuery("<img />")[0].src = this;
-		});
-	};
-
 	/*
 	 * Vanilla JS image preloading. 
 	 * Feed it an array of image paths, 
