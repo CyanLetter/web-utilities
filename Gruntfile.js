@@ -22,7 +22,10 @@ module.exports = function(grunt) {
 					settings: {
 						userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13F69 Safari/601.1'
 					}
-				}
+				},
+				vendor: [
+					"https://code.jquery.com/jquery-3.1.0.min.js"
+				]
 			}
 		}
 	});

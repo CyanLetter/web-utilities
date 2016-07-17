@@ -238,7 +238,7 @@ describe("a set of functions for parsing information from strings", function(){
 	});
 
 	it ("Returns the search query from window.location", function(){
-		// This is really just capturing the jaminse spy, but still...
+		// This is really just capturing the jasmine spy, but still...
 		expect(DL_.getLocationSearch()).toBe("?v=153&nice=very&pterosaur=pleaseno");
 	});
 
@@ -296,3 +296,123 @@ describe("A set of functions for validating input and capabilities", function(){
 TEXT AND LAYOUT
 
 ****************************************************************/
+
+describe("A set of functions to modify text to be more consistent and appealing", function(){
+	var paragraph, paragraphTwo;
+
+	beforeEach(function(){
+		paragraph = $("<p>");
+		paragraph.attr("id", "paragraph-test");
+		paragraph.html("Should not allow widows.");
+		$(document.body).append(paragraph);
+
+		paragraphTwo = $("<p>");
+		paragraphTwo.html("This should also not contain widows");
+		$(document.body).append(paragraphTwo);
+
+		DL_.preventWidows($("p"));
+	});
+
+	afterEach(function(){
+		paragraph.remove();
+		paragraph = null;
+		paragraphTwo.remove();
+		paragraphTwo = null;
+	});
+
+	it ("Adds a non-breaking space between the last words in all matching selectors.", function(){
+
+		expect($("#paragraph-test").html()).toBe("Should not allow&nbsp;widows.");
+		expect($("p").eq(1).html()).toBe("This should also not contain&nbsp;widows");
+	});
+
+	it ("It's leftpad, and it's not dependent on npm.", function(){
+		expect(DL_.leftpad(4, 3, 0)).toBe("004");
+		// pads with spaces by default
+		expect(DL_.leftpad('text', 10)).toBe("      text");
+	});
+});
+
+/****************************************************************
+
+DATE AND TIME
+
+****************************************************************/
+
+describe ("A test suite for some functions related to the more temporal aspects of the universe.", function(){
+	var value;
+
+	beforeEach(function(){
+		value = 0;
+	});
+
+	it ("Sets a timer which can be paused and resumed", function(done){
+		var timer = new DL_.timer(function(){
+			value += 1;
+		}, 25);
+
+		setTimeout(function(){
+			expect(value).toBe(0);
+			timer.pause();
+		}, 10);
+
+		setTimeout(function(){
+			expect(value).toBe(0);
+			timer.resume();
+		}, 30);
+
+		setTimeout(function(){
+			expect(value).toBe(1);
+			done();
+		}, 50);
+	});
+
+	it ("Sets a timer which can be destroyed", function(done){
+		var timer = new DL_.timer(function(){
+			value += 1;
+		}, 25);
+
+		setTimeout(function(){
+			expect(value).toBe(0);
+			timer.destroy();
+		}, 10);
+
+		setTimeout(function(){
+			expect(value).toBe(0);
+			done();
+		}, 30);
+	});
+
+	it ("Prevents a given function from firing more than once per interval", function(done){
+		var increment = DL_.debounce(function(){
+			value += 1;
+		}, 20, true);
+		
+		increment();
+		increment();
+		expect(value).toBe(1);
+
+		setTimeout(function(){
+			increment();
+			expect(value).toBe(1);
+		}, 10);
+
+		setTimeout(function(){
+			increment();
+			increment();
+			expect(value).toBe(2);
+			done();
+		}, 31);
+	});
+
+	it ("Returns a date string in a sane, custom format", function(){
+		var testDate = new Date(1991, 6, 10, 14, 23);
+		expect(testDate.getFullYear()).toBe(1991);
+		expect(DL_.customDate("#YYYY#")).not.toBe("1991");
+		expect(DL_.customDate("#MM#-#DD#-#YY#", testDate)).toBe("07-10-91");
+		expect(DL_.customDate("Party like it's #YYYY#", testDate)).toBe("Party like it's 1991");
+		expect(DL_.customDate("#MMM# #D#, #YYYY#", testDate)).toBe("Jul 10, 1991");
+		expect(DL_.customDate("#h#:#m##ampm#", testDate)).toBe("2:23pm");
+	});
+});
+

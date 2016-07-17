@@ -414,6 +414,7 @@
 	 * Takes an input, converts to string, and pads with a specified character
 	 * to return a string of appropriate length.
 	 * Mostly useful for adding leading zeroes.
+	 * Don't feed more than one character to the padCharacter.
 	 * It's _such_ a burden to include this here,
 	 * maybe I should use an npm package instead...
 	 */
@@ -463,6 +464,7 @@
 
 	/* 
 	 * Debounce method for preventing functions from firing too often.
+	 * Resets the debounce timer every time it is called.
 	 * Taken from David Walsh, who took it from underscore:
 	 * https://davidwalsh.name/javascript-debounce-function
 	 *
@@ -497,7 +499,9 @@
 	 */
 	DL_.customDate = function(formatString, date){
 		var YYYY, YY, MMMM, MMM, MM, M, DDDD, DDD, DD, D, hhhh, hhh, hh, h, mm, m, ss, s, ampm, AMPM, dMod, th;
-		date = date || new Date();
+		if (typeof date === 'undefined') {
+			date = new Date();
+		}
 
 		YY = ((YYYY = date.getFullYear())+"").slice(-2);
 		MM = (M = date.getMonth() + 1) < 10 ? ('0' + M) : M;
