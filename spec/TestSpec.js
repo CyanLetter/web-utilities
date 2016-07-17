@@ -402,7 +402,7 @@ describe ("A test suite for some functions related to the more temporal aspects 
 			increment();
 			expect(value).toBe(2);
 			done();
-		}, 31);
+		}, 40);
 	});
 
 	it ("Returns a date string in a sane, custom format", function(){

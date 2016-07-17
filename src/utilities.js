@@ -499,9 +499,7 @@
 	 */
 	DL_.customDate = function(formatString, date){
 		var YYYY, YY, MMMM, MMM, MM, M, DDDD, DDD, DD, D, hhhh, hhh, hh, h, mm, m, ss, s, ampm, AMPM, dMod, th;
-		if (typeof date === 'undefined') {
-			date = new Date();
-		}
+		date = date || new Date();
 
 		YY = ((YYYY = date.getFullYear())+"").slice(-2);
 		MM = (M = date.getMonth() + 1) < 10 ? ('0' + M) : M;
