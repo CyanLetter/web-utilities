@@ -6,16 +6,47 @@ module.exports = function(grunt) {
 				banner: '/*! DL Web Utilities <%= pkg.version %> */\n'
 			},
 			build: {
-				src: 'src/utilities.js',
+				src: 'build/utilities.js',
 				dest: 'build/utilities.min.js'
 			}
 		},
 		jshint: {
-			source: ['src/**/*.js'],
-			all: ['spec/**/*.js', 'src/**/*.js']
+			dist: ['build/utilities.js'],
+			all: ['spec/**/*.js', 'build/utilities.js']
+		},
+		concat: {
+			dist: {
+				src: [
+					'src/intro.js',
+					'src/noop.js',
+					'src/physics.js',
+					'src/maths.js',
+					'src/data-structures.js',
+					'src/randomization.js',
+					'src/parsing.js',
+					'src/validation.js',
+					'src/text-layout.js',
+					'src/date-time.js',
+					'src/asset-management.js',
+					'src/polyfills.js',
+					'src/outro.js'
+				],
+				dest: 'build/utilities.js',
+				options: {
+					separator: '\n\n'
+				}
+			}
+		},
+		jsdoc: {
+			dist: {
+				src: ['src/**/*.js', '!src/intro.js', '!src/outro.js'],
+				options: {
+					'destination': 'docs'
+				}
+			}
 		},
 		jasmine: {
-			src : 'src/**/*.js',
+			src : 'build/utilities.js',
 			options : {
 				specs : 'spec/**/*.js',
 				page: {
@@ -32,9 +63,12 @@ module.exports = function(grunt) {
 
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-jasmine');
+	grunt.loadNpmTasks('grunt-jsdoc');
 
-	grunt.registerTask('default', ['jshint:all', 'uglify']);
-	grunt.registerTask('build', ['jshint:all', 'uglify']);
-	grunt.registerTask('test', ['jshint:all', 'jasmine']);
+	grunt.registerTask('default', ['concat', 'jshint:dist', 'uglify', 'jsdoc']);
+	grunt.registerTask('dev', ['concat', 'jshint:dist']);
+	grunt.registerTask('build', ['concat', 'jshint:dist', 'uglify', 'jsdoc']);
+	grunt.registerTask('test', ['concat', 'jshint:dist', 'jasmine']);
 };
