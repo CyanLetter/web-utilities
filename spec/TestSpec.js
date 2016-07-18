@@ -363,28 +363,28 @@ describe ("A test suite for some functions related to the more temporal aspects 
 		setTimeout(function(){
 			expect(value).toBe(0);
 			timer.resume();
-		}, 30);
+		}, 100);
 
 		setTimeout(function(){
 			expect(value).toBe(1);
 			done();
-		}, 50);
+		}, 500);
 	});
 
 	it ("Sets a timer which can be destroyed", function(done){
 		var timer = new DL_.timer(function(){
 			value += 1;
-		}, 25);
+		}, 250);
 
 		setTimeout(function(){
 			expect(value).toBe(0);
 			timer.destroy();
-		}, 10);
+		}, 100);
 
 		setTimeout(function(){
 			expect(value).toBe(0);
 			done();
-		}, 30);
+		}, 500);
 	});
 
 	it ("Prevents a given function from firing more than once per interval", function(done){
