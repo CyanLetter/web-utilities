@@ -18,7 +18,7 @@ module.exports = function(grunt) {
 			dist: {
 				src: [
 					'src/intro.js',
-					'src/noop.js',
+					'src/setup.js',
 					'src/physics.js',
 					'src/maths.js',
 					'src/data-structures.js',

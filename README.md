@@ -14,6 +14,5 @@ The namespace pattern used is the Immediately-invoked Function Expression define
 
 TODO:
 
-- Implement JSDoc
 - Get full JSDoc coverage
 - Add support for generating builds with custom component combinations.
