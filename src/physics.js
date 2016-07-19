@@ -18,7 +18,7 @@
 	 * @param {float} bY - The y position of the second object.
 	 * @param {float} bW - The width of the second object.
 	 * @param {float} bH - The height of the second object.
-	 * @returns {bool}
+	 * @returns {bool} True if there is an intersection.
 	 * @example
 	 * var rect1 = {
 	 *   x: -2,
@@ -55,7 +55,7 @@
 	 * @param {float} x2 - The x position of the second object.
 	 * @param {float} y2 - The y position of the second object.
 	 * @param {float} r2 - The radius of the second object.
-	 * @returns {bool}
+	 * @returns {bool} True if there is an intersection.
 	 * @example
 	 * var circ1 = {
 	 *   x: 1,

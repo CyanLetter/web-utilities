@@ -39,10 +39,12 @@ MATHS AND CONVERSIONS
 describe("A set of conversions", function(){
 	it ("returns a hex string given an rgb input", function() {
 		expect(DL_.rgbToHex(255, 51, 153)).toBe("#ff3399"); // raging magenta, my favorite color
+		expect(DL_.rgbToHex(42, 215, 252)).toBe("#2ad7fc");
 	});
 
 	it ("returns an array of rgb values given a hexadecimal string input", function() {
 		expect(DL_.hexToRgb("#ff3399")).toEqual({r: 255, g: 51, b: 153});
+		expect(DL_.hexToRgb("#2ad7fc")).toEqual({r: 42, g: 215, b: 252});
 	});
 
 	it ("returns a number rounded to two significant digits", function(){
