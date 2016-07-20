@@ -888,7 +888,7 @@ var rounded = DL_.toSignificant( DL_.d2r(180) );</code></pre>
 
     
 
-    <h4 class="name" id=".dot"><span class="type-signature">(static) </span>dot<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".dot"><span class="type-signature">(static) </span>dot<span class="signature">(vectorA, vectorB)</span><span class="type-signature"> &rarr; {number}</span></h4>
 
     
 
@@ -905,6 +905,78 @@ e.g. multiply two vectors to return a scalar number
 
 
 
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>vectorA</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#Vector2">Vector2</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The first vector object containing x and y values</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>vectorB</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#Vector2">Vector2</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The second vector object containing x and y values</td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -940,7 +1012,7 @@ e.g. multiply two vectors to return a scalar number
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="maths.js.html">maths.js</a>, <a href="maths.js.html#line147">line 147</a>
+        <a href="maths.js.html">maths.js</a>, <a href="maths.js.html#line165">line 165</a>
     </li></ul></dd>
     
 
@@ -963,6 +1035,37 @@ e.g. multiply two vectors to return a scalar number
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - A single number, the dot product of the two vectors
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// returns 11
+var simpleDot = DL_.dot({x: 1, y: 2}, {x: 3, y: 4});
+
+// returns 0; For angle calculation
+var normalizedDot = dot(normalize({x: 10, y: 0}), normalize({x: 0, y: 5}));</code></pre>
 
 
 
@@ -1026,7 +1129,7 @@ the direction of vector B from vector A
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="maths.js.html">maths.js</a>, <a href="maths.js.html#line171">line 171</a>
+        <a href="maths.js.html">maths.js</a>, <a href="maths.js.html#line202">line 202</a>
     </li></ul></dd>
     
 
@@ -1112,7 +1215,7 @@ because I remember none of this from High School.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="maths.js.html">maths.js</a>, <a href="maths.js.html#line158">line 158</a>
+        <a href="maths.js.html">maths.js</a>, <a href="maths.js.html#line191">line 191</a>
     </li></ul></dd>
     
 
@@ -1397,7 +1500,7 @@ Can take both short (e.g. #F00) and long (e.g. #FF0000) values.
 
     
 
-    <h4 class="name" id=".normalize"><span class="type-signature">(static) </span>normalize<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".normalize"><span class="type-signature">(static) </span>normalize<span class="signature">(vector)</span><span class="type-signature"> &rarr; {<a href="global.html#Vector2">Vector2</a>}</span></h4>
 
     
 
@@ -1415,6 +1518,55 @@ Necessary for functions requiring acos
 
 
 
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>vector</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#Vector2">Vector2</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">An object containing x and y values</td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -1450,7 +1602,7 @@ Necessary for functions requiring acos
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="maths.js.html">maths.js</a>, <a href="maths.js.html#line138">line 138</a>
+        <a href="maths.js.html">maths.js</a>, <a href="maths.js.html#line145">line 145</a>
     </li></ul></dd>
     
 
@@ -1473,6 +1625,37 @@ Necessary for functions requiring acos
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The resulting normalized x and y values
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#Vector2">Vector2</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// returns {x: 0, y: 1}
+var verticalLine = DL_.normalize({x: 0, y: 5});
+
+// returns {x: 0.9805806756909202, y: 0.19611613513818404}
+var tiltedLine = DL_.normalize({x: 5, y: 1});</code></pre>
 
 
 
@@ -1849,7 +2032,7 @@ var hexColor = DL_.rgbToHex(255, 51, 153);</code></pre>
 
     
 
-    <h4 class="name" id=".roundNearQtr"><span class="type-signature">(static) </span>roundNearQtr<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".roundNearQtr"><span class="type-signature">(static) </span>roundNearQtr<span class="signature">(number)</span><span class="type-signature"> &rarr; {number}</span></h4>
 
     
 
@@ -1870,6 +2053,55 @@ for more details on timeupdate granularity.
 
 
 
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>number</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The number to be rounded</td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -1928,6 +2160,34 @@ for more details on timeupdate granularity.
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The resulting number, rounded to the nearest of .0, .25, .5, or .75
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// returns 5.25
+var roundedNumber = DL_.roundNearQtr(5.17);</code></pre>
 
 
 
@@ -2173,7 +2433,7 @@ var withOptionalValue = DL_.toSignificant(5.23985769152, 7);</code></pre>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon Jul 18 2016 20:43:39 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Wed Jul 20 2016 00:44:05 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>

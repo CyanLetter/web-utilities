@@ -64,19 +64,20 @@ describe("A set of conversions", function(){
 	});
 
 	it ("returns the normalized value of two vectors", function(){
-		expect(DL_.normalize(0, 1)).toEqual({x: 0, y: 1});
+		expect(DL_.normalize({x: 0, y: 1})).toEqual({x: 0, y: 1});
+		expect(DL_.normalize({x: 50, y: 0})).toEqual({x: 1, y: 0});
 	});
 
 	it ("returns the dot product of two vectors", function(){
-		expect(DL_.dot(1, 2, 3, 4)).toBe(11);
+		expect(DL_.dot({x: 1, y: 2}, {x: 3, y: 4})).toBe(11);
 	});
 
 	it ("returns an unsigned angle between two vectors", function(){
-		expect(DL_.getSimpleAngle(1, 0, 0, 1)).toBe(90);
+		expect(DL_.getSimpleAngle({x: 1, y: 0}, {x: 0, y: 1})).toBe(90);
 	});
 
 	it ("returns the signed angle difference between two vectors", function(){
-		expect(DL_.getSignedAngle(1, 0, 0, 1)).toBe(-90);
+		expect(DL_.getSignedAngle({x: 1, y: 0}, {x: 0, y: 1})).toBe(-90);
 	});
 });
 
