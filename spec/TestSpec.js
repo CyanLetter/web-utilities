@@ -240,8 +240,10 @@ PARSING
 
 describe("a set of functions for parsing information from strings", function(){
 
+
 	beforeEach(function(){
 		spyOn(DL_, "getLocationSearch").and.returnValue("?v=153&nice=very&pterosaur=pleaseno");
+		spyOn(console, 'error');
 	});
 
 	it ("Returns the search query from window.location", function(){
@@ -262,6 +264,46 @@ describe("a set of functions for parsing information from strings", function(){
 	it ("Returns the file extension from a passed string", function(){
 		expect(DL_.getFileType("giraffe_photo.jpg")).toBe("jpg");
 		expect(DL_.getFileType("assets/style.css?v=87296345")).toBe("css");
+	});
+
+	it ("Gets the contents of a set of brackets in a string", function(){
+		var testingObject = {
+			"Terrence": {
+				cats: true,
+				names: ["Nimbus", "Itches", "Two Wolves"]
+			},
+			"Mina": {
+				cats: false,
+				names: []
+			},
+			"Pat": {
+				cats: false,
+				names: []
+			}
+		};
+		var testingObjectString = JSON.stringify(testingObject);
+		var testingString = "(((paren-theses ((hell)))))";
+
+		var resultOne = {
+			"start": 1,
+			"end": 26,
+			"contents": "((paren-theses ((hell))))",
+			"error": null
+		};
+		var resultTwo = {
+			"start": 18,
+			"end": 22,
+			"contents": "hell",
+			"error": null
+		};
+
+		expect(DL_.getBracketedContent(testingString, 1, {openChar: "(", closeChar: ")"})).toEqual(resultOne);
+		expect(DL_.getBracketedContent(testingString, "(h", {openChar: "(", closeChar: ")", inclusive: false})).toEqual(resultTwo);
+		expect(DL_.getBracketedContent(testingString, 2).error).toBe("Could not find { in data");
+
+		expect(DL_.getBracketedContent(testingObject, 0).contents).toBe(testingObjectString);
+		expect(DL_.getBracketedContent(testingObject, 0, {openChar: "[", closeChar: "]", inclusive: false}).contents).toBe('"Nimbus","Itches","Two Wolves"');
+		
 	});
 	
 });

@@ -67,12 +67,26 @@
 	 */
 	DL_.getBracketedContent = function(data, start, options) {
 		var firstIndex = 0;
-		var lastIndex = data.length;
+		var lastIndex = null;
 		var foundFirstBracket = false;
 		var bracketCount = 0;
 		var openChar = "{";
 		var closeChar = "}";
 		var inclusive = true;
+		var results = {
+			"start": null,
+			"end": null,
+			"contents": null,
+			"error": null
+		};
+
+		if (typeof data === "object") {
+			data = JSON.stringify(data);
+		} else if (typeof data !== "string") {
+			results.error = "Data must be an object or a string!";
+			console.error(results.error);
+			return results;
+		}
 
 		// validate inputs
 		if (typeof start === "number") {
@@ -83,12 +97,9 @@
 			firstIndex = data.indexOf(start);
 		} else {
 			// this is invalid, exit
-			console.error("Index " + index + " must be of type string or number");
-			return {
-				"start": firstIndex,
-				"end": lastIndex,
-				"contents": ""
-			};
+			results.error = "Index " + index + " must be of type string or number";
+			console.error(results.error);
+			return results;
 		}
 
 		if (typeof options !== "undefined") {
@@ -132,9 +143,21 @@
 			}
 		}
 
-		return {
-			"start": firstIndex,
-			"end": lastIndex,
-			"contents": data.slice(firstIndex, lastIndex)
-		};
+		if (!foundFirstBracket) {
+			results.error = "Could not find " + openChar + " in data";
+			console.error(results.error);
+			return results;
+		}
+
+		if (lastIndex === null) {
+			results.error = "Could not find complete matching bracket set";
+			console.error(results.error);
+			return results;
+		}
+
+		// found everything ok!
+		results.start = firstIndex;
+		results.end = lastIndex;
+		results.contents = data.slice(firstIndex, lastIndex);
+		return results;
 	};
