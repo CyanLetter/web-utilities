@@ -158,6 +158,9 @@
 	 * var tiltedLine = DL_.normalize({x: 5, y: 1});
 	 */
 	DL_.normalize = function (vector) {
+		if (vector.x + vector.y === 0) {
+			return {x: 0, y: 0};
+		}
 		var length = Math.sqrt((vector.x * vector.x) + (vector.y * vector.y));
 		return {x: vector.x / length, y: vector.y / length};
 	};
