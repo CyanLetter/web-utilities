@@ -207,3 +207,18 @@
 		var bNorm = DL_.normalize(vectorB);
 		return DL_.r2d((Math.atan2(aNorm.y, aNorm.x) - Math.atan2(bNorm.y, bNorm.x)));
 	};
+
+	DL_.getPointOnQuadraticCurve = function(p0, p1, p2, t) {
+		return (1 - t) * ((1 - t) * p0 + (t * p1)) + t * ((1 - t) * p1 + (t * p2));
+	}
+
+	/**
+	 * Returns a value based on a cubic timing function.
+	 * Good for finding points on a bezier curve.
+	 * Args (startPoint, handle1, handle2, endPoint, time (between 0 and 1))
+	 * to find a point on a bezier curve, you need to run this
+	 * for the x and y values individually
+	 */
+	DL_.getPointOnCubicCurve = function(p0, p1, p2, p3, t) {
+		return (p0 * Math.pow(1 - t, 3)) + (3 * p1 * t * Math.pow(1 - t, 2)) + (3 * p2 * (Math.pow(t, 2) - Math.pow(t, 3))) + (p3 * Math.pow(t, 3));
+	}
