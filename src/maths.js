@@ -208,6 +208,29 @@
 		return DL_.r2d((Math.atan2(aNorm.y, aNorm.x) - Math.atan2(bNorm.y, bNorm.x)));
 	};
 
+	DL_.getClockAngle = function(x, y) {
+		// angle running clockwise, where 12:01 is 1deg,
+		// and 11:59 is 359deg
+		// adapted to make polar coordinates easier to understand (to me)
+		var angle = Math.atan2(y, x);
+		if (x >= 0 && y <= 0) {
+			// polar quadrant 1
+			angle += (Math.PI / 2);
+		} else if (x <= 0 && y <= 0) {
+			// polar quadrant 2
+			angle += (Math.PI * 2.5);
+			
+		} else if (x <= 0 && y >= 0) {
+			// polar quadrant 3
+			angle += (Math.PI / 2);
+		} else if (x >= 0 && y >= 0) {
+			// polar quadrant 4
+			angle += (Math.PI / 2);
+		}
+
+		return DL_.r2d(angle);
+	}
+
 	DL_.getPointOnQuadraticCurve = function(p0, p1, p2, t) {
 		return (1 - t) * ((1 - t) * p0 + (t * p1)) + t * ((1 - t) * p1 + (t * p2));
 	}
