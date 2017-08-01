@@ -396,7 +396,7 @@ describe ("A test suite for some functions related to the more temporal aspects 
 	});
 
 	it ("Sets a timer which can be paused and resumed", function(done){
-		var timer = new DL_.timer(function(){
+		var timer = new DL_.Timer(function(){
 			value += 1;
 		}, 25);
 
@@ -417,7 +417,7 @@ describe ("A test suite for some functions related to the more temporal aspects 
 	});
 
 	it ("Sets a timer which can be destroyed", function(done){
-		var timer = new DL_.timer(function(){
+		var timer = new DL_.Timer(function(){
 			value += 1;
 		}, 250);
 
