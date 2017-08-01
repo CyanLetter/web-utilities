@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: asset-management.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,42 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: asset-management.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>	/****************************************************************
 
+	ASSET MANAGEMENT
 
-    <h3> </h3>
+	****************************************************************/
 
-
-
-
-
-
-
-
-
-
+	/**
+	 * Vanilla JS image preloading. 
+	 * Feed it an array of image paths, 
+	 * and it will return an array of image 
+	 * elements ready to be appended to the document.
+	 *
+	 * @function DL_.preloadImageArray
+	 * @param {array} imgPaths - Array of image URLs to load
+	 * @returns {array} - Array of image elements
+	 */
     
-
-
-
-
-
+	DL_.preloadImageArray = function(imgPaths) {
+		var imageArray = [];
+		for (i = 0; i &lt; imgPaths.length; i++) {
+			imageArray[i] = new Image();
+			imageArray[i].src = imgPaths[i];
+		}
+		return imageArray;
+	};</code></pre>
+        </article>
+    </section>
 
 
 

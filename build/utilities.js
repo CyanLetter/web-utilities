@@ -265,6 +265,9 @@
 	 * var tiltedLine = DL_.normalize({x: 5, y: 1});
 	 */
 	DL_.normalize = function (vector) {
+		if (vector.x + vector.y === 0) {
+			return {x: 0, y: 0};
+		}
 		var length = Math.sqrt((vector.x * vector.x) + (vector.y * vector.y));
 		return {x: vector.x / length, y: vector.y / length};
 	};
@@ -282,7 +285,7 @@
 	 * var simpleDot = DL_.dot({x: 1, y: 2}, {x: 3, y: 4});
 	 *
 	 * // returns 0; For angle calculation
-	 * var normalizedDot = dot(normalize({x: 10, y: 0}), normalize({x: 0, y: 5}));
+	 * var normalizedDot = DL_.dot(normalize({x: 10, y: 0}), normalize({x: 0, y: 5}));
 	 */
 	DL_.dot = function (vectorA, vectorB) {
 		return (vectorA.x * vectorB.x) + (vectorA.y * vectorB.y);
@@ -291,9 +294,17 @@
 	/**
 	 * Returns an angle, in degrees, between two vectors.
 	 * Applies arc cos to the dot product of the two vectors.
-	 * Range is 0 - 180. Does not give a sign, or full 360 rotation.
+	 * Range is 0 - 180, unsigned
 	 * Formulas gathered from http://www.euclideanspace.com/maths/algebra/vectors/angleBetween/
 	 * because I remember none of this from High School.
+	 *
+	 * @function DL_.getSimpleAngle
+	 * @param {Vector2} vectorA - The first vector representing the starting angle
+	 * @param {Vector2} vectorB - The second vector representing the destination angle
+	 * @returns {number} - A single number, from 0 - 180 degrees
+	 * @example
+	 * // returns 90
+	 * var angle = DL_.getSimpleAngle({x:0, y:1}, {x:-1, y: 0});
 	 */
 	DL_.getSimpleAngle = function (vectorA, vectorB) {
 		return DL_.r2d(Math.acos(DL_.dot(DL_.normalize(vectorA), DL_.normalize(vectorB))));
@@ -301,15 +312,117 @@
 
 	/**
 	 * Returns the signed angle of vector B 
-	 * relative to vector A, in degrees.
+	 * relative to vector A, from -180 to 180 degrees.
 	 * Put another way, it returns the direction 
-	 * and amount you would have to rotate to reach
-	 * the direction of vector B from vector A
+	 * and amount you would have to rotate
+	 * to reach vector B from vector A
+	 *
+	 * @function DL_.getSignedAngle
+	 * @param {Vector2} vectorA - The first vector representing the starting angle
+	 * @param {Vector2} vectorB - The second vector representing the destination angle
+	 * @returns {number} - A single number, from -180 - 180 degrees
+	 * @example
+	 * // returns -90
+	 * var angle = DL_.getSignedAngle({x:0, y:1}, {x:-1, y: 0});
 	 */
 	DL_.getSignedAngle = function (vectorA, vectorB) {
 		var aNorm = DL_.normalize(vectorA);
 		var bNorm = DL_.normalize(vectorB);
 		return DL_.r2d((Math.atan2(aNorm.y, aNorm.x) - Math.atan2(bNorm.y, bNorm.x)));
+	};
+
+	/**
+	 * Returns an angle from 0 - 360 degrees
+	 * based on the given coordinates, 
+	 * and a center point of 0, 0.
+	 * Angle is given from 12:00 running clockwise,
+	 * so 12:01 is 1deg, and 11:59 is 359deg
+	 *
+	 * @function DL_.getClockAngle
+	 * @param {number} x - x coordinate
+	 * @param {number} y - y coordinate
+	 * @returns {number} - number from 0 - 360 degrees
+	 * @example
+	 * // returns 225 - positive y values are down
+	 * var angle = DL_.getClockAngle(-1, 1);
+	 */
+	DL_.getClockAngle = function(x, y) {
+		var angle = Math.atan2(y, x);
+		if (x >= 0 && y <= 0) {
+			// polar quadrant 1
+			angle += (Math.PI / 2);
+		} else if (x <= 0 && y <= 0) {
+			// polar quadrant 2
+			angle += (Math.PI * 2.5);
+			
+		} else if (x <= 0 && y >= 0) {
+			// polar quadrant 3
+			angle += (Math.PI / 2);
+		} else if (x >= 0 && y >= 0) {
+			// polar quadrant 4
+			angle += (Math.PI / 2);
+		}
+
+		return DL_.r2d(angle);
+	};
+
+	/**
+	 * Returns a value based on a quadratic timing function.
+	 * Useful for finding points on a bezier curve.
+	 * To find a point on a bezier curve, you need to run this
+	 * for the x and y values individually
+	 *
+	 * @function DL_.getPointOnQuadraticCurve
+	 * @param {number} p0 - Start value for curve
+	 * @param {number} p1 - Anchor value for curve
+	 * @param {number} p2 - End value for curve
+	 * @param {number} t - time, or the distance travelled along curve, from 0 - 1
+	 * @returns {number} - value on curve based on time
+	 * @example
+	 * // Get point on simple quadratic curve
+	 * var start = {x: 0, y: 0};
+	 * var handle = {x: 1, y: 2};
+	 * var end = {x: 2, y: 0};
+	 * var time = 0.75;
+	 * var point = {
+	 *   x: DL_.getPointOnQuadraticCurve(start.x, handle.x, end.x, time),
+	 *   y: DL_.getPointOnQuadraticCurve(start.y, handle.y, end.y, time)
+	 * };
+	 */
+	DL_.getPointOnQuadraticCurve = function(p0, p1, p2, t) {
+		return (1 - t) * ((1 - t) * p0 + (t * p1)) + t * ((1 - t) * p1 + (t * p2));
+	};
+
+	/**
+	 * Same as quadratic curve, but with two anchor points
+	 *
+	 * @function DL_.getPointOnCubicCurve
+	 * @param {number} p0 - Start value for curve
+	 * @param {number} p1 - Anchor value for start point
+	 * @param {number} p2 - Anchor value for end point
+	 * @param {number} p3 - End value for curve
+	 * @param {number} t - time, or the distance travelled along curve, from 0 - 1
+	 * @returns {number} - value on curve based on time
+	 * @example
+	 * // Get array of points along cubic curve
+	 *
+	 * var start = {x: 0, y: 0};
+	 * var handle1 = {x: 3, y: 5};
+	 * var handle2 = {x: 7, y: -5};
+	 * var end = {x: 10, y: 0};
+	 * var increments = 1 / 10;
+	 * var points = [];
+	 * var time = 0;
+	 * while (time <= 1) {
+	 *   points.push({
+	 *     x: DL_.getPointOnCubicCurve(start.x, handle1.x, handle2.x, end.x, time),
+	 *     y: DL_.getPointOnCubicCurve(start.y, handle1.y, handle2.y, end.y, time)
+	 *   });
+	 *   time += increments;
+	 * }
+	 */
+	DL_.getPointOnCubicCurve = function(p0, p1, p2, p3, t) {
+		return (p0 * Math.pow(1 - t, 3)) + (3 * p1 * t * Math.pow(1 - t, 2)) + (3 * p2 * (Math.pow(t, 2) - Math.pow(t, 3))) + (p3 * Math.pow(t, 3));
 	};
 
 	/****************************************************************
@@ -318,13 +431,18 @@
 
 	****************************************************************/
 
-	/*
+	/**
 	 * Takes an array of objects, and returns a new object
 	 * using a specific property as keys.
 	 * Useful when you need to look up the associated object
 	 * of a certain property many times.
 	 * Data must be consistent. Key values should be present
 	 * and unique in all objects to return a complete dict
+	 *
+	 * @function DL_.createDictionaryFromArray
+	 * @param {array} array - Array of objects
+	 * @param {string} key - object key to use for dictionary keys
+	 * @returns {object} - Object using key values as keys
 	 */
 	DL_.createDictionaryFromArray = function(array, key) {
 		var dict = {};
@@ -336,13 +454,19 @@
 		return dict;
 	};
 
-	/*
+	/**
 	 * Get object with a certain property from an array of objects
 	 * Returns the first object that matches the criteria.
 	 * Will not return multiple objects.
 	 * If no match is found, returns null.
 	 * If you will need to look this up multiple times, 
 	 * use createDictionary instead.
+	 *
+	 * @function DL_.getObjectWithPropValue
+	 * @param {array} array - Array of objects
+	 * @param {string} key - Key to search
+	 * @param value - value to search for in each key
+	 * @returns {object} - first object with matching key value
 	 */
 	DL_.getObjectWithPropValue = function (array, key, value) {
 		for (var i = 0; i < array.length; i++) {
@@ -353,11 +477,17 @@
 		return null;
 	};
 
-	/*
+	/**
 	 * Get objects with a certain property from an array of objects
 	 * Returns an array of objects that match the criteria.
 	 * If no match is found, returns empty array.
 	 * Good if you have duplicate values
+	 *
+	 * @function DL_.getObjectsWithPropValue
+	 * @param {array} array - Array of objects
+	 * @param {string} key - Key to search
+	 * @param value - value to search for in each key
+	 * @returns {array} - array of objects with matching key value
 	 */
 	DL_.getObjectsWithPropValue = function (array, key, value) {
 		var matches = [];
@@ -685,8 +815,12 @@
 
 	****************************************************************/
 
-	/*
+	/**
 	 * setTimeout with pause, resume, and destroy functions
+	 *
+	 * @constructor
+	 * @param {function} callback - Function to call when timer is complete
+	 * @param {number} delay - Duration the timer should run.
 	 */
 
 	DL_.timer = function(callback, delay) {
@@ -777,11 +911,15 @@
 
 	****************************************************************/
 
-	/*
+	/**
 	 * Vanilla JS image preloading. 
 	 * Feed it an array of image paths, 
 	 * and it will return an array of image 
 	 * elements ready to be appended to the document.
+	 *
+	 * @function DL_.preloadImageArray
+	 * @param {array} imgPaths - Array of image URLs to load
+	 * @returns {array} - Array of image elements
 	 */
     
 	DL_.preloadImageArray = function(imgPaths) {
