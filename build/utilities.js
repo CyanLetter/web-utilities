@@ -12,12 +12,24 @@
 
 (function ( DL_, undefined ) {
 
-	/** @namespace */
+	/** 
+	 * @namespace DL_
+	 * @property {module:AssetManagement} AssetManagement
+	 * @property {module:DataStructures} DataStructures
+	 * @property {module:DateTime} DateTime
+	 * @property {module:Maths} Maths
+	 * @property {module:Parsing} Parsing
+	 * @property {module:Physics} Physics
+	 * @property {module:Polyfills} Polyfills
+	 * @property {module:Randomization} Randomization
+	 * @property {module:TextLayout} TextLayout
+	 * @property {module:Validation} Validation
+	 */
 	DL_ = DL_ || {};
 
 	/**
 	 * A predefined noop, so we can make efficient self destroying functions and such.
-	 * @function DL_.noop
+	 * @function noop
 	 * @example
 	 * var fireOnce = function() {
 	 *   // do something, then redefine self to a noop
@@ -31,13 +43,18 @@
 	PHYSICS
 
 	****************************************************************/
+
+	/**
+	 * Physics module
+	 * @module Physics
+	 */
 	
 	/**
 	 * Generic intersect check with square bounding box.
 	 * Assumes x: 0, y: 0 is the top left corner
 	 * for both objects and the screen
 	 *
-	 * @function DL_.boxIntersect
+	 * @function boxIntersect
 	 * @param {float} aX - The x position of the first object.
 	 * @param {float} aY - The y position of the first object.
 	 * @param {float} aW - The width of the first object.
@@ -76,7 +93,7 @@
 	 * Intersect check with circular boundaries.
 	 * Dependent on anchor point.
 	 *
-	 * @function DL_.circleIntersect
+	 * @function circleIntersect
 	 * @param {float} x1 - The x position of the first object.
 	 * @param {float} y1 - The y position of the first object.
 	 * @param {float} r1 - The radius of the first object.
@@ -112,9 +129,14 @@
 	****************************************************************/
 
 	/**
+	 * Maths and Conversions module
+	 * @module Maths
+	 */
+
+	/**
 	 * Converts RGB color values to a hexadecimal color code.
 	 * 
-	 * @function DL_.rgbToHex
+	 * @function rgbToHex
 	 * @param {integer} r - The red channel value
 	 * @param {integer} g - The green channel value
 	 * @param {integer} b - The blue channel value
@@ -139,7 +161,7 @@
 	 * Converts a hexadecimal color code to an object with RGB values.
 	 * Can take both short (e.g. #F00) and long (e.g. #FF0000) values.
 	 * 
-	 * @function DL_.hexToRgb
+	 * @function hexToRgb
 	 * @param {string} hex - The hex color code to be converted
 	 * @returns {Rgb} The object containing the converted r, g, and b values.
 	 * @example
@@ -171,7 +193,7 @@
 	 * Do not use where accuracy matters.
 	 * Defaults to 2 decimal places.
 	 *
-	 * @function DL_.toSignificant
+	 * @function toSignificant
 	 * @param {number} number - The number to be rounded
 	 * @param {integer} [accuracy=2] - The number of significant digits to round to
 	 * @returns {number} The rounded number.
@@ -190,7 +212,7 @@
 	/**
 	 * Converts a number in degrees to radians.
 	 *
-	 * @function DL_.d2r
+	 * @function d2r
 	 * @param {number} degrees - The number in degrees to be converted.
 	 * @returns {number} The converted value in radians.
 	 * @example
@@ -208,7 +230,7 @@
 	/**
 	 * Converts a number in radians to degrees.
 	 *
-	 * @function DL_.r2d
+	 * @function r2d
 	 * @param {number} radians - The number in radians to be converted.
 	 * @returns {number} The converted number in degrees.
 	 * @example
@@ -231,7 +253,7 @@
 	 * See https://developer.mozilla.org/en-US/docs/Web/Events/timeupdate
 	 * for more details on timeupdate granularity.
 	 *
-	 * @function DL_.roundNearQtr
+	 * @function roundNearQtr
 	 * @param {number} number - The number to be rounded
 	 * @returns {number} The resulting number, rounded to the nearest of .0, .25, .5, or .75
 	 * @example
@@ -254,7 +276,7 @@
 	 * e.g. returns a vector of length 1
 	 * Necessary for functions requiring acos
 	 *
-	 * @function DL_.normalize
+	 * @function normalize
 	 * @param {Vector2} vector - An object containing x and y values
 	 * @returns {Vector2} The resulting normalized x and y values
 	 * @example
@@ -276,7 +298,7 @@
 	 * Dot product of two vectors
 	 * e.g. multiply two vectors to return a scalar number
 	 *
-	 * @function DL_.dot
+	 * @function dot
 	 * @param {Vector2} vectorA - The first vector object containing x and y values
 	 * @param {Vector2} vectorB - The second vector object containing x and y values
 	 * @returns {number} - A single number, the dot product of the two vectors
@@ -298,7 +320,7 @@
 	 * Formulas gathered from http://www.euclideanspace.com/maths/algebra/vectors/angleBetween/
 	 * because I remember none of this from High School.
 	 *
-	 * @function DL_.getSimpleAngle
+	 * @function getSimpleAngle
 	 * @param {Vector2} vectorA - The first vector representing the starting angle
 	 * @param {Vector2} vectorB - The second vector representing the destination angle
 	 * @returns {number} - A single number, from 0 - 180 degrees
@@ -317,7 +339,7 @@
 	 * and amount you would have to rotate
 	 * to reach vector B from vector A
 	 *
-	 * @function DL_.getSignedAngle
+	 * @function getSignedAngle
 	 * @param {Vector2} vectorA - The first vector representing the starting angle
 	 * @param {Vector2} vectorB - The second vector representing the destination angle
 	 * @returns {number} - A single number, from -180 - 180 degrees
@@ -338,7 +360,7 @@
 	 * Angle is given from 12:00 running clockwise,
 	 * so 12:01 is 1deg, and 11:59 is 359deg
 	 *
-	 * @function DL_.getClockAngle
+	 * @function getClockAngle
 	 * @param {number} x - x coordinate
 	 * @param {number} y - y coordinate
 	 * @returns {number} - number from 0 - 360 degrees
@@ -372,7 +394,7 @@
 	 * To find a point on a bezier curve, you need to run this
 	 * for the x and y values individually
 	 *
-	 * @function DL_.getPointOnQuadraticCurve
+	 * @function getPointOnQuadraticCurve
 	 * @param {number} p0 - Start value for curve
 	 * @param {number} p1 - Anchor value for curve
 	 * @param {number} p2 - End value for curve
@@ -396,7 +418,7 @@
 	/**
 	 * Same as quadratic curve, but with two anchor points
 	 *
-	 * @function DL_.getPointOnCubicCurve
+	 * @function getPointOnCubicCurve
 	 * @param {number} p0 - Start value for curve
 	 * @param {number} p1 - Anchor value for start point
 	 * @param {number} p2 - Anchor value for end point
@@ -427,9 +449,14 @@
 
 	/****************************************************************
 
-	DATA STRUCTURE TRAVERSAL
+	DATA STRUCTURES
 
 	****************************************************************/
+	
+	/**
+	 * Data Structure and Traversal module
+	 * @module DataStructures
+	 */
 
 	/**
 	 * Takes an array of objects, and returns a new object
@@ -439,7 +466,7 @@
 	 * Data must be consistent. Key values should be present
 	 * and unique in all objects to return a complete dict
 	 *
-	 * @function DL_.createDictionaryFromArray
+	 * @function createDictionaryFromArray
 	 * @param {array} array - Array of objects
 	 * @param {string} key - object key to use for dictionary keys
 	 * @returns {object} - Object using key values as keys
@@ -462,7 +489,7 @@
 	 * If you will need to look this up multiple times, 
 	 * use createDictionary instead.
 	 *
-	 * @function DL_.getObjectWithPropValue
+	 * @function getObjectWithPropValue
 	 * @param {array} array - Array of objects
 	 * @param {string} key - Key to search
 	 * @param value - value to search for in each key
@@ -483,7 +510,7 @@
 	 * If no match is found, returns empty array.
 	 * Good if you have duplicate values
 	 *
-	 * @function DL_.getObjectsWithPropValue
+	 * @function getObjectsWithPropValue
 	 * @param {array} array - Array of objects
 	 * @param {string} key - Key to search
 	 * @param value - value to search for in each key
@@ -504,6 +531,11 @@
 	RANDOMIZATION
 
 	****************************************************************/
+
+	/**
+	 * Randomization module
+	 * @module Randomization
+	 */
 
 	/*
 	 * Get random item from passed array.
@@ -567,6 +599,11 @@
 	PARSING
 
 	****************************************************************/
+
+	/**
+	 * Parsing module
+	 * @module Parsing
+	 */
 
 	/*  
 	 * get the query string from the uri.
@@ -732,16 +769,27 @@
 
 	****************************************************************/
 
-	/*
+	/**
+	 * Validation module
+	 * @module Validation
+	 */
+
+	/**
 	 * Test for touch capabilities.
+	 *
+	 * @function isTouchDevice
+	 * @returns {boolean}
 	 */
 	DL_.isTouchDevice = function () {
 		try{ document.createEvent("TouchEvent"); return true; }
 		catch(e){ return false; }
 	};
 
-	/*
+	/**
 	 * check if value is an integer
+	 *
+	 * @function isInt
+	 * @returns {boolean}
 	 */
 	DL_.isInt = function (value) {
 		return !isNaN(value) &&
@@ -749,12 +797,15 @@
 				!isNaN(parseInt(value, 10));
 	};
 
-	/*
+	/**
 	 * Checks to see if properties in an object
 	 * contain any content. Use to make sure 
 	 * object structures that are generated
 	 * as empty templates don't pollute your
 	 * data set with blank entries.
+	 *
+	 * @function isObjectEmpty
+	 * @returns {boolean}
 	 */
 	DL_.isObjectEmpty = function (obj) {
 		for(var prop in obj) {
@@ -770,11 +821,19 @@
 	TEXT AND LAYOUT
 
 	****************************************************************/
-	/*
+
+	/**
+	 * Text and Layout module
+	 * @module TextLayout
+	 */
+
+	/**
 	 * takes a jquery selector and inserts a 
 	 * non-breaking space character between 
 	 * the last two words. Useful for headlines.
 	 * Checks for jQuery dependency.
+	 *
+	 * @function preventWidows
 	 */
 
 	DL_.preventWidows = (typeof jQuery === 'undefined') ? DL_.noop : function (selector) {
@@ -788,13 +847,15 @@
 		});    
 	};
 
-	/*
+	/**
 	 * Takes an input, converts to string, and pads with a specified character
 	 * to return a string of appropriate length.
 	 * Mostly useful for adding leading zeroes.
 	 * Don't feed more than one character to the padCharacter.
 	 * It's _such_ a burden to include this here,
 	 * maybe I should use an npm package instead...
+	 *
+	 * @function leftpad
 	 */
 	DL_.leftpad = function (input, totalLength, padCharacter) {
 		input = String(input);
@@ -816,6 +877,11 @@
 	****************************************************************/
 
 	/**
+	 * Date and Time module
+	 * @module DateTime
+	 */
+
+	/**
 	 * setTimeout with pause, resume, and destroy functions
 	 *
 	 * @constructor
@@ -823,7 +889,7 @@
 	 * @param {number} delay - Duration the timer should run.
 	 */
 
-	DL_.timer = function(callback, delay) {
+	DL_.Timer = function(callback, delay) {
 		var timerId, start, remaining = delay;
 
 		this.pause = function() {
@@ -910,6 +976,11 @@
 	ASSET MANAGEMENT
 
 	****************************************************************/
+	
+	/**
+	 * Asset Management module
+	 * @module AssetManagement
+	 */
 
 	/**
 	 * Vanilla JS image preloading. 
@@ -917,7 +988,7 @@
 	 * and it will return an array of image 
 	 * elements ready to be appended to the document.
 	 *
-	 * @function DL_.preloadImageArray
+	 * @function preloadImageArray
 	 * @param {array} imgPaths - Array of image URLs to load
 	 * @returns {array} - Array of image elements
 	 */
@@ -936,6 +1007,11 @@
 	POLYFILLS
 
 	****************************************************************/
+
+	/**
+	 * Polyfills module
+	 * @module Polyfills
+	 */
 
 	/* 
 	 * Run the polyfills you want when initializing a page.

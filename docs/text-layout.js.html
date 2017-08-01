@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: asset-management.js</title>
+    <title>JSDoc: Source: text-layout.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: asset-management.js</h1>
+    <h1 class="page-title">Source: text-layout.js</h1>
 
     
 
@@ -28,33 +28,56 @@
         <article>
             <pre class="prettyprint source linenums"><code>	/****************************************************************
 
-	ASSET MANAGEMENT
+	TEXT AND LAYOUT
 
 	****************************************************************/
-	
+
 	/**
-	 * Asset Management module
-	 * @module AssetManagement
+	 * Text and Layout module
+	 * @module TextLayout
 	 */
 
 	/**
-	 * Vanilla JS image preloading. 
-	 * Feed it an array of image paths, 
-	 * and it will return an array of image 
-	 * elements ready to be appended to the document.
+	 * takes a jquery selector and inserts a 
+	 * non-breaking space character between 
+	 * the last two words. Useful for headlines.
+	 * Checks for jQuery dependency.
 	 *
-	 * @function preloadImageArray
-	 * @param {array} imgPaths - Array of image URLs to load
-	 * @returns {array} - Array of image elements
+	 * @function preventWidows
 	 */
-    
-	DL_.preloadImageArray = function(imgPaths) {
-		var imageArray = [];
-		for (i = 0; i &lt; imgPaths.length; i++) {
-			imageArray[i] = new Image();
-			imageArray[i].src = imgPaths[i];
+
+	DL_.preventWidows = (typeof jQuery === 'undefined') ? DL_.noop : function (selector) {
+		selector.each(function() {
+			var wordArray = jQuery(this).text().split(" ");
+			if (wordArray.length > 1) {
+				wordArray[wordArray.length-2] += "&amp;nbsp;" + wordArray[wordArray.length-1];
+				wordArray.pop();
+				jQuery(this).html(wordArray.join(" "));
+			}
+		});    
+	};
+
+	/**
+	 * Takes an input, converts to string, and pads with a specified character
+	 * to return a string of appropriate length.
+	 * Mostly useful for adding leading zeroes.
+	 * Don't feed more than one character to the padCharacter.
+	 * It's _such_ a burden to include this here,
+	 * maybe I should use an npm package instead...
+	 *
+	 * @function leftpad
+	 */
+	DL_.leftpad = function (input, totalLength, padCharacter) {
+		input = String(input);
+		var i = -1;
+		if (!padCharacter &amp;&amp; padCharacter !== 0) {
+			padCharacter = ' ';
 		}
-		return imageArray;
+		totalLength = totalLength - input.length;
+		while (++i &lt; totalLength) {
+			input = padCharacter + input;
+		}
+		return input;
 	};</code></pre>
         </article>
     </section>

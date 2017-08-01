@@ -5,6 +5,11 @@
 	****************************************************************/
 
 	/**
+	 * Date and Time module
+	 * @module DateTime
+	 */
+
+	/**
 	 * setTimeout with pause, resume, and destroy functions
 	 *
 	 * @constructor
@@ -12,7 +17,7 @@
 	 * @param {number} delay - Duration the timer should run.
 	 */
 
-	DL_.timer = function(callback, delay) {
+	DL_.Timer = function(callback, delay) {
 		var timerId, start, remaining = delay;
 
 		this.pause = function() {

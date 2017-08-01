@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: asset-management.js</title>
+    <title>JSDoc: Source: randomization.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: asset-management.js</h1>
+    <h1 class="page-title">Source: randomization.js</h1>
 
     
 
@@ -28,33 +28,70 @@
         <article>
             <pre class="prettyprint source linenums"><code>	/****************************************************************
 
-	ASSET MANAGEMENT
+	RANDOMIZATION
 
 	****************************************************************/
-	
-	/**
-	 * Asset Management module
-	 * @module AssetManagement
-	 */
 
 	/**
-	 * Vanilla JS image preloading. 
-	 * Feed it an array of image paths, 
-	 * and it will return an array of image 
-	 * elements ready to be appended to the document.
-	 *
-	 * @function preloadImageArray
-	 * @param {array} imgPaths - Array of image URLs to load
-	 * @returns {array} - Array of image elements
+	 * Randomization module
+	 * @module Randomization
 	 */
-    
-	DL_.preloadImageArray = function(imgPaths) {
-		var imageArray = [];
-		for (i = 0; i &lt; imgPaths.length; i++) {
-			imageArray[i] = new Image();
-			imageArray[i].src = imgPaths[i];
+
+	/*
+	 * Get random item from passed array.
+	 * Returns the item itself, not the index.
+	 */
+	DL_.randFromArray = function (array) {
+		return array[Math.floor(Math.random() * array.length)];
+	};
+
+	/*
+	 * Get random item from passed object.
+	 * Returns the object key as a string.
+	 */
+	DL_.randFromObject = function (obj) {
+		var result;
+		var count = 0;
+		for (var prop in obj) {
+			if (Math.random() &lt; 1/++count) {
+				result = prop;
+			}
 		}
-		return imageArray;
+		return result;
+	};
+
+	/*
+	 * Returns a random integer between min (inclusive) and max (inclusive)
+	 * Using Math.round() will give you a non-uniform distribution!
+	 */
+	DL_.getRandomInt = function (min, max) {
+		return Math.floor(Math.random() * (max - min + 1)) + min;
+	};
+
+	/*
+	 * Returns 1 or -1.
+	 */
+	DL_.randPosNeg = function () {
+		return Math.random() >= 0.5 ? 1 : -1;
+	};
+
+	/*
+	 * Basic array randomization function.
+	 * Previously modified the Array prototype
+	 * but I didn't like doing that... so now
+	 * just shuffles the passed array in place.
+	 */
+	DL_.shuffle = function (array){
+		var i = array.length, j, temp;
+		if ( i === 0 ) {
+			return;
+		}
+		while ( --i ) {
+			j = Math.floor( Math.random() * ( i + 1 ) );
+			temp = array[i];
+			array[i] = array[j];
+			array[j] = temp;
+		}
 	};</code></pre>
         </article>
     </section>

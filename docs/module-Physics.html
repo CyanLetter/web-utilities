@@ -29,6 +29,8 @@
 <header>
     
         
+            
+        
     
 </header>
 
@@ -36,6 +38,82 @@
     <div class="container-overview">
     
         
+            <div class="description">Physics module</div>
+        
+
+        
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="physics.js.html">physics.js</a>, <a href="physics.js.html#line7">line 7</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         
     
@@ -47,7 +125,9 @@
 
     
 
-     
+    
+
+    
 
     
 
@@ -61,7 +141,9 @@
 
     
 
+    
     <h4 class="name" id="~boxIntersect"><span class="type-signature">(inner) </span>boxIntersect<span class="signature">(aX, aY, aW, aH, bX, bY, bW, bH)</span><span class="type-signature"> &rarr; {bool}</span></h4>
+    
 
     
 
@@ -324,7 +406,7 @@ for both objects and the screen
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="physics.js.html">physics.js</a>, <a href="physics.js.html#line9">line 9</a>
+        <a href="physics.js.html">physics.js</a>, <a href="physics.js.html#line12">line 12</a>
     </li></ul></dd>
     
 
@@ -350,6 +432,10 @@ for both objects and the screen
 <h5>Returns:</h5>
 
         
+<div class="param-desc">
+    True if there is an intersection.
+</div>
+
 
 
 <dl>
@@ -365,6 +451,315 @@ for both objects and the screen
 </dl>
 
     
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>var rect1 = {
+  x: -2,
+  y: 1,
+  width: 5,
+  height: 5
+};
+var rect2 = {
+  x: 2,
+  y: 4,
+  width: 10,
+  height: 18
+};
+// returns true
+DL_.boxIntersect(rect1.x, rect1.y, rect1.width, rect1.height, rect2.x, rect2.y, rect2.width, rect2.height);</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~circleIntersect"><span class="type-signature">(inner) </span>circleIntersect<span class="signature">(x1, y1, r1, x2, y2, r2)</span><span class="type-signature"> &rarr; {bool}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Intersect check with circular boundaries.
+Dependent on anchor point.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>x1</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">float</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The x position of the first object.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>y1</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">float</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The y position of the first object.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>r1</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">float</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The radius of the first object.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>x2</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">float</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The x position of the second object.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>y2</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">float</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The y position of the second object.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>r2</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">float</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The radius of the second object.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="physics.js.html">physics.js</a>, <a href="physics.js.html#line52">line 52</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    True if there is an intersection.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">bool</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>var circ1 = {
+  x: 1,
+  y: 3,
+  radius: 12
+};
+var circ2 = {
+  x: -4,
+  y: 0,
+  radius: 1
+};
+// returns true
+DL_.circleIntersect(circ1.x, circ1.y, circ1.radius, circ2.x, circ2.y, circ2.radius);</code></pre>
 
 
 
@@ -384,13 +779,13 @@ for both objects and the screen
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Physics.html">Physics</a></li></ul><h3>Global</h3><ul><li><a href="global.html#noop">noop</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-AssetManagement.html">AssetManagement</a></li><li><a href="module-DataStructures.html">DataStructures</a></li><li><a href="module-DateTime.html">DateTime</a></li><li><a href="module-Maths.html">Maths</a></li><li><a href="module-Parsing.html">Parsing</a></li><li><a href="module-Physics.html">Physics</a></li><li><a href="module-Polyfills.html">Polyfills</a></li><li><a href="module-Randomization.html">Randomization</a></li><li><a href="module-TextLayout.html">TextLayout</a></li><li><a href="module-Validation.html">Validation</a></li></ul><h3>Classes</h3><ul><li><a href="module-DateTime-DL_.Timer.html">Timer</a></li></ul><h3>Namespaces</h3><ul><li><a href="DL_.html">DL_</a></li></ul><h3>Global</h3><ul><li><a href="global.html#noop">noop</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Sun Jul 17 2016 22:23:09 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.3</a> on Tue Aug 01 2017 01:48:59 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>

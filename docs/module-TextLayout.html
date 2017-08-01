@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Global</title>
+    <title>JSDoc: Module: TextLayout</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Global</h1>
+    <h1 class="page-title">Module: TextLayout</h1>
 
     
 
@@ -28,7 +28,8 @@
 
 <header>
     
-        <h2></h2>
+        
+            
         
     
 </header>
@@ -37,8 +38,24 @@
     <div class="container-overview">
     
         
+            <div class="description">Text and Layout module</div>
+        
 
         
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <dl class="details">
@@ -68,6 +85,11 @@
     
 
     
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="text-layout.js.html">text-layout.js</a>, <a href="text-layout.js.html#line7">line 7</a>
+    </li></ul></dd>
+    
 
     
 
@@ -75,6 +97,22 @@
 
     
 </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         
@@ -104,7 +142,7 @@
     
 
     
-    <h4 class="name" id="noop"><span class="type-signature"></span>noop<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~leftpad"><span class="type-signature">(inner) </span>leftpad<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -112,7 +150,12 @@
 
 
 <div class="description">
-    A predefined noop, so we can make efficient self destroying functions and such.
+    Takes an input, converts to string, and pads with a specified character
+to return a string of appropriate length.
+Mostly useful for adding leading zeroes.
+Don't feed more than one character to the padCharacter.
+It's _such_ a burden to include this here,
+maybe I should use an npm package instead...
 </div>
 
 
@@ -156,7 +199,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="setup.js.html">setup.js</a>, <a href="setup.js.html#line16">line 16</a>
+        <a href="text-layout.js.html">text-layout.js</a>, <a href="text-layout.js.html#line32">line 32</a>
     </li></ul></dd>
     
 
@@ -183,12 +226,93 @@
 
 
 
-    <h5>Example</h5>
+
+        
+            
+
     
-    <pre class="prettyprint"><code>var fireOnce = function() {
-  // do something, then redefine self to a noop
-  fireOnce = DL_.noop;
-}</code></pre>
+
+    
+    <h4 class="name" id="~preventWidows"><span class="type-signature">(inner) </span>preventWidows<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    takes a jquery selector and inserts a 
+non-breaking space character between 
+the last two words. Useful for headlines.
+Checks for jQuery dependency.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="text-layout.js.html">text-layout.js</a>, <a href="text-layout.js.html#line12">line 12</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
