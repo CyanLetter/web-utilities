@@ -36,7 +36,7 @@ MATHS AND CONVERSIONS
 
 // Maths and conversions section
 
-describe("A set of conversions", function(){
+describe("A set of math and conversion functions", function(){
 	it ("returns a hex string given an rgb input", function() {
 		expect(DL_.rgbToHex(255, 51, 153)).toBe("#ff3399"); // raging magenta, my favorite color
 		expect(DL_.rgbToHex(42, 215, 252)).toBe("#2ad7fc");
@@ -64,7 +64,9 @@ describe("A set of conversions", function(){
 	});
 
 	it ("returns the normalized value of two vectors", function(){
+		expect(DL_.normalize({x: 0, y: 0})).toEqual({x: 0, y: 0});
 		expect(DL_.normalize({x: 0, y: 1})).toEqual({x: 0, y: 1});
+		expect(DL_.normalize({x: 1, y: -1})).not.toEqual({x: 0, y: 0});
 		expect(DL_.normalize({x: 50, y: 0})).toEqual({x: 1, y: 0});
 	});
 
@@ -78,6 +80,25 @@ describe("A set of conversions", function(){
 
 	it ("returns the signed angle difference between two vectors", function(){
 		expect(DL_.getSignedAngle({x: 1, y: 0}, {x: 0, y: 1})).toBe(-90);
+	});
+
+	it ("returns an angle based on the position from center", function(){
+		expect(DL_.getClockAngle(0, -1)).toBe(0);
+		expect(DL_.getClockAngle(0, 1)).toBe(180);
+		expect(DL_.getClockAngle(-1, 1)).toBe(225);
+	});
+
+	it ("returns the value a certain period along a quadratic curve", function(){
+		expect(DL_.getPointOnQuadraticCurve(0, 99, -25, 0)).toBe(0);
+		expect(DL_.getPointOnQuadraticCurve(0, 1, 2, 0.5)).toBe(1);
+		expect(DL_.getPointOnQuadraticCurve(0, 1, 2, -0.5)).toBe(-1);
+		expect(DL_.getPointOnQuadraticCurve(0, 15, 2, 0.75)).toBe(6.75);
+	});
+
+	it ("returns the value a certain period along a cubic curve", function(){
+		expect(DL_.getPointOnCubicCurve(0, 1, 2, 3, 0)).toBe(0);
+		expect(DL_.getPointOnCubicCurve(0, 1, 2, 3, 0.5)).toBe(1.5);
+		expect(DL_.getPointOnCubicCurve(-5, 10, -10, 0, 0.5)).toBe(-0.625);
 	});
 });
 
