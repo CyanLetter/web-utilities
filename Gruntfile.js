@@ -101,5 +101,5 @@ module.exports = function(grunt) {
 	grunt.registerTask('dev', ['concat', 'jshint:dist']);
 	grunt.registerTask('build', ['concat', 'jshint:dist', 'uglify', 'jsdoc']);
 	grunt.registerTask('test', ['concat', 'jshint:dist', 'jasmine:all']);
-	grunt.registerTask('coverage', ['concat', 'jshint:dist', 'jasmine:istanbul', 'codeclimate:main']);
+	grunt.registerTask('test-coverage', ['concat', 'jshint:dist', 'jasmine:istanbul', 'codeclimate:main']);
 };

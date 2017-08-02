@@ -4,4 +4,4 @@ node_js:
 before_script:
  - npm install -g grunt
  - npm install -g phantomjs
-script: grunt test
+script: grunt test-coverage
