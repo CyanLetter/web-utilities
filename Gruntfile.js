@@ -70,9 +70,9 @@ module.exports = function(grunt) {
 					page: '<%= jasmine.all.options.page %>',
 					template: require('grunt-template-jasmine-istanbul'),
 					templateOptions: {
-						coverage: 'coverage/json/coverage.json',
+						coverage: 'coverage/coverage.json',
 						report: [
-							{type: 'html', options: {dir: 'coverage/html'}},
+							{type: 'lcov', options: {dir: 'coverage/lcov'}},
 							{type: 'text-summary'}
 						]
 					}
