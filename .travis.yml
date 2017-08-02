@@ -4,4 +4,8 @@ node_js:
 before_script:
  - npm install -g grunt
  - npm install -g phantomjs
-script: grunt test
+install:
+ - npm install -g codecov
+script: 
+ - grunt coverage
+ - codecov
