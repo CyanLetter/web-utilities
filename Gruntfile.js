@@ -78,6 +78,15 @@ module.exports = function(grunt) {
 					}
 				}
 			}
+		},
+		codeclimate: {
+			main: {
+				options: {
+					file: 'coverage/lcov/lcov.info',
+					token: 'd95820f6b0a57160db67284f73308ddfe256c6ed046e30bc607889634b92d873',
+					executable: 'node_modules/.bin/codeclimate-test-reporter'
+				}
+			}
 		}
 	});
 
@@ -85,11 +94,12 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-jasmine');
+	grunt.loadNpmTasks('grunt-codeclimate-reporter');
 	grunt.loadNpmTasks('grunt-jsdoc');
 
 	grunt.registerTask('default', ['concat', 'jshint:dist', 'uglify', 'jsdoc']);
 	grunt.registerTask('dev', ['concat', 'jshint:dist']);
 	grunt.registerTask('build', ['concat', 'jshint:dist', 'uglify', 'jsdoc']);
 	grunt.registerTask('test', ['concat', 'jshint:dist', 'jasmine:all']);
-	grunt.registerTask('coverage', ['concat', 'jshint:dist', 'jasmine:istanbul']);
+	grunt.registerTask('coverage', ['concat', 'jshint:dist', 'jasmine:istanbul', 'codeclimate:main']);
 };
