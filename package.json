@@ -1,6 +1,6 @@
 {
   "name": "dl-web-utilities",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "An assorted set of javascript functions useful in frontend web development",
   "main": "build/utilities.js",
   "scripts": {
