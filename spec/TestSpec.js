@@ -273,8 +273,13 @@ PARSING
 
 // substrings and such from various other parts of the envinronment.
 
-describe("a set of functions for parsing information from strings", function(){
+describe("a test of window.location without jasmine spies", function(){
+	it ("Tests the location search function without a Jasmine spy", function(){
+		expect(DL_.getLocationSearch()).toBe("");
+	});
+});
 
+describe("a set of functions for parsing information from strings", function(){
 
 	beforeEach(function(){
 		spyOn(DL_, "getLocationSearch").and.returnValue("?v=153&nice=very&pterosaur=pleaseno");
@@ -282,7 +287,7 @@ describe("a set of functions for parsing information from strings", function(){
 	});
 
 	it ("Returns the search query from window.location", function(){
-		// This is really just capturing the jasmine spy, but still...
+		// This is really just capturing the jasmine spy
 		expect(DL_.getLocationSearch()).toBe("?v=153&nice=very&pterosaur=pleaseno");
 	});
 

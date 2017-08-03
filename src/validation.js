@@ -11,13 +11,14 @@
 
 	/**
 	 * Test for touch capabilities.
+	 * Yes this has issues and false positives.
+	 * But it's good enough for most situations.
 	 *
 	 * @function isTouchDevice
 	 * @returns {boolean}
 	 */
 	DL_.isTouchDevice = function () {
-		try{ document.createEvent("TouchEvent"); return true; }
-		catch(e){ return false; }
+		return (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0));
 	};
 
 	/**
