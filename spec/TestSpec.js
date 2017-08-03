@@ -47,6 +47,12 @@ describe("A set of math and conversion functions", function(){
 		expect(DL_.hexToRgb("#2ad7fc")).toEqual({r: 42, g: 215, b: 252});
 	});
 
+	it ("expands a shorthand hex color code to a six character code", function(){
+		var regex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+		var hex = "#03F".replace(regex, DL_.expandHexShorthand);
+		expect(hex).toBe("0033FF");
+	});
+
 	it ("returns a number rounded to two significant digits", function(){
 		expect(DL_.toSignificant(5.23985769)).toBe(5.24);
 	});
@@ -85,7 +91,10 @@ describe("A set of math and conversion functions", function(){
 	it ("returns an angle based on the position from center", function(){
 		expect(DL_.getClockAngle(0, -1)).toBe(0);
 		expect(DL_.getClockAngle(0, 1)).toBe(180);
+		expect(DL_.getClockAngle(1, -1)).toBe(45);
+		expect(DL_.getClockAngle(1, 1)).toBe(135);
 		expect(DL_.getClockAngle(-1, 1)).toBe(225);
+		expect(DL_.getClockAngle(-1, -1)).toBe(315);
 	});
 
 	it ("returns the value a certain period along a quadratic curve", function(){
@@ -155,6 +164,8 @@ describe("A set of helpers for traversing data structures", function(){
 			cats: false,
 			dogs: true
 		});
+		expect(DL_.getObjectWithPropValue(testingArray, "name", "Brent")).toBe(null);
+		expect(DL_.getObjectWithPropValue(testingArray, "fish", true)).toBe(null);
 	});
 
 	it ("Gets all objects in an array containing the given property and value", function(){
@@ -244,10 +255,13 @@ describe("A set of functions to randomize or return randomized things", function
 	});
 
 	it ("shuffles an array in place", function(){
+		var emptyArray = [];
 		var controlArray = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
 		var shuffleArray = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
 		DL_.shuffle(shuffleArray);
+		DL_.shuffle(emptyArray);
 		expect(shuffleArray).not.toEqual(controlArray);
+		expect(emptyArray).toEqual([]);
 	});
 });
 
@@ -274,6 +288,7 @@ describe("a set of functions for parsing information from strings", function(){
 
 	it ("Returns a variable from a query string in the URI", function(){
 		expect(DL_.getQueryVariable("nice")).toBe("very");
+		expect(DL_.getQueryVariable("puddingpop")).toBe(null);
 	});
 
 	it ("Returns true due to the user agent reflecting an iDevice", function(){
@@ -304,6 +319,8 @@ describe("a set of functions for parsing information from strings", function(){
 		};
 		var testingObjectString = JSON.stringify(testingObject);
 		var testingString = "(((paren-theses ((hell)))))";
+		var mismatchedParens = "(((does (not)) fully close )";
+		var testingNumber = 12345654321;
 
 		var resultOne = {
 			"start": 1,
@@ -324,6 +341,10 @@ describe("a set of functions for parsing information from strings", function(){
 
 		expect(DL_.getBracketedContent(testingObject, 0).contents).toBe(testingObjectString);
 		expect(DL_.getBracketedContent(testingObject, 0, {openChar: "[", closeChar: "]", inclusive: false}).contents).toBe('"Nimbus","Itches","Two Wolves"');
+		expect(DL_.getBracketedContent(testingObject, {index:0}).error).toBe("Index [object Object] must be of type string or number");
+
+		expect(DL_.getBracketedContent(mismatchedParens, 0, {openChar: "(", closeChar: ")"}).error).toBe("Could not find complete matching bracket set");
+		expect(DL_.getBracketedContent(testingNumber, 0).error).toBe("Data must be an object or a string!");
 		
 	});
 	
@@ -477,12 +498,14 @@ describe ("A test suite for some functions related to the more temporal aspects 
 
 	it ("Returns a date string in a sane, custom format", function(){
 		var testDate = new Date(1991, 6, 10, 14, 23);
+		var midnight = new Date(2000, 0, 0, 0, 0);
 		expect(testDate.getFullYear()).toBe(1991);
 		expect(DL_.customDate("#YYYY#")).not.toBe("1991");
 		expect(DL_.customDate("#MM#-#DD#-#YY#", testDate)).toBe("07-10-91");
 		expect(DL_.customDate("Party like it's #YYYY#", testDate)).toBe("Party like it's 1991");
 		expect(DL_.customDate("#MMM# #D#, #YYYY#", testDate)).toBe("Jul 10, 1991");
 		expect(DL_.customDate("#h#:#m##ampm#", testDate)).toBe("2:23pm");
+		expect(DL_.customDate("#hh#:#mm##ampm#", midnight)).toBe("12:00am");
 	});
 });
 

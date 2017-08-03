@@ -102,7 +102,7 @@
 			firstIndex = data.indexOf(start);
 		} else {
 			// this is invalid, exit
-			results.error = "Index " + index + " must be of type string or number";
+			results.error = "Index " + start + " must be of type string or number";
 			console.error(results.error);
 			return results;
 		}

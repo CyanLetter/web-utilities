@@ -173,11 +173,9 @@
 	 * // }
 	 */
 	DL_.hexToRgb = function (hex) {
-		// Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+		// Expand shorthand form
 		var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-		hex = hex.replace(shorthandRegex, function(match, r, g, b) {
-			return r + r + g + g + b + b;
-		});
+		hex = hex.replace(shorthandRegex, DL_.expandHexShorthand);
 
 		var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
 		return result ? {
@@ -185,6 +183,26 @@
 			g: parseInt(result[2], 16),
 			b: parseInt(result[3], 16)
 		} : null;
+	};
+
+	/**
+	 * Replacement function for regex to expand
+	 * shorthand hex form (e.g. "03F") to full form (e.g. "0033FF").
+	 * Used by DL_.hexToRgb.
+	 * 
+	 * @function expandHexShorthand
+	 * @param {string} match - The regex match
+	 * @param {string} r - First capture group
+	 * @param {string} g - Second capture group
+	 * @param {string} b - Third capture group
+	 * @returns {string} The expanded, six character hex value.
+	 * @example
+	 * var regex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+	 * var hex = "#03F".replace(regex, DL_.expandHexShorthand);
+	 * // hex === "0033FF";
+	 */
+	DL_.expandHexShorthand = function(match, r, g, b) {
+		return r + r + g + g + b + b;
 	};
 
 	/**
@@ -698,7 +716,7 @@
 			firstIndex = data.indexOf(start);
 		} else {
 			// this is invalid, exit
-			results.error = "Index " + index + " must be of type string or number";
+			results.error = "Index " + start + " must be of type string or number";
 			console.error(results.error);
 			return results;
 		}
