@@ -49,7 +49,36 @@ module.exports = function(grunt) {
 				options: {
 					config: {
 						app: {
-							title: 'DL_ Docs'
+							title: 'DL_ Documentation',
+							server: 'github'
+						},
+						template: {
+							options: {
+								navbar: true,
+								navItems: [
+									{
+										label: "Documentation",
+										href: "#",
+										iconClass: "ico-book"
+									},
+									{
+										label: "Download",
+										iconClass: "ico-md ico-download",
+										items: [
+											{
+												label: "v1.0.0",
+												href: "https://github.com/CyanLetter/web-utilities/releases/download/1.0.0/utilities.min.js"
+											}
+										]
+									},
+									{
+										label: "GitHub",
+										href: "https://github.com/CyanLetter/web-utilities/",
+										target: "_blank",
+										iconClass: "ico-md ico-github"
+									}
+								]
+							}
 						}
 					}
 				},
