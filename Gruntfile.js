@@ -37,14 +37,37 @@ module.exports = function(grunt) {
 				}
 			}
 		},
-		jsdoc: {
-			dist: {
-				src: ['src/**/*.js', '!src/intro.js', '!src/outro.js'],
-				options: {
-					'destination': 'docs',
-					'template' : "node_modules/ink-docstrap/template",
-					'configure' : "jsdoc.conf.json"
+		docma: {
+			options: {
+				config: {
+					jsdoc: {
+						sort: false
+					}
 				}
+			},
+			all: {
+				options: {
+					config: {
+						app: {
+							title: 'DL_ Docs'
+						}
+					}
+				},
+				debug: true,
+				src: [
+					'src/setup.js',
+					'src/physics.js',
+					'src/maths.js',
+					'src/data-structures.js',
+					'src/randomization.js',
+					'src/parsing.js',
+					'src/validation.js',
+					'src/text-layout.js',
+					'src/date-time.js',
+					'src/asset-management.js',
+					'src/polyfills.js'
+				],
+				dest: './docs'
 			}
 		},
 		jasmine: {
@@ -95,11 +118,12 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-jasmine');
 	grunt.loadNpmTasks('grunt-codeclimate-reporter');
-	grunt.loadNpmTasks('grunt-jsdoc');
+	grunt.loadNpmTasks('grunt-docma');
 
-	grunt.registerTask('default', ['concat', 'jshint:dist', 'uglify', 'jsdoc']);
+	grunt.registerTask('default', ['concat', 'jshint:dist', 'uglify', 'docma:all']);
 	grunt.registerTask('dev', ['concat', 'jshint:dist']);
-	grunt.registerTask('build', ['concat', 'jshint:dist', 'uglify', 'jsdoc']);
+	grunt.registerTask('build', ['concat', 'jshint:dist', 'uglify', 'docma:all']);
+	grunt.registerTask('docs', ['docma:all']);
 	grunt.registerTask('test', ['concat', 'jshint:dist', 'jasmine:all']);
 	grunt.registerTask('test-coverage', ['concat', 'jshint:dist', 'jasmine:istanbul', 'codeclimate:main']);
 };

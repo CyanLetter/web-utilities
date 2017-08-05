@@ -3,11 +3,6 @@
 	DATA STRUCTURES
 
 	****************************************************************/
-	
-	/**
-	 * Data Structure and Traversal module
-	 * @module DataStructures
-	 */
 
 	/**
 	 * Takes an array of objects, and returns a new object
@@ -17,7 +12,7 @@
 	 * Data must be consistent. Key values should be present
 	 * and unique in all objects to return a complete dict
 	 *
-	 * @function createDictionaryFromArray
+	 * @function DL_.createDictionaryFromArray
 	 * @param {array} array - Array of objects
 	 * @param {string} key - object key to use for dictionary keys
 	 * @returns {object} - Object using key values as keys
@@ -40,7 +35,7 @@
 	 * If you will need to look this up multiple times, 
 	 * use createDictionary instead.
 	 *
-	 * @function getObjectWithPropValue
+	 * @function DL_.getObjectWithPropValue
 	 * @param {array} array - Array of objects
 	 * @param {string} key - Key to search
 	 * @param value - value to search for in each key
@@ -61,7 +56,7 @@
 	 * If no match is found, returns empty array.
 	 * Good if you have duplicate values
 	 *
-	 * @function getObjectsWithPropValue
+	 * @function DL_.getObjectsWithPropValue
 	 * @param {array} array - Array of objects
 	 * @param {string} key - Key to search
 	 * @param value - value to search for in each key

@@ -4,11 +4,6 @@
 
 	****************************************************************/
 
-	/**
-	 * Polyfills module
-	 * @module Polyfills
-	 */
-
 	/* 
 	 * Run the polyfills you want when initializing a page.
 	 */

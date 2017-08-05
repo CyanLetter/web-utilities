@@ -5,14 +5,9 @@
 	****************************************************************/
 
 	/**
-	 * Date and Time module
-	 * @module DateTime
-	 */
-
-	/**
 	 * setTimeout with pause, resume, and destroy functions
 	 *
-	 * @constructor
+	 * @constructor DL_.Timer
 	 * @param {function} callback - Function to call when timer is complete
 	 * @param {number} delay - Duration the timer should run.
 	 */

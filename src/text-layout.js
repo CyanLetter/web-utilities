@@ -3,19 +3,14 @@
 	TEXT AND LAYOUT
 
 	****************************************************************/
-
-	/**
-	 * Text and Layout module
-	 * @module TextLayout
-	 */
-
+	
 	/**
 	 * takes a jquery selector and inserts a 
 	 * non-breaking space character between 
 	 * the last two words. Useful for headlines.
 	 * Checks for jQuery dependency.
 	 *
-	 * @function preventWidows
+	 * @function DL_.preventWidows
 	 */
 
 	DL_.preventWidows = (typeof jQuery === 'undefined') ? DL_.noop : function (selector) {
@@ -37,7 +32,7 @@
 	 * It's _such_ a burden to include this here,
 	 * maybe I should use an npm package instead...
 	 *
-	 * @function leftpad
+	 * @function DL_.leftpad
 	 */
 	DL_.leftpad = function (input, totalLength, padCharacter) {
 		input = String(input);
