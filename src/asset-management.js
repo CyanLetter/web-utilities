@@ -3,11 +3,6 @@
 	ASSET MANAGEMENT
 
 	****************************************************************/
-	
-	/**
-	 * Asset Management module
-	 * @module AssetManagement
-	 */
 
 	/**
 	 * Vanilla JS image preloading. 
@@ -15,7 +10,7 @@
 	 * and it will return an array of image 
 	 * elements ready to be appended to the document.
 	 *
-	 * @function preloadImageArray
+	 * @function DL_.preloadImageArray
 	 * @param {array} imgPaths - Array of image URLs to load
 	 * @returns {array} - Array of image elements
 	 */

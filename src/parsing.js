@@ -4,21 +4,18 @@
 
 	****************************************************************/
 
-	/**
-	 * Parsing module
-	 * @module Parsing
-	 */
-
-	/*  
+	/** 
 	 * get the query string from the uri.
 	 * Mostly added so we can override for unit testing.
 	 * Substring is to drop the ? from the beginning.
+	 *
+	 * @function DL_.getLocationSearch
 	 */
 	DL_.getLocationSearch = function() {
 		return window.location.search.substring(1);
 	};
 
-	/*  
+	/**  
 	 * get variable from query string
 	 * so running getQueryVariable('dest') on
 	 * www.mysite.com/default.aspx?dest=aboutus.aspx
@@ -37,7 +34,7 @@
 		return null;
 	};
 
-	/*
+	/**
 	 * User Agent Sniffing method of mobile detection. Gross.
 	 * Last Jan 11, 2016
 	 * from https://gist.github.com/dalethedeveloper/1503252
@@ -52,7 +49,7 @@
 		return check; 
 	};
 
-	/*
+	/**
 	 * Get file type from extension. 
 	 * Removes query strings that come 
 	 * after the file request as well. 
@@ -65,7 +62,7 @@
 		return fileType;
 	};
 
-	/*
+	/**
 	 * Get the contents of a function body
 	 * or other bracketed content, based off of 
 	 * an index or search string.

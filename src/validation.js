@@ -5,16 +5,11 @@
 	****************************************************************/
 
 	/**
-	 * Validation module
-	 * @module Validation
-	 */
-
-	/**
 	 * Test for touch capabilities.
 	 * Yes this has issues and false positives.
 	 * But it's good enough for most situations.
 	 *
-	 * @function isTouchDevice
+	 * @function DL_.isTouchDevice
 	 * @returns {boolean}
 	 */
 	DL_.isTouchDevice = function () {
@@ -24,7 +19,7 @@
 	/**
 	 * check if value is an integer
 	 *
-	 * @function isInt
+	 * @function DL_.isInt
 	 * @returns {boolean}
 	 */
 	DL_.isInt = function (value) {
@@ -40,7 +35,7 @@
 	 * as empty templates don't pollute your
 	 * data set with blank entries.
 	 *
-	 * @function isObjectEmpty
+	 * @function DL_.isObjectEmpty
 	 * @returns {boolean}
 	 */
 	DL_.isObjectEmpty = function (obj) {

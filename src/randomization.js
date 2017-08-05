@@ -4,11 +4,6 @@
 
 	****************************************************************/
 
-	/**
-	 * Randomization module
-	 * @module Randomization
-	 */
-
 	/*
 	 * Get random item from passed array.
 	 * Returns the item itself, not the index.
