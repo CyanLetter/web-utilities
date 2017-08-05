@@ -1,0 +1,15 @@
+engines:
+  eslint:
+    enabled: true
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - javascript:
+ratings:
+  paths:
+  - 'build/utilities.js'
+exclude_paths:
+- 'docs/**'
+- 'spec/**'
+- 'src/**'

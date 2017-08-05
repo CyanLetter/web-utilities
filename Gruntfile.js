@@ -97,7 +97,8 @@ module.exports = function(grunt) {
 						report: [
 							{type: 'lcov', options: {dir: 'coverage/lcov'}},
 							{type: 'text-summary'}
-						]
+						],
+						files: '<%= jasmine.all.src %>'
 					}
 				}
 			}
