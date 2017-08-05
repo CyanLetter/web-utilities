@@ -50,6 +50,7 @@ module.exports = function(grunt) {
 					config: {
 						app: {
 							title: 'DL_ Documentation',
+							base: '/docs',
 							server: 'github'
 						},
 						template: {
