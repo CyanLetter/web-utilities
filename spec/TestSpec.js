@@ -372,7 +372,9 @@ describe("A set of functions for validating input and capabilities", function(){
 
 	it ("Returns whether a value is an integer", function(){
 		expect(DL_.isInt(42)).toBe(true);
+		expect(DL_.isInt("42")).toBe(true);
 		expect(DL_.isInt(42.00000001)).toBe(false);
+		expect(DL_.isInt("42.5")).toBe(false);
 		expect(DL_.isInt("Forty Two")).toBe(false);
 		expect(DL_.isInt(NaN)).toBe(false);
 		expect(DL_.isInt(true)).toBe(false);
