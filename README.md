@@ -6,6 +6,12 @@ This is a collection of utility functions that I have found helpful to have on h
 
 This has also served as my go-to project for learning how to implement things like build automation, unit testing, and documentation generation.
 
+## Documentation
+
+Documentation can be found at [cyanletter.github.io/web-utilities/](http://cyanletter.github.io/web-utilities/)
+
+Generated with [Docma](https://github.com/onury/docma/)
+
 ## Usage
 
 Include one of the files located in the `build` folder in your site, e.g.
