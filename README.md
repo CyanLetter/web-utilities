@@ -1,6 +1,8 @@
 # DL_ Web Utilities
 
-![travis-ci](https://travis-ci.org/CyanLetter/web-utilities.svg?branch=master) [![Test Coverage](https://codeclimate.com/github/CyanLetter/web-utilities/badges/coverage.svg)](https://codeclimate.com/github/CyanLetter/web-utilities/coverage)
+![travis-ci](https://travis-ci.org/CyanLetter/web-utilities.svg?branch=master) 
+[![Test Coverage](https://codeclimate.com/github/CyanLetter/web-utilities/badges/coverage.svg)](https://codeclimate.com/github/CyanLetter/web-utilities/coverage)
+[![Inline docs](http://inch-ci.org/github/CyanLetter/web-utilities.svg?branch=master)](http://inch-ci.org/github/CyanLetter/web-utilities)
 
 This is a collection of utility functions that I have found helpful to have on hand. Some of these, like collision testing, are useful for games. Some are helpful for working with javascript in general.
 
