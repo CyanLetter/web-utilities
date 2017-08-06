@@ -45,6 +45,30 @@ module.exports = function(grunt) {
 					}
 				}
 			},
+			local: {
+				options: {
+					config: {
+						app: {
+							title: 'Local Documentation'
+						}
+					}
+				},
+				debug: true,
+				src: [
+					'src/setup.js',
+					'src/physics.js',
+					'src/maths.js',
+					'src/data-structures.js',
+					'src/randomization.js',
+					'src/parsing.js',
+					'src/validation.js',
+					'src/text-layout.js',
+					'src/date-time.js',
+					'src/asset-management.js',
+					'src/polyfills.js'
+				],
+				dest: './docs'
+			},
 			all: {
 				options: {
 					config: {
@@ -83,7 +107,7 @@ module.exports = function(grunt) {
 						}
 					}
 				},
-				debug: true,
+				debug: false,
 				src: [
 					'src/setup.js',
 					'src/physics.js',
@@ -155,6 +179,7 @@ module.exports = function(grunt) {
 	grunt.registerTask('dev', ['concat', 'jshint:dist']);
 	grunt.registerTask('build', ['concat', 'jshint:dist', 'uglify', 'docma:all']);
 	grunt.registerTask('docs', ['docma:all']);
+	grunt.registerTask('localdocs', ['docma:local']);
 	grunt.registerTask('test', ['concat', 'jshint:dist', 'jasmine:all']);
 	grunt.registerTask('test-coverage', ['concat', 'jshint:dist', 'jasmine:istanbul', 'codeclimate:main']);
 };
