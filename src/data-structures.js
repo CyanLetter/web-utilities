@@ -12,10 +12,21 @@
 	 * Data must be consistent. Key values should be present
 	 * and unique in all objects to return a complete dict
 	 *
-	 * @function DL_.createDictionaryFromArray
+	 * @function createDictionaryFromArray
 	 * @param {array} array - Array of objects
 	 * @param {string} key - object key to use for dictionary keys
 	 * @returns {object} - Object using key values as keys
+	 *
+	 * @example
+	 * var people = [
+	 * 		{name: "Terrence", cats: true},
+	 * 		{name: "Mina", cats: false}
+	 * ];
+	 * var peopleDict = DL_.createDictionaryFromArray(people, "name");
+	 * // peopleDict === {
+	 * //	"Terrence" : {name: "Terrence", cats: true},
+	 * //	"Mina" : {name: "Mina", cats: false}
+	 * // }
 	 */
 	DL_.createDictionaryFromArray = function(array, key) {
 		var dict = {};
@@ -35,11 +46,19 @@
 	 * If you will need to look this up multiple times, 
 	 * use createDictionary instead.
 	 *
-	 * @function DL_.getObjectWithPropValue
+	 * @function getObjectWithPropValue
 	 * @param {array} array - Array of objects
 	 * @param {string} key - Key to search
 	 * @param value - value to search for in each key
 	 * @returns {object} - first object with matching key value
+	 *
+	 * @example
+	 * var people = [
+	 * 		{name: "Terrence", cats: true},
+	 * 		{name: "Mina", cats: false}
+	 * ];
+	 * var catPerson = DL_.getObjectWithPropValue(people, "cats", true);
+	 * // catPerson === {name: "Mina", cats: false};
 	 */
 	DL_.getObjectWithPropValue = function (array, key, value) {
 		for (var i = 0; i < array.length; i++) {
@@ -56,11 +75,19 @@
 	 * If no match is found, returns empty array.
 	 * Good if you have duplicate values
 	 *
-	 * @function DL_.getObjectsWithPropValue
+	 * @function getObjectsWithPropValue
 	 * @param {array} array - Array of objects
 	 * @param {string} key - Key to search
 	 * @param value - value to search for in each key
 	 * @returns {array} - array of objects with matching key value
+	 *
+	 * @example
+	 * var people = [
+	 * 		{name: "Terrence", cats: true},
+	 * 		{name: "Mina", cats: false}
+	 * ];
+	 * var catPeople = DL_.getObjectsWithPropValue(people, "cats", true);
+	 * // catPeople === [{name: "Mina", cats: false}];
 	 */
 	DL_.getObjectsWithPropValue = function (array, key, value) {
 		var matches = [];

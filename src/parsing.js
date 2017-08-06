@@ -5,22 +5,33 @@
 	****************************************************************/
 
 	/** 
-	 * get the query string from the uri.
+	 * get the query string from the uri. Used by DL_.getQueryVariable.
 	 * Mostly added so we can override for unit testing.
 	 * Substring is to drop the ? from the beginning.
 	 *
-	 * @function DL_.getLocationSearch
+	 * @function getLocationSearch
+	 * @returns {string} the full query string
+	 *
+	 * @example
+	 * //www.example.com/default.aspx?dest=aboutus.aspx
+	 * var queryString = DL_.getLocationSearch();
+	 * // "dest=aboutus.aspx"
 	 */
 	DL_.getLocationSearch = function() {
 		return window.location.search.substring(1);
 	};
 
 	/**  
-	 * get variable from query string
-	 * so running getQueryVariable('dest') on
-	 * www.mysite.com/default.aspx?dest=aboutus.aspx
-	 * would return
-	 * "aboutus.aspx"
+	 * Get variable from query string
+	 *
+	 * @function getQueryVariable
+	 * @param {string} variable - the query string variable to search for
+	 * @returns {string} the value of the query variable
+	 *
+	 * @example
+	 * //www.example.com/default.aspx?dest=aboutus.aspx
+	 * var destination = DL_.getQueryVariable("dest");
+	 * // "aboutus.aspx"
 	 */
 	DL_.getQueryVariable = function(variable) {
 		var vars = DL_.getLocationSearch().split('&');
@@ -38,6 +49,16 @@
 	 * User Agent Sniffing method of mobile detection. Gross.
 	 * Last Jan 11, 2016
 	 * from https://gist.github.com/dalethedeveloper/1503252
+	 *
+	 * @function mobilecheck
+	 * @returns {bool} true if mobile
+	 *
+	 * @example
+	 * var isMobile = DL_.mobilecheck();
+	 *
+	 * if (isMobile) {
+	 * 		// do mobile-y things
+	 * }
 	 */
 	DL_.mobilecheck = function() {
 		var check = false;
@@ -51,11 +72,17 @@
 
 	/**
 	 * Get file type from extension. 
-	 * Removes query strings that come 
-	 * after the file request as well. 
-	 * Does NOT deal with invalid inputs 
-	 * at the moment, so should probably 
+	 * Removes query strings that come after the file request as well. 
+	 * Does NOT deal with invalid inputs at the moment, so should probably 
 	 * validate that input equals output
+	 *
+	 * @function getFileType
+	 * @param {string} url - the full name or path of the file
+	 * @returns {string} the file extension, without the dot
+	 *
+	 * @example
+	 * var type = DL_.getFileType("upload/image.png?v=37");
+	 * // "png"
 	 */
 	DL_.getFileType = function(url) {
 		var fileType = url.split('?').shift().split('.').pop().toLowerCase();
@@ -63,9 +90,51 @@
 	};
 
 	/**
-	 * Get the contents of a function body
+	 * @typedef {Object} BracketedContentResult
+	 * @property {number} start - the start index within the data
+	 * @property {number} end - the ending index of the bracketed content in the data
+	 * @property {string} contents - the stringified content found within brackets
+	 * @property {string} [error=null] - error message on a failed search
+	 */
+
+	/**
+	 * Get the contents of a function body in a file
 	 * or other bracketed content, based off of 
 	 * an index or search string.
+	 * TODO: Add support for stringifying functions in objects
+	 * https://stackoverflow.com/questions/18089033/json-stringify-does-not-process-object-methods
+	 *
+	 * @function getBracketedContent
+	 * @param {string|object} data - data to search
+	 * @param {number|string} start - position or string to start searching for matching brackets
+	 * @param {object} options - other function options
+	 * @param {string} [options.openChar="{"] - open bracket character to match
+	 * @param {string} [options.closeChar="}"] - closing bracket character to match
+	 * @param {bool} [options.inclusive=true] - whether to include the first set of enclosing brackets
+	 * @returns {BracketedContentResult} object containing match data
+	 *
+	 * @example
+	 * var someObject = {
+	 * 		foo: { 
+	 * 			bar: "(baz)"
+	 *		}
+	 * };
+	 *
+	 * var fooFunc = DL_.getBracketedContent(someObject, "foo");
+	 * // {
+	 * //	contents:"foo":{"bar":"(baz)"}",
+	 * //	start:2,
+	 * //	end:22
+	 * //	error:null
+	 * // }
+	 *
+	 * var returnVal = DL_.getBracketedContent(someObject, 0, {openChar: "(", closeChar: ")", inclusive: false});
+	 * // {
+	 * //	contents:"baz",
+	 * //	start:16,
+	 * //	end:19
+	 * //	error:null
+	 * // }
 	 */
 	DL_.getBracketedContent = function(data, start, options) {
 		var firstIndex = 0;

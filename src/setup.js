@@ -5,7 +5,7 @@
 
 	/**
 	 * A predefined noop, so we can make efficient self destroying functions and such.
-	 * @function DL_.noop
+	 * @function noop
 	 * @example
 	 * var fireOnce = function() {
 	 *   // do something, then redefine self to a noop

@@ -10,7 +10,16 @@
 	 * the last two words. Useful for headlines.
 	 * Checks for jQuery dependency.
 	 *
-	 * @function DL_.preventWidows
+	 * @function preventWidows
+	 * @param {jQuery} selector - jQuery selector for text elements to prevent widows on
+	 * 
+	 * @example
+	 * var paragraph = $("<p>");
+	 * paragraph.html("Should not allow widows.");
+	 * $(document.body).append(paragraph);
+	 *
+	 * DL_.preventWidows($("p"));
+	 * // becomes "Should not allow&nbsp;widows."
 	 */
 
 	DL_.preventWidows = (typeof jQuery === 'undefined') ? DL_.noop : function (selector) {
@@ -32,7 +41,15 @@
 	 * It's _such_ a burden to include this here,
 	 * maybe I should use an npm package instead...
 	 *
-	 * @function DL_.leftpad
+	 * @function leftpad
+	 * @param {string|number} input - thing to be left padded
+	 * @param {number} totalLength - how long the result should be
+	 * @param {string|number} [padCharacter=' '] - what to pad empty space with
+	 * @returns {string}
+	 *
+	 * @example
+	 * var paddedString = DL_.leftpad(4, 3, 0);
+	 * // returns "004"
 	 */
 	DL_.leftpad = function (input, totalLength, padCharacter) {
 		input = String(input);

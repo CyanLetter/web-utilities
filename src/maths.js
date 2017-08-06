@@ -7,7 +7,7 @@
 	/**
 	 * Converts RGB color values to a hexadecimal color code.
 	 * 
-	 * @function DL_.rgbToHex
+	 * @function rgbToHex
 	 * @param {integer} r - The red channel value
 	 * @param {integer} g - The green channel value
 	 * @param {integer} b - The blue channel value
@@ -32,7 +32,7 @@
 	 * Converts a hexadecimal color code to an object with RGB values.
 	 * Can take both short (e.g. #F00) and long (e.g. #FF0000) values.
 	 * 
-	 * @function DL_.hexToRgb
+	 * @function hexToRgb
 	 * @param {string} hex - The hex color code to be converted
 	 * @returns {Rgb} The object containing the converted r, g, and b values.
 	 * @example
@@ -61,7 +61,7 @@
 	 * shorthand hex form (e.g. "03F") to full form (e.g. "0033FF").
 	 * Used by DL_.hexToRgb.
 	 * 
-	 * @function DL_.expandHexShorthand
+	 * @function expandHexShorthand
 	 * @param {string} match - The regex match
 	 * @param {string} r - First capture group
 	 * @param {string} g - Second capture group
@@ -82,7 +82,7 @@
 	 * Do not use where accuracy matters.
 	 * Defaults to 2 decimal places.
 	 *
-	 * @function DL_.toSignificant
+	 * @function toSignificant
 	 * @param {number} number - The number to be rounded
 	 * @param {integer} [accuracy=2] - The number of significant digits to round to
 	 * @returns {number} The rounded number.
@@ -101,7 +101,7 @@
 	/**
 	 * Converts a number in degrees to radians.
 	 *
-	 * @function DL_.d2r
+	 * @function d2r
 	 * @param {number} degrees - The number in degrees to be converted.
 	 * @returns {number} The converted value in radians.
 	 * @example
@@ -119,7 +119,7 @@
 	/**
 	 * Converts a number in radians to degrees.
 	 *
-	 * @function DL_.r2d
+	 * @function r2d
 	 * @param {number} radians - The number in radians to be converted.
 	 * @returns {number} The converted number in degrees.
 	 * @example
@@ -142,7 +142,7 @@
 	 * See https://developer.mozilla.org/en-US/docs/Web/Events/timeupdate
 	 * for more details on timeupdate granularity.
 	 *
-	 * @function DL_.roundNearQtr
+	 * @function roundNearQtr
 	 * @param {number} number - The number to be rounded
 	 * @returns {number} The resulting number, rounded to the nearest of .0, .25, .5, or .75
 	 * @example
@@ -165,7 +165,7 @@
 	 * e.g. returns a vector of length 1
 	 * Necessary for functions requiring acos
 	 *
-	 * @function DL_.normalize
+	 * @function normalize
 	 * @param {Vector2} vector - An object containing x and y values
 	 * @returns {Vector2} The resulting normalized x and y values
 	 * @example
@@ -187,7 +187,7 @@
 	 * Dot product of two vectors
 	 * e.g. multiply two vectors to return a scalar number
 	 *
-	 * @function DL_.dot
+	 * @function dot
 	 * @param {Vector2} vectorA - The first vector object containing x and y values
 	 * @param {Vector2} vectorB - The second vector object containing x and y values
 	 * @returns {number} - A single number, the dot product of the two vectors
@@ -209,7 +209,7 @@
 	 * Formulas gathered from http://www.euclideanspace.com/maths/algebra/vectors/angleBetween/
 	 * because I remember none of this from High School.
 	 *
-	 * @function DL_.getSimpleAngle
+	 * @function getSimpleAngle
 	 * @param {Vector2} vectorA - The first vector representing the starting angle
 	 * @param {Vector2} vectorB - The second vector representing the destination angle
 	 * @returns {number} - A single number, from 0 - 180 degrees
@@ -228,7 +228,7 @@
 	 * and amount you would have to rotate
 	 * to reach vector B from vector A
 	 *
-	 * @function DL_.getSignedAngle
+	 * @function getSignedAngle
 	 * @param {Vector2} vectorA - The first vector representing the starting angle
 	 * @param {Vector2} vectorB - The second vector representing the destination angle
 	 * @returns {number} - A single number, from -180 - 180 degrees
@@ -249,7 +249,7 @@
 	 * Angle is given from 12:00 running clockwise,
 	 * so 12:01 is 1deg, and 11:59 is 359deg
 	 *
-	 * @function DL_.getClockAngle
+	 * @function getClockAngle
 	 * @param {number} x - x coordinate
 	 * @param {number} y - y coordinate
 	 * @returns {number} - number from 0 - 360 degrees
@@ -283,7 +283,7 @@
 	 * To find a point on a bezier curve, you need to run this
 	 * for the x and y values individually
 	 *
-	 * @function DL_.getPointOnQuadraticCurve
+	 * @function getPointOnQuadraticCurve
 	 * @param {number} p0 - Start value for curve
 	 * @param {number} p1 - Anchor value for curve
 	 * @param {number} p2 - End value for curve
@@ -307,7 +307,7 @@
 	/**
 	 * Same as quadratic curve, but with two anchor points
 	 *
-	 * @function DL_.getPointOnCubicCurve
+	 * @function getPointOnCubicCurve
 	 * @param {number} p0 - Start value for curve
 	 * @param {number} p1 - Anchor value for start point
 	 * @param {number} p2 - Anchor value for end point

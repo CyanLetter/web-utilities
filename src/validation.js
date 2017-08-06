@@ -9,7 +9,7 @@
 	 * Yes this has issues and false positives.
 	 * But it's good enough for most situations.
 	 *
-	 * @function DL_.isTouchDevice
+	 * @function isTouchDevice
 	 * @returns {boolean}
 	 * @example
 	 * var touch = DL_.isTouchDevice();
@@ -25,7 +25,7 @@
 	/**
 	 * check if value is an integer
 	 *
-	 * @function DL_.isInt
+	 * @function isInt
 	 * @returns {boolean}
 	 *
 	 * @example
@@ -49,7 +49,7 @@
 	 * as empty templates don't pollute your
 	 * data set with blank entries.
 	 *
-	 * @function DL_.isObjectEmpty
+	 * @function isObjectEmpty
 	 * @returns {boolean}
 	 *
 	 * @example

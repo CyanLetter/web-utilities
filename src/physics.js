@@ -9,7 +9,7 @@
 	 * Assumes x: 0, y: 0 is the top left corner
 	 * for both objects and the screen
 	 *
-	 * @function DL_.boxIntersect
+	 * @function boxIntersect
 	 * @param {float} aX - The x position of the first object.
 	 * @param {float} aY - The y position of the first object.
 	 * @param {float} aW - The width of the first object.
@@ -48,7 +48,7 @@
 	 * Intersect check with circular boundaries.
 	 * Dependent on anchor point.
 	 *
-	 * @function DL_.circleIntersect
+	 * @function circleIntersect
 	 * @param {float} x1 - The x position of the first object.
 	 * @param {float} y1 - The y position of the first object.
 	 * @param {float} r1 - The radius of the first object.

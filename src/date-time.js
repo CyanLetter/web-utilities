@@ -7,25 +7,67 @@
 	/**
 	 * setTimeout with pause, resume, and destroy functions
 	 *
-	 * @constructor DL_.Timer
+	 * @constructor Timer
 	 * @param {function} callback - Function to call when timer is complete
 	 * @param {number} delay - Duration the timer should run.
+	 *
+	 * @example
+	 *
+	 * var timer = new DL_.Timer(function(){
+	 * 		// do something after 3 seconds
+	 * }, 3000);
 	 */
 
 	DL_.Timer = function(callback, delay) {
 		var timerId, start, remaining = delay;
 
+		/**
+		 * Pause the timer
+		 *
+		 * @memberof Timer
+		 * @function pause
+		 *
+		 * @example
+		 *
+		 * var timer = new DL_.Timer(function(){}, 3000);
+		 * timer.pause();
+		 */
 		this.pause = function() {
 			window.clearTimeout(timerId);
 			remaining -= new Date() - start;
 		};
 
+		/**
+		 * Resume the timer
+		 *
+		 * @memberof Timer
+		 * @function resume
+		 *
+		 * @example
+		 *
+		 * var timer = new DL_.Timer(function(){}, 3000);
+		 * timer.pause();
+		 * // some delay
+		 * timer.resume();
+		 */
 		this.resume = function() {
 			start = new Date();
 			window.clearTimeout(timerId);
 			timerId = window.setTimeout(callback, remaining);
 		};
 
+		/**
+		 * Destroy the timer
+		 *
+		 * @memberof Timer
+		 * @function destroy
+		 *
+		 * @example
+		 *
+		 * var timer = new DL_.Timer(function(){}, 3000);
+		 * // cancel the timer for some reason
+		 * timer.destroy();
+		 */
 		this.destroy = function() {
 			window.clearTimeout(timerId);
 		};

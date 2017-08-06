@@ -19,7 +19,7 @@
 
 	/**
 	 * A predefined noop, so we can make efficient self destroying functions and such.
-	 * @function DL_.noop
+	 * @function noop
 	 * @example
 	 * var fireOnce = function() {
 	 *   // do something, then redefine self to a noop
@@ -39,7 +39,7 @@
 	 * Assumes x: 0, y: 0 is the top left corner
 	 * for both objects and the screen
 	 *
-	 * @function DL_.boxIntersect
+	 * @function boxIntersect
 	 * @param {float} aX - The x position of the first object.
 	 * @param {float} aY - The y position of the first object.
 	 * @param {float} aW - The width of the first object.
@@ -78,7 +78,7 @@
 	 * Intersect check with circular boundaries.
 	 * Dependent on anchor point.
 	 *
-	 * @function DL_.circleIntersect
+	 * @function circleIntersect
 	 * @param {float} x1 - The x position of the first object.
 	 * @param {float} y1 - The y position of the first object.
 	 * @param {float} r1 - The radius of the first object.
@@ -116,7 +116,7 @@
 	/**
 	 * Converts RGB color values to a hexadecimal color code.
 	 * 
-	 * @function DL_.rgbToHex
+	 * @function rgbToHex
 	 * @param {integer} r - The red channel value
 	 * @param {integer} g - The green channel value
 	 * @param {integer} b - The blue channel value
@@ -141,7 +141,7 @@
 	 * Converts a hexadecimal color code to an object with RGB values.
 	 * Can take both short (e.g. #F00) and long (e.g. #FF0000) values.
 	 * 
-	 * @function DL_.hexToRgb
+	 * @function hexToRgb
 	 * @param {string} hex - The hex color code to be converted
 	 * @returns {Rgb} The object containing the converted r, g, and b values.
 	 * @example
@@ -170,7 +170,7 @@
 	 * shorthand hex form (e.g. "03F") to full form (e.g. "0033FF").
 	 * Used by DL_.hexToRgb.
 	 * 
-	 * @function DL_.expandHexShorthand
+	 * @function expandHexShorthand
 	 * @param {string} match - The regex match
 	 * @param {string} r - First capture group
 	 * @param {string} g - Second capture group
@@ -191,7 +191,7 @@
 	 * Do not use where accuracy matters.
 	 * Defaults to 2 decimal places.
 	 *
-	 * @function DL_.toSignificant
+	 * @function toSignificant
 	 * @param {number} number - The number to be rounded
 	 * @param {integer} [accuracy=2] - The number of significant digits to round to
 	 * @returns {number} The rounded number.
@@ -210,7 +210,7 @@
 	/**
 	 * Converts a number in degrees to radians.
 	 *
-	 * @function DL_.d2r
+	 * @function d2r
 	 * @param {number} degrees - The number in degrees to be converted.
 	 * @returns {number} The converted value in radians.
 	 * @example
@@ -228,7 +228,7 @@
 	/**
 	 * Converts a number in radians to degrees.
 	 *
-	 * @function DL_.r2d
+	 * @function r2d
 	 * @param {number} radians - The number in radians to be converted.
 	 * @returns {number} The converted number in degrees.
 	 * @example
@@ -251,7 +251,7 @@
 	 * See https://developer.mozilla.org/en-US/docs/Web/Events/timeupdate
 	 * for more details on timeupdate granularity.
 	 *
-	 * @function DL_.roundNearQtr
+	 * @function roundNearQtr
 	 * @param {number} number - The number to be rounded
 	 * @returns {number} The resulting number, rounded to the nearest of .0, .25, .5, or .75
 	 * @example
@@ -274,7 +274,7 @@
 	 * e.g. returns a vector of length 1
 	 * Necessary for functions requiring acos
 	 *
-	 * @function DL_.normalize
+	 * @function normalize
 	 * @param {Vector2} vector - An object containing x and y values
 	 * @returns {Vector2} The resulting normalized x and y values
 	 * @example
@@ -296,7 +296,7 @@
 	 * Dot product of two vectors
 	 * e.g. multiply two vectors to return a scalar number
 	 *
-	 * @function DL_.dot
+	 * @function dot
 	 * @param {Vector2} vectorA - The first vector object containing x and y values
 	 * @param {Vector2} vectorB - The second vector object containing x and y values
 	 * @returns {number} - A single number, the dot product of the two vectors
@@ -318,7 +318,7 @@
 	 * Formulas gathered from http://www.euclideanspace.com/maths/algebra/vectors/angleBetween/
 	 * because I remember none of this from High School.
 	 *
-	 * @function DL_.getSimpleAngle
+	 * @function getSimpleAngle
 	 * @param {Vector2} vectorA - The first vector representing the starting angle
 	 * @param {Vector2} vectorB - The second vector representing the destination angle
 	 * @returns {number} - A single number, from 0 - 180 degrees
@@ -337,7 +337,7 @@
 	 * and amount you would have to rotate
 	 * to reach vector B from vector A
 	 *
-	 * @function DL_.getSignedAngle
+	 * @function getSignedAngle
 	 * @param {Vector2} vectorA - The first vector representing the starting angle
 	 * @param {Vector2} vectorB - The second vector representing the destination angle
 	 * @returns {number} - A single number, from -180 - 180 degrees
@@ -358,7 +358,7 @@
 	 * Angle is given from 12:00 running clockwise,
 	 * so 12:01 is 1deg, and 11:59 is 359deg
 	 *
-	 * @function DL_.getClockAngle
+	 * @function getClockAngle
 	 * @param {number} x - x coordinate
 	 * @param {number} y - y coordinate
 	 * @returns {number} - number from 0 - 360 degrees
@@ -392,7 +392,7 @@
 	 * To find a point on a bezier curve, you need to run this
 	 * for the x and y values individually
 	 *
-	 * @function DL_.getPointOnQuadraticCurve
+	 * @function getPointOnQuadraticCurve
 	 * @param {number} p0 - Start value for curve
 	 * @param {number} p1 - Anchor value for curve
 	 * @param {number} p2 - End value for curve
@@ -416,7 +416,7 @@
 	/**
 	 * Same as quadratic curve, but with two anchor points
 	 *
-	 * @function DL_.getPointOnCubicCurve
+	 * @function getPointOnCubicCurve
 	 * @param {number} p0 - Start value for curve
 	 * @param {number} p1 - Anchor value for start point
 	 * @param {number} p2 - Anchor value for end point
@@ -459,10 +459,21 @@
 	 * Data must be consistent. Key values should be present
 	 * and unique in all objects to return a complete dict
 	 *
-	 * @function DL_.createDictionaryFromArray
+	 * @function createDictionaryFromArray
 	 * @param {array} array - Array of objects
 	 * @param {string} key - object key to use for dictionary keys
 	 * @returns {object} - Object using key values as keys
+	 *
+	 * @example
+	 * var people = [
+	 * 		{name: "Terrence", cats: true},
+	 * 		{name: "Mina", cats: false}
+	 * ];
+	 * var peopleDict = DL_.createDictionaryFromArray(people, "name");
+	 * // peopleDict === {
+	 * //	"Terrence" : {name: "Terrence", cats: true},
+	 * //	"Mina" : {name: "Mina", cats: false}
+	 * // }
 	 */
 	DL_.createDictionaryFromArray = function(array, key) {
 		var dict = {};
@@ -482,11 +493,19 @@
 	 * If you will need to look this up multiple times, 
 	 * use createDictionary instead.
 	 *
-	 * @function DL_.getObjectWithPropValue
+	 * @function getObjectWithPropValue
 	 * @param {array} array - Array of objects
 	 * @param {string} key - Key to search
 	 * @param value - value to search for in each key
 	 * @returns {object} - first object with matching key value
+	 *
+	 * @example
+	 * var people = [
+	 * 		{name: "Terrence", cats: true},
+	 * 		{name: "Mina", cats: false}
+	 * ];
+	 * var catPerson = DL_.getObjectWithPropValue(people, "cats", true);
+	 * // catPerson === {name: "Mina", cats: false};
 	 */
 	DL_.getObjectWithPropValue = function (array, key, value) {
 		for (var i = 0; i < array.length; i++) {
@@ -503,11 +522,19 @@
 	 * If no match is found, returns empty array.
 	 * Good if you have duplicate values
 	 *
-	 * @function DL_.getObjectsWithPropValue
+	 * @function getObjectsWithPropValue
 	 * @param {array} array - Array of objects
 	 * @param {string} key - Key to search
 	 * @param value - value to search for in each key
 	 * @returns {array} - array of objects with matching key value
+	 *
+	 * @example
+	 * var people = [
+	 * 		{name: "Terrence", cats: true},
+	 * 		{name: "Mina", cats: false}
+	 * ];
+	 * var catPeople = DL_.getObjectsWithPropValue(people, "cats", true);
+	 * // catPeople === [{name: "Mina", cats: false}];
 	 */
 	DL_.getObjectsWithPropValue = function (array, key, value) {
 		var matches = [];
@@ -589,22 +616,33 @@
 	****************************************************************/
 
 	/** 
-	 * get the query string from the uri.
+	 * get the query string from the uri. Used by DL_.getQueryVariable.
 	 * Mostly added so we can override for unit testing.
 	 * Substring is to drop the ? from the beginning.
 	 *
-	 * @function DL_.getLocationSearch
+	 * @function getLocationSearch
+	 * @returns {string} the full query string
+	 *
+	 * @example
+	 * //www.example.com/default.aspx?dest=aboutus.aspx
+	 * var queryString = DL_.getLocationSearch();
+	 * // "dest=aboutus.aspx"
 	 */
 	DL_.getLocationSearch = function() {
 		return window.location.search.substring(1);
 	};
 
 	/**  
-	 * get variable from query string
-	 * so running getQueryVariable('dest') on
-	 * www.mysite.com/default.aspx?dest=aboutus.aspx
-	 * would return
-	 * "aboutus.aspx"
+	 * Get variable from query string
+	 *
+	 * @function getQueryVariable
+	 * @param {string} variable - the query string variable to search for
+	 * @returns {string} the value of the query variable
+	 *
+	 * @example
+	 * //www.example.com/default.aspx?dest=aboutus.aspx
+	 * var destination = DL_.getQueryVariable("dest");
+	 * // "aboutus.aspx"
 	 */
 	DL_.getQueryVariable = function(variable) {
 		var vars = DL_.getLocationSearch().split('&');
@@ -622,6 +660,16 @@
 	 * User Agent Sniffing method of mobile detection. Gross.
 	 * Last Jan 11, 2016
 	 * from https://gist.github.com/dalethedeveloper/1503252
+	 *
+	 * @function mobilecheck
+	 * @returns {bool} true if mobile
+	 *
+	 * @example
+	 * var isMobile = DL_.mobilecheck();
+	 *
+	 * if (isMobile) {
+	 * 		// do mobile-y things
+	 * }
 	 */
 	DL_.mobilecheck = function() {
 		var check = false;
@@ -635,11 +683,17 @@
 
 	/**
 	 * Get file type from extension. 
-	 * Removes query strings that come 
-	 * after the file request as well. 
-	 * Does NOT deal with invalid inputs 
-	 * at the moment, so should probably 
+	 * Removes query strings that come after the file request as well. 
+	 * Does NOT deal with invalid inputs at the moment, so should probably 
 	 * validate that input equals output
+	 *
+	 * @function getFileType
+	 * @param {string} url - the full name or path of the file
+	 * @returns {string} the file extension, without the dot
+	 *
+	 * @example
+	 * var type = DL_.getFileType("upload/image.png?v=37");
+	 * // "png"
 	 */
 	DL_.getFileType = function(url) {
 		var fileType = url.split('?').shift().split('.').pop().toLowerCase();
@@ -647,9 +701,51 @@
 	};
 
 	/**
-	 * Get the contents of a function body
+	 * @typedef {Object} BracketedContentResult
+	 * @property {number} start - the start index within the data
+	 * @property {number} end - the ending index of the bracketed content in the data
+	 * @property {string} contents - the stringified content found within brackets
+	 * @property {string} [error=null] - error message on a failed search
+	 */
+
+	/**
+	 * Get the contents of a function body in a file
 	 * or other bracketed content, based off of 
 	 * an index or search string.
+	 * TODO: Add support for stringifying functions in objects
+	 * https://stackoverflow.com/questions/18089033/json-stringify-does-not-process-object-methods
+	 *
+	 * @function getBracketedContent
+	 * @param {string|object} data - data to search
+	 * @param {number|string} start - position or string to start searching for matching brackets
+	 * @param {object} options - other function options
+	 * @param {string} [options.openChar="{"] - open bracket character to match
+	 * @param {string} [options.closeChar="}"] - closing bracket character to match
+	 * @param {bool} [options.inclusive=true] - whether to include the first set of enclosing brackets
+	 * @returns {BracketedContentResult} object containing match data
+	 *
+	 * @example
+	 * var someObject = {
+	 * 		foo: { 
+	 * 			bar: "(baz)"
+	 *		}
+	 * };
+	 *
+	 * var fooFunc = DL_.getBracketedContent(someObject, "foo");
+	 * // {
+	 * //	contents:"foo":{"bar":"(baz)"}",
+	 * //	start:2,
+	 * //	end:22
+	 * //	error:null
+	 * // }
+	 *
+	 * var returnVal = DL_.getBracketedContent(someObject, 0, {openChar: "(", closeChar: ")", inclusive: false});
+	 * // {
+	 * //	contents:"baz",
+	 * //	start:16,
+	 * //	end:19
+	 * //	error:null
+	 * // }
 	 */
 	DL_.getBracketedContent = function(data, start, options) {
 		var firstIndex = 0;
@@ -759,7 +855,7 @@
 	 * Yes this has issues and false positives.
 	 * But it's good enough for most situations.
 	 *
-	 * @function DL_.isTouchDevice
+	 * @function isTouchDevice
 	 * @returns {boolean}
 	 * @example
 	 * var touch = DL_.isTouchDevice();
@@ -775,7 +871,7 @@
 	/**
 	 * check if value is an integer
 	 *
-	 * @function DL_.isInt
+	 * @function isInt
 	 * @returns {boolean}
 	 *
 	 * @example
@@ -799,7 +895,7 @@
 	 * as empty templates don't pollute your
 	 * data set with blank entries.
 	 *
-	 * @function DL_.isObjectEmpty
+	 * @function isObjectEmpty
 	 * @returns {boolean}
 	 *
 	 * @example
@@ -827,7 +923,16 @@
 	 * the last two words. Useful for headlines.
 	 * Checks for jQuery dependency.
 	 *
-	 * @function DL_.preventWidows
+	 * @function preventWidows
+	 * @param {jQuery} selector - jQuery selector for text elements to prevent widows on
+	 * 
+	 * @example
+	 * var paragraph = $("<p>");
+	 * paragraph.html("Should not allow widows.");
+	 * $(document.body).append(paragraph);
+	 *
+	 * DL_.preventWidows($("p"));
+	 * // becomes "Should not allow&nbsp;widows."
 	 */
 
 	DL_.preventWidows = (typeof jQuery === 'undefined') ? DL_.noop : function (selector) {
@@ -849,7 +954,15 @@
 	 * It's _such_ a burden to include this here,
 	 * maybe I should use an npm package instead...
 	 *
-	 * @function DL_.leftpad
+	 * @function leftpad
+	 * @param {string|number} input - thing to be left padded
+	 * @param {number} totalLength - how long the result should be
+	 * @param {string|number} [padCharacter=' '] - what to pad empty space with
+	 * @returns {string}
+	 *
+	 * @example
+	 * var paddedString = DL_.leftpad(4, 3, 0);
+	 * // returns "004"
 	 */
 	DL_.leftpad = function (input, totalLength, padCharacter) {
 		input = String(input);
@@ -873,25 +986,67 @@
 	/**
 	 * setTimeout with pause, resume, and destroy functions
 	 *
-	 * @constructor DL_.Timer
+	 * @constructor Timer
 	 * @param {function} callback - Function to call when timer is complete
 	 * @param {number} delay - Duration the timer should run.
+	 *
+	 * @example
+	 *
+	 * var timer = new DL_.Timer(function(){
+	 * 		// do something after 3 seconds
+	 * }, 3000);
 	 */
 
 	DL_.Timer = function(callback, delay) {
 		var timerId, start, remaining = delay;
 
+		/**
+		 * Pause the timer
+		 *
+		 * @memberof Timer
+		 * @function pause
+		 *
+		 * @example
+		 *
+		 * var timer = new DL_.Timer(function(){}, 3000);
+		 * timer.pause();
+		 */
 		this.pause = function() {
 			window.clearTimeout(timerId);
 			remaining -= new Date() - start;
 		};
 
+		/**
+		 * Resume the timer
+		 *
+		 * @memberof Timer
+		 * @function resume
+		 *
+		 * @example
+		 *
+		 * var timer = new DL_.Timer(function(){}, 3000);
+		 * timer.pause();
+		 * // some delay
+		 * timer.resume();
+		 */
 		this.resume = function() {
 			start = new Date();
 			window.clearTimeout(timerId);
 			timerId = window.setTimeout(callback, remaining);
 		};
 
+		/**
+		 * Destroy the timer
+		 *
+		 * @memberof Timer
+		 * @function destroy
+		 *
+		 * @example
+		 *
+		 * var timer = new DL_.Timer(function(){}, 3000);
+		 * // cancel the timer for some reason
+		 * timer.destroy();
+		 */
 		this.destroy = function() {
 			window.clearTimeout(timerId);
 		};
@@ -972,7 +1127,7 @@
 	 * and it will return an array of image 
 	 * elements ready to be appended to the document.
 	 *
-	 * @function DL_.preloadImageArray
+	 * @function preloadImageArray
 	 * @param {array} imgPaths - Array of image URLs to load
 	 * @returns {array} - Array of image elements
 	 */
