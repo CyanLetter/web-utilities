@@ -1096,16 +1096,24 @@
 		this.resume();
 	};
 
-	/* 
+	/** 
 	 * Debounce method for preventing functions from firing too often.
 	 * Resets the debounce timer every time it is called.
 	 * Taken from David Walsh, who took it from underscore:
 	 * https://davidwalsh.name/javascript-debounce-function
 	 *
-	 * Usage:
+	 * @function debounce
+	 * @param {function} func - function to limit
+	 * @param {number} wait - minimum time between function calls
+	 * @param {bool} immediate - whether to call function when creating the debounce
+	 * @returns {function} debounced version of the given function
+	 *
+	 * @example
 	 * var exampleFunction = DL_.debounce(function() {
 	 *		// Function body
 	 *	}, 250, true);
+	 * exampleFunction(); // is not called, since immediate is true
+	 * exampleFunction(); // is not called, must wait 250ms
 	 */
 	DL_.debounce = function(func, wait, immediate) {
 		var timeout;
@@ -1122,14 +1130,55 @@
 		};
 	};
 
-	/* Date custom format
-	 * This code is copyright 2002-2003 by Gavin Kistner, !@phrogz.net
+	/** 
+	 * Date custom format
+	 *
+	 * This code is copyright 2002-2003 by Gavin Kistner, !@phrogz.net. 
 	 * It is covered under the license viewable at http://phrogz.net/JS/_ReuseLicense.txt
 	 *
 	 * http://stackoverflow.com/questions/4673527/converting-milliseconds-to-a-date-jquery-js
 	 *
-	 * Usage example:
-	 * var saneDateString = DL_.customDate("#MM#-#DD#-#YY# #hh#:#mm# #AMPM#");
+	 * @function customDate
+	 * @param {string} formatString - string defining how to format the date
+	 * @param {object} [date] - optional date object. Will default to using the current date and time.
+	 *
+	 * @example
+	 * var exampleDate = DL_.customDate("#MM#-#DD#-#YY# #hh#:#mm# #AMPM#");
+	 * // "08-06-17 03:21 PM"
+	 *
+	 * var exampleDate2 = DL_.customDate("#DDDD#, #MMMM# #D##th#, #YYYY#");
+	 * // "Sunday, August 6th, 2017"
+	 *
+	 * @example
+	 * // date string options. Define by placing between '#'
+	 * // year
+	 * "#YYYY#" // 2017
+	 * "#YY#" // 17
+	 * // month
+	 * "#MMMM#" // August
+	 * "#MMM#" // Aug
+	 * "#MM#" // 08
+	 * "#M#" // 8
+	 * // day
+	 * "#DDDD#" // Sunday
+	 * "#DDD#" // Sun
+	 * "#DD#" // 06
+	 * "#D#" // 6
+	 * "#th#" // th, so 6th, 1st, etc.
+	 * // hours
+	 * "#hhhh#" // 015
+	 * "#hhh#" // 15
+	 * "#hh#" // 03
+	 * "#h#" // 3
+	 * // minutes
+	 * "#mm#" // 05
+	 * "#m#" // 5
+	 * // seconds
+	 * "#ss#" // 05
+	 * "#s#" // 5
+	 * // AM or PM
+	 * "#ampm#" // pm
+	 * "#AMPM#" // PM
 	 */
 	DL_.customDate = function(formatString, date){
 		var YYYY, YY, MMMM, MMM, MM, M, DDDD, DDD, DD, D, hhhh, hhh, hh, h, mm, m, ss, s, ampm, AMPM, dMod, th;
