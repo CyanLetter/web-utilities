@@ -47,3 +47,16 @@ var sign = Math.sign(-42);
 
 And functions with **jQuery dependencies**, which will default to a no-op function if you use them without loading jquery.
 
+## Building
+
+This project uses grunt to run build tasks.
+
+Download the project and `npm install` to get all of the necessary dev dependencies.
+
+To build everything, use either `grunt` or `grunt build`. This will create both `utilities.js` and `utilities.min.js` in the build folder, run tests, and generate documentation for github pages.
+
+For development builds, run `grunt dev`. This will generate a new, unminified `utilities.js` file in the build folder, and run jshint to flag any problems.
+
+Documentation requires a web server to run, and is built differently for local use and use in github pages. To generate docs that will be accessible locally, run `grunt localdocs` and point a web server at the docs folder. Just remember to run `grunt docs` before committing to make sure github pages can properly understand them.
+
+To run tests, use `grunt test` for the test suite, or `grunt test-coverage` to also test, well, test coverage.

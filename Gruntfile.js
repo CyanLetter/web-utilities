@@ -175,9 +175,9 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-codeclimate-reporter');
 	grunt.loadNpmTasks('grunt-docma');
 
-	grunt.registerTask('default', ['concat', 'jshint:dist', 'uglify', 'docma:all']);
+	grunt.registerTask('default', ['concat', 'jshint:dist', 'uglify', 'jasmine:all', 'docma:all']);
 	grunt.registerTask('dev', ['concat', 'jshint:dist']);
-	grunt.registerTask('build', ['concat', 'jshint:dist', 'uglify', 'docma:all']);
+	grunt.registerTask('build', ['concat', 'jshint:dist', 'uglify', 'jasmine:all', 'docma:all']);
 	grunt.registerTask('docs', ['docma:all']);
 	grunt.registerTask('localdocs', ['docma:local']);
 	grunt.registerTask('test', ['concat', 'jshint:dist', 'jasmine:all']);
