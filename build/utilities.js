@@ -552,17 +552,36 @@
 
 	****************************************************************/
 
-	/*
+	/**
 	 * Get random item from passed array.
 	 * Returns the item itself, not the index.
+	 *
+	 * @function randFromArray
+	 * @param {array} array - array to select from
+	 * @returns {*} selected item from the array
+	 *
+	 * @example
+	 * var arr = [1, 5, 7, 9];
+	 * var rand = DL_.randFromArray(arr);
+	 * // 5, for example
 	 */
 	DL_.randFromArray = function (array) {
-		return array[Math.floor(Math.random() * array.length)];
+		return array[DL_.getRandomInt(0, array.length - 1)];
 	};
 
-	/*
+	/**
 	 * Get random item from passed object.
 	 * Returns the object key as a string.
+	 * This means you need to use that key to actually get the object content
+	 *
+	 * @function randFromObject
+	 * @param {object} obj - the object to select from
+	 * @returns {string} the randomly selected key from the object
+	 *
+	 * @example
+	 * var colors = {red: "#ff0000", blue: "#0000ff"};
+	 * var colorKey = DL_.randFromObject(colors);
+	 * var actualColor = colors[colorKey];
 	 */
 	DL_.randFromObject = function (obj) {
 		var result;
@@ -575,26 +594,49 @@
 		return result;
 	};
 
-	/*
+	/**
 	 * Returns a random integer between min (inclusive) and max (inclusive)
 	 * Using Math.round() will give you a non-uniform distribution!
+	 *
+	 * @function getRandomInt
+	 * @param {number} min - the minimum (inclusive) number to select
+	 * @param {number} max - the maximum (inclusive) number to select
+	 * @returns {number} integer in specified range
+	 *
+	 * @example
+	 * var randomNumber = DL_.getRandomInt(1, 10);
 	 */
 	DL_.getRandomInt = function (min, max) {
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	};
 
-	/*
+	/**
 	 * Returns 1 or -1.
+	 *
+	 * @function randPosNeg
+	 * @returns {number} 1 or -1
+	 *
+	 * @example
+	 * var direction = DL_.randPosNeg();
+	 * var moveSpeed = 50 * direction;
 	 */
 	DL_.randPosNeg = function () {
 		return Math.random() >= 0.5 ? 1 : -1;
 	};
 
-	/*
+	/**
 	 * Basic array randomization function.
 	 * Previously modified the Array prototype
 	 * but I didn't like doing that... so now
 	 * just shuffles the passed array in place.
+	 *
+	 * @function shuffle
+	 * @param {array} array - the array to shuffle. This array will be altered.
+	 *
+	 * @example
+	 * var arr = [1, 5, 7, 9];
+	 * DL_.shuffle(arr);
+	 * // arr === [5, 9, 7, 1] or something
 	 */
 	DL_.shuffle = function (array){
 		var i = array.length, j, temp;
@@ -718,7 +760,7 @@
 	 * @function getBracketedContent
 	 * @param {string|object} data - data to search
 	 * @param {number|string} start - position or string to start searching for matching brackets
-	 * @param {object} options - other function options
+	 * @param {object} [options] - other function options
 	 * @param {string} [options.openChar="{"] - open bracket character to match
 	 * @param {string} [options.closeChar="}"] - closing bracket character to match
 	 * @param {bool} [options.inclusive=true] - whether to include the first set of enclosing brackets
@@ -1126,10 +1168,23 @@
 	 * Feed it an array of image paths, 
 	 * and it will return an array of image 
 	 * elements ready to be appended to the document.
+	 * No callback or complete support, however.
+	 * A better solution may be found here:
+	 * https://stackoverflow.com/questions/8264528/image-preloader-javascript-that-supports-events/8265310#8265310
 	 *
 	 * @function preloadImageArray
 	 * @param {array} imgPaths - Array of image URLs to load
 	 * @returns {array} - Array of image elements
+	 *
+	 * @example
+	 * var preload = ["images/hat1.jpg", "images/hat2.jpg", "images/hat3.jpg"];
+	 * var images = DL_.preloadImageArray(preload);
+	 *
+	 * function changeHat() {
+	 * 		var hat = document.getElementById("hat");
+	 * 		hat innerHTML = "";
+	 * 		hat.append(DL_.randFromArray(images));
+	 * }
 	 */
     
 	DL_.preloadImageArray = function(imgPaths) {
@@ -1152,9 +1207,22 @@
 	 */
 
 
-	/* 
+	/**
 	 * polyfill for String.prototype.includes method in ecmascript 6 spec.
 	 * This is not well supported in all browsers yet.
+	 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes#Browser_compatibility
+	 * Run this when loading your page, will polyfill if necessary.
+	 *
+	 * @function polyfillStringIncludes
+	 *
+	 * @example
+	 * // useful for IE support
+	 * window.onload = function() {
+	 * 		DL_.polyfillStringIncludes();
+	 * 		var testString = "IE can use String.includes now!";
+	 * 		testString.includes("now!"); // true
+	 * }
+	 
 	 */
 	DL_.polyfillStringIncludes = function() {
 		if (!String.prototype.includes) {
@@ -1164,10 +1232,22 @@
 		}
 	};
 
-	/* 
+	/**
 	 * In case we forget to take out console statements. 
 	 * IE becomes very unhappy when we forget. 
 	 * Let's not make IE unhappy
+	 * Can probably be removed soon. This was one of the original 
+	 * functions included in this library, back when IE7 support was more required.
+	 * Run this when loading your page, will polyfill if necessary.
+	 *
+	 * @function polyfillConsole
+	 * 
+	 * @example
+	 * window.onload = function() {
+	 * 		DL_.polyfillConsole();
+	 * 		console.log("IE won't error on console statement now!");
+	 * }
+	 *
 	 */
 	DL_.polyfillConsole = function() {
 		if (typeof(window.console) === 'undefined') {
@@ -1179,9 +1259,18 @@
 		}
 	};
 
-	/*
+	/**
 	 * Polyfill for Math.sign method in ecmascript 6 spec.
-	 * This is not yet supported in IE or Safari
+	 * Support is better as of August 2017, but still not perfect
+	 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sign
+	 * Run this when loading your page, will polyfill if necessary.
+	 *
+	 * @function polyfillMathSign
+	 * @example
+	 * window.onload = function() {
+	 * 		DL_.polyfillMathSign();
+	 * 		var sign = Math.sign(-430); // -1
+	 * }
 	 */
 	DL_.polyfillMathSign = function() {
 		Math.sign = Math.sign || function(x) {
@@ -1193,8 +1282,18 @@
 		};
 	};
 
-	/*
-	 * Polyfill for CustomEvent constructor in IE 11 and under.
+	/**
+	 * Polyfill for CustomEvent constructor in IE <= 11.
+	 * https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent
+	 * Run this when loading your page, will polyfill if necessary.
+	 *
+	 * @function polyfillCustomEvent
+	 * @example
+	 * window.onload = function() {
+	 * 		DL_.polyfillCustomEvent();
+	 * 		window.addEventListener("myEvent");
+	 *		window.dispatchEvent(new CustomEvent("myEvent"));
+	 * }
 	 */
 	DL_.polyfillCustomEvent = function() {
 		try {

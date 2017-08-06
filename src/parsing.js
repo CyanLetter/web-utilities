@@ -107,7 +107,7 @@
 	 * @function getBracketedContent
 	 * @param {string|object} data - data to search
 	 * @param {number|string} start - position or string to start searching for matching brackets
-	 * @param {object} options - other function options
+	 * @param {object} [options] - other function options
 	 * @param {string} [options.openChar="{"] - open bracket character to match
 	 * @param {string} [options.closeChar="}"] - closing bracket character to match
 	 * @param {bool} [options.inclusive=true] - whether to include the first set of enclosing brackets
