@@ -282,13 +282,13 @@ describe("a test of window.location without jasmine spies", function(){
 describe("a set of functions for parsing information from strings", function(){
 
 	beforeEach(function(){
-		spyOn(DL_, "getLocationSearch").and.returnValue("?v=153&nice=very&pterosaur=pleaseno");
+		spyOn(DL_, "getLocationSearch").and.returnValue("v=153&nice=very&pterosaur=pleaseno");
 		spyOn(console, 'error');
 	});
 
 	it ("Returns the search query from window.location", function(){
 		// This is really just capturing the jasmine spy
-		expect(DL_.getLocationSearch()).toBe("?v=153&nice=very&pterosaur=pleaseno");
+		expect(DL_.getLocationSearch()).toBe("v=153&nice=very&pterosaur=pleaseno");
 	});
 
 	it ("Returns a variable from a query string in the URI", function(){
